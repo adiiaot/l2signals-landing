@@ -18,7 +18,7 @@ export default function ServicesPage() {
         <p className="text-xs sm:text-sm text-text-muted mt-2 sm:mt-3 max-w-2xl mx-auto leading-relaxed">L2 Signals is our live product — the ledger below is the portfolio. Plug into our signals via API, get a trading system built on your strategy or ours, ship your business site or app, or hire and partner with us.</p>
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 justify-center mt-4 sm:mt-6">
           <Link href="/quote" className="btn-primary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Get a custom quote →</Link>
-          <a href="mailto:l2signalslab@gmail.com" className="btn-secondary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">DM the founder</a>
+          <a href="mailto:l2signalslab@gmail.com" className="btn-secondary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Email us</a>
         </div>
         <p className="text-[11px] text-text-muted mt-3 break-words">Response within 24h • <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram</a> • <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline break-all">l2signalslab@gmail.com</a></p>
       </div>
@@ -52,7 +52,7 @@ export default function ServicesPage() {
         </div>
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4">
           <Link href="/quote?type=api" className="btn-primary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Request API access →</Link>
-          <a href="mailto:l2signalslab@gmail.com?subject=Signals%20API%20access%20—%20L2%20Signals" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">DM about API</a>
+          <a href="mailto:l2signalslab@gmail.com?subject=Signals%20API%20access%20—%20L2%20Signals" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Email us about API</a>
         </div>
       </div>
 
@@ -101,17 +101,17 @@ export default function ServicesPage() {
       {/* Track 4 — Hire & partnerships (folded section) */}
       <div id="hire" className="card scroll-mt-20">
         <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Track 04 — Hire & partnerships</p>
-        <h2 className="text-base sm:text-lg font-bold mt-1">Work with the founder, not just the product</h2>
-        <p className="text-xs sm:text-sm text-text-muted mt-2 leading-relaxed">L2 Signals compounds into income, partnerships and proof of work. If you&apos;re hiring or want to build together — here&apos;s how.</p>
+        <h2 className="text-base sm:text-lg font-bold mt-1">Work with the team, not just the product</h2>
+        <p className="text-xs sm:text-sm text-text-muted mt-2 leading-relaxed">L2 Signals is built to compound — winning high-ticket client work, growing a trading community whose signal access sustains the engine, and earning long-term partnerships and sponsorships with brokers, prop firms and investors. If you&apos;re hiring or want to build together — here&apos;s how.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 mt-3 sm:mt-4">
           <div className="rounded-xl p-3" style={cardStyle}>
-            <p className="text-xs font-semibold">Hire AOT — Quant / Product Engineer</p>
+            <p className="text-xs font-semibold">Hire us — engineering led by AOT</p>
             <ul className="mt-2 space-y-1.5 text-xs text-text-secondary">
               <li className="flex gap-2"><span className="text-accent-gold">•</span>Trading systems, full-stack apps, AI tooling</li>
               <li className="flex gap-2"><span className="text-accent-gold">•</span>Proof of work: this ledger, shipped daily</li>
-              <li className="flex gap-2"><span className="text-accent-gold">•</span>CV via portfolio + LinkedIn in the footer</li>
+              <li className="flex gap-2"><span className="text-accent-gold">•</span>Team scales with scope — engineers added as needed</li>
             </ul>
-            <a href="mailto:l2signalslab@gmail.com?subject=Hire%20inquiry%20—%20L2%20Signals" className="text-xs font-semibold text-accent-gold hover:underline mt-3 inline-block">DM about hiring →</a>
+            <a href="mailto:l2signalslab@gmail.com?subject=Hire%20inquiry%20—%20L2%20Signals" className="text-xs font-semibold text-accent-gold hover:underline mt-3 inline-block">Email about hiring →</a>
           </div>
           <div className="rounded-xl p-3" style={cardStyle}>
             <p className="text-xs font-semibold">Trading partnerships</p>
@@ -120,7 +120,7 @@ export default function ServicesPage() {
               <li className="flex gap-2"><span className="text-accent-gold">•</span>Strategy licensing & joint ventures</li>
               <li className="flex gap-2"><span className="text-accent-gold">•</span>Sponsorships & integrations</li>
             </ul>
-            <a href="mailto:l2signalslab@gmail.com?subject=Partnership%20—%20L2%20Signals" className="text-xs font-semibold text-accent-gold hover:underline mt-3 inline-block">DM about partnering →</a>
+            <a href="mailto:l2signalslab@gmail.com?subject=Partnership%20—%20L2%20Signals" className="text-xs font-semibold text-accent-gold hover:underline mt-3 inline-block">Email about partnering →</a>
           </div>
         </div>
       </div>
@@ -162,7 +162,7 @@ export default function ServicesPage() {
       <div className="card text-center">
         <h3 className="text-sm font-bold">Not sure which track fits?</h3>
         <p className="text-xs text-text-muted mt-1">Describe your problem — we’ll point you at the simplest track and quote it custom.</p>
-        <a href="mailto:l2signalslab@gmail.com?subject=Custom%20quote%20—%20L2%20Signals&body=Hi%20AOT%2C%0A%0ATrack%20(API%20%2F%20trading%20system%20%2F%20app%20%2F%20hire)%3A%0ATimeline%3A%0A%0ADetails%3A" className="btn-primary rounded-full px-4 sm:px-6 py-2.5 text-xs mt-4 inline-flex w-full sm:w-auto justify-center break-all">DM the developer — l2signalslab@gmail.com</a>
+        <a href="mailto:l2signalslab@gmail.com?subject=Custom%20quote%20—%20L2%20Signals&body=Hi%20L2%20Signals%20team%2C%0A%0ATrack%20(API%20%2F%20trading%20system%20%2F%20app%20%2F%20hire)%3A%0ATimeline%3A%0A%0ADetails%3A" className="btn-primary rounded-full px-4 sm:px-6 py-2.5 text-xs mt-4 inline-flex w-full sm:w-auto justify-center break-all">Email us — l2signalslab@gmail.com</a>
       </div>
     </div>
   )

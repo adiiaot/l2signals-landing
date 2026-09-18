@@ -29,7 +29,7 @@ export default function LegalPage() {
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4 sm:mt-6">
           <a href="/terms" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Terms</a>
           <a href="/privacy" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Privacy</a>
-          <a href="/quote" className="btn-primary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">DM for a quote</a>
+          <a href="/quote" className="btn-primary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Email for a quote</a>
         </div>
       </div>
     </div>
