@@ -16,6 +16,36 @@ function badgeCls(result: string) {
   return 'badge-warn'
 }
 
+function resolveRR(v: any): number {
+  // Priority: realizedR (already profit-based) -> realized via SL -> planned -> pnl-based estimate
+  if (typeof v.realizedR === 'number' && Number.isFinite(v.realizedR) && v.realizedR !== 0) return v.realizedR
+  const entry = Number(v.entryPrice || 0)
+  const exit = Number(v.exitPrice || 0)
+  const sl = Number(v.stopLoss || 0)
+  const pnl = Number(v.pnl || 0)
+  const lot = Number(v.entrySize || v.lot || 0)
+  const planned = Number(v.riskRewardRatio || 0)
+  if (sl && entry && exit) {
+    const risk = Math.abs(entry - sl)
+    if (risk > 0.1) {
+      const isLong = (v.direction || (v.trend === 'UP' ? 'LONG' : 'SHORT') || 'LONG') === 'LONG'
+      const realized = (isLong ? (exit - entry) : (entry - exit)) / risk
+      if (Number.isFinite(realized) && Math.abs(realized) > 0.001) return realized
+    }
+  }
+  if (planned && Math.abs(planned) > 0.001) return planned
+  // Fallback profit-based: 1R = lot * 100 * $15 price distance (conservative XAU 15m SL avg ~15-20)
+  // This ensures 0.00 RR wins (manual logs with no SL) show realized R from actual $ profit, not signal plan
+  if (pnl && lot) {
+    const ASSUMED_SL_PRICE = 15
+    const risk$ = lot * 100 * ASSUMED_SL_PRICE
+    if (risk$ > 0.1) return pnl / risk$
+  }
+  if (pnl > 0) return 0.8
+  if (pnl < 0) return -1
+  return 0
+}
+
 function LedgerCarousel({ data, showX, liveAccount }: { data: typeof demoTweets; showX: boolean; liveAccount?: 'demo' | 'prop' }) {
   const ref = useRef<HTMLDivElement>(null)
   const [canLeft, setCanLeft] = useState(false)
@@ -73,12 +103,10 @@ function LedgerCarousel({ data, showX, liveAccount }: { data: typeof demoTweets;
           const r = await fetch(`${base}/api/trades?account=${liveAccount}&limit=80`, { cache: 'no-store' }).then(x=>x.json()).catch(()=>null);
           if (r?.success && Array.isArray(r.trades) && r.trades.length) {
             const rows = r.trades.slice(0,40).map((v:any) => {
+              const rr = resolveRR(v)
               const entry = Number(v.entryPrice || 0)
               const exit = Number(v.exitPrice || 0)
               const sl = Number(v.stopLoss || 0)
-              const risk = Math.abs(entry - sl) || 1
-              const isLong = (v.direction || 'LONG') === 'LONG'
-              const rr = sl ? (isLong ? (exit - entry) / risk : (entry - exit) / risk) : Number(v.riskRewardRatio || 0)
               return {
                 id: v.id||v.tradeId,
                 date: (v.timestamp?.toDate ? v.timestamp.toDate().toISOString().slice(0,10) : String(v.timestamp||'').slice(0,10)) || '',
@@ -103,12 +131,10 @@ function LedgerCarousel({ data, showX, liveAccount }: { data: typeof demoTweets;
           .filter(({ v }) => (v.accountId || 'demo') === liveAccount)
           .slice(0, 40)
           .map(({ id, v }) => {
+          const rr = resolveRR(v)
           const entry = Number(v.entryPrice || 0)
           const exit = Number(v.exitPrice || 0)
           const sl = Number(v.stopLoss || 0)
-          const risk = Math.abs(entry - sl) || 1
-          const isLong = (v.direction || 'LONG') === 'LONG'
-          const rr = sl ? (isLong ? (exit - entry) / risk : (entry - exit) / risk) : Number(v.riskRewardRatio || 0)
           return {
             id,
             date: (v.timestamp?.toDate ? v.timestamp.toDate().toISOString().slice(0,10) : String(v.timestamp||'').slice(0,10)) || '',
@@ -277,7 +303,7 @@ function VerifiedLiveCard() {
             id,
             date: (v.timestamp?.toDate ? v.timestamp.toDate().toISOString().slice(0,10) : String(v.timestamp||'').slice(0,10)) || '',
             result: v.result || 'win',
-            rr: Number(v.riskRewardRatio || (v.stopLoss ? Math.abs((v.takeProfit||v.exitPrice)-v.entryPrice)/Math.abs(v.entryPrice-v.stopLoss) : 0)),
+            rr: resolveRR(v),
             pnl: Number(v.pnl||0),
             entry: Number(v.entryPrice||0),
             exit: Number(v.exitPrice||0),
@@ -299,7 +325,7 @@ function VerifiedLiveCard() {
                 id,
                 date: (v.timestamp?.toDate ? v.timestamp.toDate().toISOString().slice(0,10) : String(v.timestamp||'').slice(0,10)) || '',
                 result: v.result || 'win',
-                rr: Number(v.riskRewardRatio || (v.stopLoss ? Math.abs((v.takeProfit||v.exitPrice)-v.entryPrice)/Math.abs(v.entryPrice-v.stopLoss) : 0)),
+                rr: resolveRR(v),
                 pnl: Number(v.pnl||0),
                 entry: Number(v.entryPrice||0),
                 exit: Number(v.exitPrice||0),
@@ -322,7 +348,7 @@ function VerifiedLiveCard() {
   if (!trades.length) return <div className="py-6 text-center text-xs text-text-muted">No verified trades yet — log one in the web app and it appears here live.</div>
   const wins = trades.filter(t => t.result === 'win' || t.result === 'partial_win').length
   const losses = trades.filter(t => t.result === 'loss').length
-  const totalR = trades.reduce((a,t)=> a + (t.rr>0 ? t.rr : t.result==='loss' ? -Math.abs(t.rr||1) : t.rr), 0)
+  const totalR = trades.reduce((a,t)=> a + (t.rr||0), 0)
   const wr = trades.length ? Math.round((wins/trades.length)*1000)/10 : 0
   return (
     <div className="space-y-3">
@@ -378,14 +404,12 @@ function PropWall() {
         const base = process.env.NEXT_PUBLIC_L2_WEB_API || 'https://l2signal-web-six.vercel.app';
         try {
           const r = await fetch(`${base}/api/trades?account=prop&limit=80`, { cache: 'no-store' }).then(x=>x.json()).catch(()=>null);
-          if (r?.success && Array.isArray(r.trades) && r.trades.length) {
-            const rows = r.trades.slice(0,30).map((v:any) => {
+            if (r?.success && Array.isArray(r.trades) && r.trades.length) {
+              const rows = r.trades.slice(0,30).map((v:any) => {
+              const rr = resolveRR(v)
               const entry = Number(v.entryPrice || 0)
               const exit = Number(v.exitPrice || 0)
               const sl = Number(v.stopLoss || 0)
-              const risk = Math.abs(entry - sl) || 1
-              const isLong = (v.direction || 'LONG') === 'LONG'
-              const rr = sl ? (isLong ? (exit - entry) / risk : (entry - exit) / risk) : Number(v.riskRewardRatio || 0)
               return { id: v.id||v.tradeId, date: (v.timestamp?.toDate ? v.timestamp.toDate().toISOString().slice(0,10) : String(v.timestamp||'').slice(0,10)) || '', result: v.result || (rr>0?'win':'loss'), rr, pnl: Number(v.pnl||0), caption: `${v.direction || ''} ${entry.toFixed(2)} → ${exit.toFixed(2)}`, entry, exit, sl, tp: Number(v.takeProfit||0), lot: Number(v.entrySize||0.04) }
             });
             if (mounted && rows.length) { setTrades(rows); setLoading(false); return; }
@@ -397,16 +421,14 @@ function PropWall() {
         try {
           const q = query(collection(db, 'trades'), orderBy('timestamp', 'desc'), limit(80))
           const snap = await getDocs(q)
-          const rows = snap.docs.map(d => ({ id: d.id, v: d.data() as any }))
+            const rows = snap.docs.map(d => ({ id: d.id, v: d.data() as any }))
             .filter(({ v }) => (v.accountId || 'demo') === 'prop')
             .slice(0, 30)
             .map(({ id, v }) => {
+            const rr = resolveRR(v)
             const entry = Number(v.entryPrice || 0)
             const exit = Number(v.exitPrice || 0)
             const sl = Number(v.stopLoss || 0)
-            const risk = Math.abs(entry - sl) || 1
-            const isLong = (v.direction || 'LONG') === 'LONG'
-            const rr = sl ? (isLong ? (exit - entry) / risk : (entry - exit) / risk) : Number(v.riskRewardRatio || 0)
             return { id, date: (v.timestamp?.toDate ? v.timestamp.toDate().toISOString().slice(0,10) : String(v.timestamp||'').slice(0,10)) || '', result: v.result || (rr>0?'win':'loss'), rr, pnl: Number(v.pnl||0), caption: `${v.direction || ''} ${entry.toFixed(2)} → ${exit.toFixed(2)}`, entry, exit, sl, tp: Number(v.takeProfit||0), lot: Number(v.entrySize||0.04) }
           })
           if (mounted && rows.length > 0) {
