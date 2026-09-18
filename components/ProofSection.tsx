@@ -283,6 +283,40 @@ function LedgerCarousel({ data, showX, liveAccount }: { data: typeof demoTweets;
 function VerifiedLiveCard() {
   const [trades, setTrades] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  const ref = useRef<HTMLDivElement>(null)
+  const [canLeft, setCanLeft] = useState(false)
+  const [canRight, setCanRight] = useState(true)
+  const updateArrows = () => {
+    const el = ref.current
+    if (!el) return
+    setCanLeft(el.scrollLeft > 4)
+    setCanRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4)
+  }
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const onScroll = () => updateArrows()
+    el.addEventListener('scroll', onScroll)
+    updateArrows()
+    return () => el.removeEventListener('scroll', onScroll)
+  }, [trades])
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    let paused = false
+    const onEnter = () => (paused = true)
+    const onLeave = () => (paused = false)
+    el.addEventListener('mouseenter', onEnter)
+    el.addEventListener('mouseleave', onLeave)
+    const id = setInterval(() => {
+      if (paused || !el || trades.length <= 1) return
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8
+      if (atEnd) el.scrollTo({ left: 0, behavior: 'smooth' })
+      else el.scrollBy({ left: 268, behavior: 'smooth' })
+    }, 5000)
+    return () => { clearInterval(id); el.removeEventListener('mouseenter', onEnter); el.removeEventListener('mouseleave', onLeave) }
+  }, [trades])
+  const scroll = (dir: number) => ref.current?.scrollBy({ left: dir * 280, behavior: 'smooth' })
   useEffect(() => {
     let mounted = true
     async function load() {
@@ -356,13 +390,15 @@ function VerifiedLiveCard() {
         <h3 className="text-sm font-bold flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-status-win animate-pulse" /> Verified L2 Signals <span className="text-[10px] font-normal px-2 py-0.5 rounded-full bg-status-win/10 text-status-win border border-status-win/15">LIVE TRACKING</span></h3>
         <span className="text-[11px] font-mono text-text-muted">{trades.length} trades · {wins}W {losses}L · {wr}% WR · {totalR>0?'+':''}{totalR.toFixed(1)}R</span>
       </div>
-      <div className="hidden md:block overflow-x-auto no-scrollbar">
-        <div className="flex gap-3 pb-1">
+      <div className="relative">
+        <button aria-label="Previous" onClick={() => scroll(-1)} disabled={!canLeft} className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full border bg-white shadow-card items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed" style={{ borderColor: 'var(--glass-border)' }}><ChevronLeft className="w-4 h-4" /></button>
+        <button aria-label="Next" onClick={() => scroll(1)} disabled={!canRight} className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full border bg-white shadow-card items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed" style={{ borderColor: 'var(--glass-border)' }}><ChevronRight className="w-4 h-4" /></button>
+        <div ref={ref} className="hidden md:flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-1 scroll-smooth">
           {trades.map(t => {
             const isWin = t.rr > 0
             const accent = isWin ? 'var(--status-win)' : t.result === 'loss' ? 'var(--status-loss)' : 'var(--accent-gold)'
             return (
-              <div key={t.id} className="min-w-[260px] max-w-[260px] rounded-xl border p-3" style={{ background: 'rgb(var(--surface-overlay-rgb))', borderColor: 'var(--glass-border)' }}>
+              <div key={t.id} className="min-w-[260px] max-w-[260px] snap-start rounded-xl border p-3" style={{ background: 'rgb(var(--surface-overlay-rgb))', borderColor: 'var(--glass-border)' }}>
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold px-1.5 py-0.5 rounded" style={{ background: isWin?'rgba(34,197,94,0.12)':'rgba(239,68,68,0.12)', color: accent }}>{String(t.result).toUpperCase()}</span>
                   <span className="text-[10px] font-mono text-text-muted">{t.date} · {t.account.toUpperCase()} · {t.direction}</span>
