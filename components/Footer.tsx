@@ -18,9 +18,12 @@ export default function Footer() {
           <p className="font-bold text-text-primary mb-3">Business</p>
           <div className="space-y-2 text-xs text-text-muted">
             <a href="/#proof" className="block hover:text-accent-gold">Proof of Execution</a>
-            <a href="/services" className="block hover:text-accent-gold">Custom Builds</a>
+            <a href="/services" className="block hover:text-accent-gold">Services</a>
+            <a href="/services#api" className="block hover:text-accent-gold">Signals API</a>
+            <a href="/services#systems" className="block hover:text-accent-gold">Trading Systems</a>
+            <a href="/services#apps" className="block hover:text-accent-gold">Websites & Apps</a>
+            <a href="/services#hire" className="block hover:text-accent-gold">Hire & Partnerships</a>
             <a href="/quote" className="block hover:text-accent-gold">Get a Quote</a>
-            <a href="/#roadmap" className="block hover:text-accent-gold">Roadmap</a>
             <a href="/#faq" className="block hover:text-accent-gold">FAQ</a>
           </div>
         </div>

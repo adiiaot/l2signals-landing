@@ -18,7 +18,13 @@ export default function Services() {
             <p className="text-[11px] text-text-muted mt-1">Every R and date logged. Proof before promises.</p>
           </div>
         </div>
-        <p className="text-[11px] text-text-muted mt-4">L2 Signals is a product. For custom builds, partnerships or sponsorships — DM the founder via footer.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mt-4 text-xs">
+          <a href="/services#api" className="rounded-xl p-3 hover:border-accent-gold transition" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}><p className="font-semibold">Signals API</p><p className="text-text-muted mt-1">Plug live signals into your bot or dashboard.</p></a>
+          <a href="/services#systems" className="rounded-xl p-3 hover:border-accent-gold transition" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}><p className="font-semibold">Custom trading systems</p><p className="text-text-muted mt-1">Your strategy coded — or one built for you.</p></a>
+          <a href="/services#apps" className="rounded-xl p-3 hover:border-accent-gold transition" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}><p className="font-semibold">Websites & mobile apps</p><p className="text-text-muted mt-1">Crypto, broker, wallet, fintech — shipped fast.</p></a>
+          <a href="/services#hire" className="rounded-xl p-3 hover:border-accent-gold transition" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}><p className="font-semibold">Hire & partnerships</p><p className="text-text-muted mt-1">Work with the founder, not just the product.</p></a>
+        </div>
+        <p className="text-[11px] text-text-muted mt-4">Everything quoted custom — <a href="/services" className="text-accent-gold hover:underline">see services</a> or <a href="/quote" className="text-accent-gold hover:underline">get a quote →</a></p>
       </div>
     </section>
   )
