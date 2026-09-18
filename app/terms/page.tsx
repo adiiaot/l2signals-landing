@@ -4,13 +4,13 @@ export const metadata: Metadata = { title: 'Terms & Conditions — L2 Signals', 
 
 export default function TermsPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="max-w-3xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
       <div className="card">
-        <p className="text-[11px] tracking-[0.16em] text-accent-gold uppercase">Last updated — 18 Sep 2026</p>
-        <h1 className="text-2xl font-bold mt-2">Terms & Conditions</h1>
-        <p className="text-xs text-text-muted mt-2">These Terms govern your use of L2 Signals (website, Telegram, web app, services). By accessing or using our services you agree to them. Contact: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline">l2signalslab@gmail.com</a>.</p>
+        <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Last updated — 18 Sep 2026</p>
+        <h1 className="text-xl sm:text-2xl font-bold mt-2 leading-tight">Terms & Conditions</h1>
+        <p className="text-xs text-text-muted mt-2 leading-relaxed break-words">These Terms govern your use of L2 Signals (website, Telegram, web app, services). By accessing or using our services you agree to them. Contact: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline break-all">l2signalslab@gmail.com</a>.</p>
 
-        <div className="prose prose-sm max-w-none mt-6 space-y-5 text-xs leading-relaxed text-text-secondary">
+        <div className="prose prose-sm max-w-none mt-4 sm:mt-6 space-y-4 sm:space-y-5 text-xs sm:text-[13px] leading-relaxed text-text-secondary break-words">
           <section><h2 className="text-sm font-bold text-text-primary">1. Services</h2><p>L2 Signals provides intraday XAU/USD signal information, dashboards, proof ledger and related content. We also offer custom builds (services/quote). Signals are informational — not investment advice, portfolio management or brokerage. See <a href="/legal" className="text-accent-gold hover:underline">Legal / Risk Disclosure</a>.</p></section>
           <section><h2 className="text-sm font-bold text-text-primary">2. Eligibility & accounts</h2><p>You must be 18+ and comply with local laws. If we offer paid access, you are responsible for your account credentials and for keeping your Telegram / exchange accounts secure.</p></section>
           <section><h2 className="text-sm font-bold text-text-primary">3. Subscriptions & payments</h2><ul className="list-disc ml-4 space-y-1"><li>Pricing is shown in-channel or in a written quote. Quotes are valid 14 days unless stated otherwise.</li><li>Custom builds: typically 50% upfront, 50% on delivery. Retainers billed monthly, cancel anytime before renewal.</li><li>Manual payments (bank / crypto) require admin approval — access granted after confirmation. Activation codes are non-transferable.</li><li>Refunds are handled case-by-case unless a written scope guarantees otherwise.</li></ul></section>
@@ -21,10 +21,10 @@ export default function TermsPage() {
           <section><h2 className="text-sm font-bold text-text-primary">8. Governing law & contact</h2><p>Unless a custom contract says otherwise, these Terms are governed by the laws applicable to our operating entity. Questions: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline">l2signalslab@gmail.com</a> • <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram</a>.</p></section>
         </div>
 
-        <div className="flex flex-wrap gap-2 mt-6">
-          <a href="/privacy" className="btn-secondary rounded-full px-5 py-2 text-xs">Privacy Policy</a>
-          <a href="/legal" className="btn-secondary rounded-full px-5 py-2 text-xs">Legal & Risk</a>
-          <a href="/quote" className="btn-primary rounded-full px-5 py-2 text-xs">Get a quote</a>
+        <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4 sm:mt-6">
+          <a href="/privacy" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Privacy Policy</a>
+          <a href="/legal" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Legal & Risk</a>
+          <a href="/quote" className="btn-primary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Get a quote</a>
         </div>
       </div>
     </div>

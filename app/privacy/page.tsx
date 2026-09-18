@@ -4,13 +4,13 @@ export const metadata: Metadata = { title: 'Privacy Policy — L2 Signals', desc
 
 export default function PrivacyPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="max-w-3xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
       <div className="card">
-        <p className="text-[11px] tracking-[0.16em] text-accent-gold uppercase">Last updated — 18 Sep 2026</p>
-        <h1 className="text-2xl font-bold mt-2">Privacy Policy</h1>
-        <p className="text-xs text-text-muted mt-2">We minimize data collection. This policy explains what we collect and why. Contact: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline">l2signalslab@gmail.com</a>.</p>
+        <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Last updated — 18 Sep 2026</p>
+        <h1 className="text-xl sm:text-2xl font-bold mt-2 leading-tight">Privacy Policy</h1>
+        <p className="text-xs text-text-muted mt-2 leading-relaxed break-words">We minimize data collection. This policy explains what we collect and why. Contact: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline break-all">l2signalslab@gmail.com</a>.</p>
 
-        <div className="prose prose-sm max-w-none mt-6 space-y-5 text-xs leading-relaxed text-text-secondary">
+        <div className="prose prose-sm max-w-none mt-4 sm:mt-6 space-y-4 sm:space-y-5 text-xs sm:text-[13px] leading-relaxed text-text-secondary break-words">
           <section><h2 className="text-sm font-bold text-text-primary">1. Data we collect</h2><ul className="list-disc ml-4 space-y-1"><li><b>Contact/inquiry:</b> name, email, message you send via quote form or email/Telegram.</li><li><b>Usage:</b> anonymized page views / logs (Vercel analytics) to improve reliability.</li><li><b>Trading data you log:</b> trades you explicitly log in the web app (stored in Firestore). We don’t access your broker.</li><li><b>Cookies/localStorage:</b> theme, balance display, and session preferences stored locally on your device.</li></ul></section>
           <section><h2 className="text-sm font-bold text-text-primary">2. How we use it</h2><ul className="list-disc ml-4 space-y-1"><li>Reply to inquiries and deliver quoted services.</li><li>Operate the proof ledger, dashboards and market-data cache.</li><li>Improve stability, prevent abuse, and send service updates you requested (Telegram).</li></ul><p>We don’t sell your data or run ads.</p></section>
           <section><h2 className="text-sm font-bold text-text-primary">3. Sharing</h2><p>We share data only with service providers needed to run L2 Signals (hosting on Vercel/Render, Firebase/Firestore, email). They are bound by their own privacy obligations.</p></section>
@@ -21,9 +21,9 @@ export default function PrivacyPage() {
           <section><h2 className="text-sm font-bold text-text-primary">8. Changes</h2><p>We’ll update this page when practices change and keep the “Last updated” date. Material changes may be announced in-channel.</p></section>
         </div>
 
-        <div className="flex flex-wrap gap-2 mt-6">
-          <a href="/terms" className="btn-secondary rounded-full px-5 py-2 text-xs">Terms</a>
-          <a href="/legal" className="btn-secondary rounded-full px-5 py-2 text-xs">Legal</a>
+        <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4 sm:mt-6">
+          <a href="/terms" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Terms</a>
+          <a href="/legal" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Legal</a>
         </div>
       </div>
     </div>

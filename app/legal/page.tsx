@@ -4,13 +4,13 @@ export const metadata: Metadata = { title: 'Legal & Risk Disclosure — L2 Signa
 
 export default function LegalPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="max-w-3xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
       <div className="card">
-        <p className="text-[11px] tracking-[0.16em] text-accent-gold uppercase">For traders who want an edge, not a gamble</p>
-        <h1 className="text-2xl font-bold mt-2">Legal & Risk Disclosure</h1>
-        <p className="text-xs text-text-muted mt-2">Read this before using signals or trading live. Not financial advice. Contact: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline">l2signalslab@gmail.com</a>.</p>
+        <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">For traders who want an edge, not a gamble</p>
+        <h1 className="text-xl sm:text-2xl font-bold mt-2 leading-tight">Legal & Risk Disclosure</h1>
+        <p className="text-xs text-text-muted mt-2 leading-relaxed break-words">Read this before using signals or trading live. Not financial advice. Contact: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline break-all">l2signalslab@gmail.com</a>.</p>
 
-        <div className="prose prose-sm max-w-none mt-6 space-y-5 text-xs leading-relaxed text-text-secondary">
+        <div className="prose prose-sm max-w-none mt-4 sm:mt-6 space-y-4 sm:space-y-5 text-xs sm:text-[13px] leading-relaxed text-text-secondary break-words">
           <section className="rounded-xl p-3" style={{ background: 'rgba(255,82,82,0.06)', border: '1px solid rgba(255,82,82,0.15)' }}>
             <p className="text-sm font-bold text-status-loss">Trading Risk Warning</p>
             <p className="mt-1">Trading spot XAU/USD (gold) and similar instruments involves substantial risk of loss and is not suitable for all investors. Leverage magnifies losses. You can lose more than your deposit with some providers. Only trade with capital you can afford to lose. Past performance is not indicative of future results.</p>
@@ -26,10 +26,10 @@ export default function LegalPage() {
           <section><h2 className="text-sm font-bold text-text-primary">8. Contact & governing law</h2><p>For questions: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline">l2signalslab@gmail.com</a> • <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram</a>. Unless a custom contract says otherwise, these notices are interpreted under applicable local law.</p></section>
         </div>
 
-        <div className="flex flex-wrap gap-2 mt-6">
-          <a href="/terms" className="btn-secondary rounded-full px-5 py-2 text-xs">Terms</a>
-          <a href="/privacy" className="btn-secondary rounded-full px-5 py-2 text-xs">Privacy</a>
-          <a href="/quote" className="btn-primary rounded-full px-5 py-2 text-xs">DM for a quote</a>
+        <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4 sm:mt-6">
+          <a href="/terms" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Terms</a>
+          <a href="/privacy" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Privacy</a>
+          <a href="/quote" className="btn-primary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">DM for a quote</a>
         </div>
       </div>
     </div>

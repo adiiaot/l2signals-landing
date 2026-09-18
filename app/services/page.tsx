@@ -22,19 +22,19 @@ const PROCESS = [
 
 export default function ServicesPage() {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+    <div className="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-8 space-y-4 sm:space-y-6">
       <div className="card text-center">
-        <p className="text-[11px] tracking-[0.16em] text-accent-gold uppercase">Custom builds • Partnerships • Sponsorships</p>
-        <h1 className="text-2xl md:text-3xl font-bold mt-2">We build systems, not just screens</h1>
-        <p className="text-sm text-text-muted mt-3 max-w-2xl mx-auto">L2 Signals is our product. We also build bespoke systems for traders, funds and teams — trading infra, automation, dashboards and AI tools — from MVP to production.</p>
-        <div className="flex flex-wrap gap-3 justify-center mt-6">
-          <Link href="/quote" className="btn-primary rounded-full px-6 py-2.5 text-xs">Get a quote →</Link>
-          <a href="mailto:l2signalslab@gmail.com" className="btn-secondary rounded-full px-6 py-2.5 text-xs">DM the founder</a>
+        <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Custom builds • Partnerships • Sponsorships</p>
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mt-2 leading-tight">We build systems, not just screens</h1>
+        <p className="text-xs sm:text-sm text-text-muted mt-2 sm:mt-3 max-w-2xl mx-auto leading-relaxed">L2 Signals is our product. We also build bespoke systems for traders, funds and teams — trading infra, automation, dashboards and AI tools — from MVP to production.</p>
+        <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 justify-center mt-4 sm:mt-6">
+          <Link href="/quote" className="btn-primary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Get a quote →</Link>
+          <a href="mailto:l2signalslab@gmail.com" className="btn-secondary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">DM the founder</a>
         </div>
-        <p className="text-[11px] text-text-muted mt-3">Response within 24h • <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram</a> • <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline">l2signalslab@gmail.com</a></p>
+        <p className="text-[11px] text-text-muted mt-3 break-words">Response within 24h • <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram</a> • <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline break-all">l2signalslab@gmail.com</a></p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
         {SERVICES.map(s => (
           <div key={s.title} className="card">
             <h3 className="text-sm font-bold">{s.title}</h3>
@@ -47,8 +47,8 @@ export default function ServicesPage() {
       </div>
 
       <div className="card">
-        <h2 className="text-base font-bold">Who we build for</h2>
-        <div className="grid sm:grid-cols-3 gap-3 mt-4 text-xs">
+        <h2 className="text-sm sm:text-base font-bold">Who we build for</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mt-3 sm:mt-4 text-xs">
           <div className="rounded-xl p-3" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}><p className="font-semibold">Traders & desks</p><p className="text-text-muted mt-1">Need a deterministic system, ledger, and playbook — not discretion.</p></div>
           <div className="rounded-xl p-3" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}><p className="font-semibold">Funds & prop firms</p><p className="text-text-muted mt-1">Custom risk, prop-sim, reporting, and internal tools.</p></div>
           <div className="rounded-xl p-3" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}><p className="font-semibold">Teams & founders</p><p className="text-text-muted mt-1">Marketplaces, SaaS, dashboards, AI assistants — shipped fast.</p></div>
@@ -56,26 +56,26 @@ export default function ServicesPage() {
       </div>
 
       <div className="card">
-        <h2 className="text-base font-bold">How we work</h2>
-        <div className="grid sm:grid-cols-4 gap-3 mt-4">
+        <h2 className="text-sm sm:text-base font-bold">How we work</h2>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mt-3 sm:mt-4">
           {PROCESS.map(p => (
-            <div key={p.n} className="rounded-xl p-3 text-center" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
-              <p className="text-lg font-bold font-mono text-accent-gold">{p.n}</p>
+            <div key={p.n} className="rounded-xl p-2.5 sm:p-3 text-center" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
+              <p className="text-base sm:text-lg font-bold font-mono text-accent-gold">{p.n}</p>
               <p className="text-xs font-semibold mt-1">{p.t}</p>
-              <p className="text-[11px] text-text-muted mt-1">{p.d}</p>
+              <p className="text-[11px] text-text-muted mt-1 leading-relaxed">{p.d}</p>
             </div>
           ))}
         </div>
-        <div className="flex flex-wrap gap-2 mt-5">
-          <Link href="/quote" className="btn-primary rounded-full px-5 py-2 text-xs">Start with a quote</Link>
-          <Link href="/legal" className="btn-secondary rounded-full px-5 py-2 text-xs">See legal & risk</Link>
+        <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4 sm:mt-5">
+          <Link href="/quote" className="btn-primary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Start with a quote</Link>
+          <Link href="/legal" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">See legal & risk</Link>
         </div>
       </div>
 
       <div className="card text-center">
         <h3 className="text-sm font-bold">Not sure what you need?</h3>
         <p className="text-xs text-text-muted mt-1">Describe your problem — we’ll propose the simplest system that solves it.</p>
-        <a href="mailto:l2signalslab@gmail.com?subject=Custom%20build%20inquiry%20—%20L2%20Signals&body=Hi%20AOT%2C%0A%0AProject%3A%0ABudget%3A%0ATimeline%3A%0A%0ADetails%3A" className="btn-primary rounded-full px-6 py-2.5 text-xs mt-4 inline-flex">DM the developer — l2signalslab@gmail.com</a>
+        <a href="mailto:l2signalslab@gmail.com?subject=Custom%20build%20inquiry%20—%20L2%20Signals&body=Hi%20AOT%2C%0A%0AProject%3A%0ABudget%3A%0ATimeline%3A%0A%0ADetails%3A" className="btn-primary rounded-full px-4 sm:px-6 py-2.5 text-xs mt-4 inline-flex w-full sm:w-auto justify-center break-all">DM the developer — l2signalslab@gmail.com</a>
       </div>
     </div>
   )
