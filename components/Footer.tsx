@@ -17,10 +17,11 @@ export default function Footer() {
         <div>
           <p className="font-bold text-text-primary mb-3">Business</p>
           <div className="space-y-2 text-xs text-text-muted">
-            <a href="#proof" className="block hover:text-accent-gold">Proof of Execution</a>
-            <a href="#services" className="block hover:text-accent-gold">Custom Builds</a>
-            <a href="#roadmap" className="block hover:text-accent-gold">Roadmap</a>
-            <a href="#faq" className="block hover:text-accent-gold">FAQ & Disclaimer</a>
+            <a href="/#proof" className="block hover:text-accent-gold">Proof of Execution</a>
+            <a href="/services" className="block hover:text-accent-gold">Custom Builds</a>
+            <a href="/quote" className="block hover:text-accent-gold">Get a Quote</a>
+            <a href="/#roadmap" className="block hover:text-accent-gold">Roadmap</a>
+            <a href="/#faq" className="block hover:text-accent-gold">FAQ</a>
           </div>
         </div>
         <div>
@@ -43,8 +44,14 @@ export default function Footer() {
         </div>
       </div>
       <div className="max-w-6xl mx-auto px-4 py-4 border-t flex flex-col md:flex-row items-center justify-between gap-2 text-[11px] text-text-muted" style={{ borderColor: 'var(--glass-border)' }}>
+        <div className="flex flex-wrap gap-3">
+          <a href="/terms" className="hover:text-accent-gold">Terms</a>
+          <a href="/privacy" className="hover:text-accent-gold">Privacy</a>
+          <a href="/legal" className="hover:text-accent-gold">Legal & Risk</a>
+          <a href="/services" className="hover:text-accent-gold">Services</a>
+          <a href="/quote" className="hover:text-accent-gold">Quote</a>
+        </div>
         <p>© {new Date().getFullYear()} L2 Signals — Systematic XAU/USD • Not financial advice</p>
-        <p>Built for traders who want an edge, not a gamble.</p>
       </div>
     </footer>
   )

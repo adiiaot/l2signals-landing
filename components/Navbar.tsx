@@ -7,10 +7,10 @@ import { useTheme } from 'next-themes'
 const LINKS = [
   { label: 'Ledger', href: '#proof' },
   { label: 'How it Works', href: '#how' },
-  { label: 'Why L2', href: '#why' },
+  { label: 'Services', href: '/services' },
+  { label: 'Quote', href: '/quote' },
   { label: 'Roadmap', href: '#roadmap' },
   { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#founder' },
 ]
 
 export default function Navbar() {
@@ -20,9 +20,11 @@ export default function Navbar() {
   useEffect(() => setMounted(true), [])
   const scrollTo = (href: string) => {
     setOpen(false)
+    if (href.startsWith('/')) { window.location.href = href; return }
     const id = href.replace('#', '')
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    else if (href.startsWith('#')) window.location.href = `/${href}`
   }
   return (
     <>
@@ -37,9 +39,11 @@ export default function Navbar() {
           </a>
           <nav className="hidden md:flex items-center gap-0.5">
             {LINKS.map(l => (
-              <button key={l.href} onClick={() => scrollTo(l.href)} className="px-3 py-1.5 rounded-full text-[11px] font-medium text-text-secondary hover:text-text-primary hover:bg-surface-overlay transition">
-                {l.label}
-              </button>
+              l.href.startsWith('/') ? (
+                <a key={l.href} href={l.href} className="px-3 py-1.5 rounded-full text-[11px] font-medium text-text-secondary hover:text-text-primary hover:bg-surface-overlay transition">{l.label}</a>
+              ) : (
+                <button key={l.href} onClick={() => scrollTo(l.href)} className="px-3 py-1.5 rounded-full text-[11px] font-medium text-text-secondary hover:text-text-primary hover:bg-surface-overlay transition">{l.label}</button>
+              )
             ))}
           </nav>
           <div className="flex items-center gap-1.5">
@@ -82,9 +86,11 @@ export default function Navbar() {
               </div>
               <div className="flex-1 p-4 space-y-1 overflow-y-auto">
                 {LINKS.map(l => (
-                  <button key={l.href} onClick={() => scrollTo(l.href)} className="w-full text-left px-3 py-3 rounded-xl text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-overlay transition">
-                    {l.label}
-                  </button>
+                  l.href.startsWith('/') ? (
+                    <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="w-full block text-left px-3 py-3 rounded-xl text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-overlay transition">{l.label}</a>
+                  ) : (
+                    <button key={l.href} onClick={() => scrollTo(l.href)} className="w-full text-left px-3 py-3 rounded-xl text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-overlay transition">{l.label}</button>
+                  )
                 ))}
               </div>
               <div className="p-4 border-t space-y-2" style={{ borderColor: 'var(--glass-border)' }}>
