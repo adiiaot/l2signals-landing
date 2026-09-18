@@ -33,10 +33,10 @@ export default function Founder() {
             <div className="rounded-xl p-3" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
               <p className="text-[11px] font-mono tracking-[0.16em] text-text-muted uppercase">What I build</p>
               <ul className="mt-2 space-y-1.5 text-xs text-text-secondary">
-                <li>• Systematic & algorithmic trading infrastructure</li>
-                <li>• Intraday systems, automation & data tools for traders</li>
-                <li>• Full-stack web & mobile apps, APIs, real-time services</li>
-                <li>• AI products & LLM integrations, internal tooling</li>
+                <li>• <a href="/services#systems" className="hover:text-accent-gold hover:underline">Systematic & algorithmic trading infrastructure</a></li>
+                <li>• <a href="/services#api" className="hover:text-accent-gold hover:underline">Intraday systems, automation & data tools for traders</a></li>
+                <li>• <a href="/services#apps" className="hover:text-accent-gold hover:underline">Full-stack web & mobile apps, APIs, real-time services</a></li>
+                <li>• <a href="/services" className="hover:text-accent-gold hover:underline">AI products & LLM integrations, internal tooling</a></li>
               </ul>
             </div>
             <div className="rounded-xl p-3" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
