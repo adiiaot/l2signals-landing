@@ -11,6 +11,7 @@ const LINKS = [
   { label: 'Quote', href: '/quote' },
   { label: 'Roadmap', href: '#roadmap' },
   { label: 'FAQ', href: '#faq' },
+  { label: 'Policies', href: '/policies' },
 ]
 
 export default function Navbar() {

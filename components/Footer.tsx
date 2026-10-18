@@ -24,6 +24,7 @@ export default function Footer() {
             <a href="/services#apps" className="block hover:text-accent-gold">Websites & Apps</a>
             <a href="/services#hire" className="block hover:text-accent-gold">Hire & Partnerships</a>
             <a href="/quote" className="block hover:text-accent-gold">Get a Quote</a>
+            <a href="/policies" className="block hover:text-accent-gold">Policies &amp; Member Documents</a>
             <a href="/#faq" className="block hover:text-accent-gold">FAQ</a>
           </div>
         </div>
@@ -50,7 +51,8 @@ export default function Footer() {
         <div className="flex flex-wrap gap-3">
           <a href="/terms" className="hover:text-accent-gold">Terms</a>
           <a href="/privacy" className="hover:text-accent-gold">Privacy</a>
-          <a href="/legal" className="hover:text-accent-gold">Legal & Risk</a>
+          <a href="/legal" className="hover:text-accent-gold">Legal &amp; Risk</a>
+          <a href="/policies" className="hover:text-accent-gold">Policies</a>
           <a href="/services" className="hover:text-accent-gold">Services</a>
           <a href="/quote" className="hover:text-accent-gold">Quote</a>
         </div>
