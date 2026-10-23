@@ -35,7 +35,7 @@ const FAQS = [
   },
   {
     q: 'How do I pay for access?',
-    a: 'Three rails on the payment page: card via Paystack (Verve, Mastercard, Visa, bank USSD/transfer), USDT on TRON (TRC20) or BNB Chain (BEP20), USDC on Solana (SPL), or Nigerian bank transfer in NGN. Card is instant to pay. Each crypto network accepts one asset only — the page shows the address for the network you pick, and that is the only chain you should send on. Every payment is then checked by hand — send the reference (or crypto transaction hash), a screenshot and your member details (full name, Telegram @username, email, phone/WhatsApp) to @aotayoL2 on Telegram (@aotayo if you prefer), or email l2signalslab@gmail.com, and you are added to the private group with a single-use invite, usually within a few hours. Access is delivered as a Telegram invite; the email channel is there in case you would rather send proof by email. Stablecoins only — the amount is always 1:1 with the USD price, so it never changes between checkout and confirmation.',
+    a: 'Three rails on the payment page: online via Paystack (card, bank transfer or USSD), USDT on TRON (TRC20) or BNB Chain (BEP20), USDC on Solana (SPL), or Nigerian bank transfer in NGN. Paystack goes through instantly. Each crypto network accepts one asset only — the page shows the address for the network you pick, and that is the only chain you should send on. Every payment is then checked by hand — send the reference (or crypto transaction hash), a screenshot and your member details (full name, Telegram @username, email, phone/WhatsApp) to @aotayoL2 on Telegram (@aotayo if you prefer), or email l2signalslab@gmail.com, and you are added to the private group with a single-use invite, usually within a few hours. Access is delivered as a Telegram invite; the email channel is there in case you would rather send proof by email. Stablecoins only — the amount is always 1:1 with the USD price, so it never changes between checkout and confirmation.',
   },
 ]
 
@@ -64,7 +64,7 @@ export default function FAQ() {
             rel="noopener"
             className="btn-secondary rounded-full px-5 py-2 text-xs"
           >
-            Card on Paystack
+            Pay on Paystack
           </a>
         </div>
       </div>

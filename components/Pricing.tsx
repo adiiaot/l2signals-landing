@@ -17,13 +17,13 @@ export default function Pricing() {
             rel="noopener"
             className="btn-secondary rounded-full px-6 py-2.5 text-xs"
           >
-            Pay by card
+            Pay online
           </a>
           <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="btn-secondary rounded-full px-6 py-2.5 text-xs">Join Our Channel on Telegram</a>
           <a href="https://x.com/l2signals" target="_blank" rel="noopener" className="btn-secondary rounded-full px-6 py-2.5 text-xs">Follow on X</a>
         </div>
         <p className="text-[10px] text-text-muted mt-3">
-          Card payments run through Paystack. USDT / USDC (TRON · BSC) and Nigerian bank transfer are on the payment page.
+          Online payments run through Paystack — card, bank transfer or USSD. USDT / USDC (TRON · BSC) and Nigerian bank transfer are on the payment page.
         </p>
       </div>
     </section>

@@ -20,8 +20,6 @@ interface Done {
   paymentId: string
   amount: number
   currency: string
-  telegramVerified?: boolean
-  viaCard?: boolean
   /** What the payer shows as proof: Paystack reference, tx hash or bank narration. */
   reference?: string
   email?: string
@@ -82,7 +80,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
   const tabs = useMemo(() => {
     const list: { key: Method; label: string; hint: string }[] = []
     if (config.paystackEnabled && config.plan.ngn > 0) {
-      list.push({ key: 'card', label: 'Card', hint: 'Paystack · instant' })
+      list.push({ key: 'card', label: 'Pay online', hint: 'Paystack · card · transfer · USSD' })
     }
     if (config.methods.crypto.enabled && networks.length > 0) {
       list.push({ key: 'crypto', label: 'Crypto', hint: 'USDT · TRON/BSC · USDC · Solana' })
@@ -104,12 +102,6 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
   const [bankRef, setBankRef] = useState('')
   const [note, setNote] = useState('')
   const [honeypot, setHoneypot] = useState('')
-
-  const [claimToken, setClaimToken] = useState<string | null>(null)
-  const [tgState, setTgState] = useState<'idle' | 'waiting' | 'verified'>('idle')
-  const [tgUsername, setTgUsername] = useState('')
-  const [tgBusy, setTgBusy] = useState(false)
-  const [tgLink, setTgLink] = useState<string | null>(null)
 
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -137,8 +129,6 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
             paymentId: json.paymentId,
             amount: json.amount,
             currency: json.currency,
-            telegramVerified: json.telegramVerified,
-            viaCard: true,
             reference: returnReference,
           })
           setReturnState(null)
@@ -164,66 +154,9 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
     }
   }, [returnReference])
 
-  // ── Poll the claim while the user is in Telegram ───────────────────────────
-  useEffect(() => {
-    if (tgState !== 'waiting' || !claimToken) return
-    const id = setInterval(async () => {
-      try {
-        const res = await fetch(`/api/pay/claim?token=${encodeURIComponent(claimToken)}`, { cache: 'no-store' })
-        const json = await res.json()
-        if (json?.ok && json.verified) {
-          setTgState('verified')
-          setTgUsername(json.username || '')
-        }
-      } catch {
-        // keep polling quietly
-      }
-    }, 4000)
-    return () => clearInterval(id)
-  }, [tgState, claimToken])
-
-  const onEmailChange = (value: string) => {
-    setEmail(value)
-    // Identity is bound to the email that started the claim — changing it must reset.
-    if (claimToken) {
-      setClaimToken(null)
-      setTgState('idle')
-      setTgUsername('')
-      setTgLink(null)
-    }
-  }
-
-  const startTelegram = async () => {
-    setError(null)
-    if (!emailValid) {
-      setError('Add your email first — it links this payment to you.')
-      return
-    }
-    if (!config.telegramBotUrl) {
-      setError('Telegram verification is unavailable. Your payment will be matched by email.')
-      return
-    }
-
-    setTgBusy(true)
-    try {
-      const res = await fetch('/api/pay/claim', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), method, company: honeypot }),
-      })
-      const json = await res.json()
-      if (!json.ok) throw new Error(json.error || 'Could not start verification.')
-
-      setClaimToken(json.token)
-      setTgLink(json.telegramUrl)
-      setTgState('waiting')
-      window.open(json.telegramUrl, '_blank', 'noopener')
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not start verification.')
-    } finally {
-      setTgBusy(false)
-    }
-  }
+  // Proof and identity are matched by hand, so the email is the only identity
+  // field the page needs — there is no bot round-trip to wait on.
+  const onEmailChange = (value: string) => setEmail(value)
 
   const onNetworkChange = (next: PaymentNetwork) => {
     setNetwork(next)
@@ -262,18 +195,18 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
         const res = await fetch('/api/pay/paystack/init', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email.trim(), token: claimToken }),
+          body: JSON.stringify({ email: email.trim() }),
         })
         const json = await res.json()
-        if (!json.ok) throw new Error(json.error || 'Could not start card checkout.')
+        if (!json.ok) throw new Error(json.error || 'Could not start Paystack checkout.')
         window.location.href = json.authorizationUrl
         return
       }
 
       const payload =
         method === 'crypto'
-          ? { email: email.trim(), method, token: claimToken, network, txHash: txHash.trim(), company: honeypot }
-          : { email: email.trim(), method, token: claimToken, reference: bankRef.trim(), note, company: honeypot }
+          ? { email: email.trim(), method, network, txHash: txHash.trim(), company: honeypot }
+          : { email: email.trim(), method, reference: bankRef.trim(), note, company: honeypot }
 
       const res = await fetch('/api/pay/submit', {
         method: 'POST',
@@ -287,7 +220,6 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
         paymentId: json.paymentId,
         amount: json.amount,
         currency: json.currency,
-        telegramVerified: json.telegramVerified,
         reference: method === 'crypto' ? txHash.trim() : bankRef.trim(),
         email: email.trim(),
       })
@@ -342,11 +274,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
           </p>
           <div className="inline-flex flex-wrap justify-center gap-2 mt-4">
             <span className="badge-info">Reference saved</span>
-            {done.telegramVerified ? (
-              <span className="badge-info">Telegram linked</span>
-            ) : (
-              <span className="badge-warn">Matched by email</span>
-            )}
+            <span className="badge-warn">Checked by hand</span>
           </div>
         </div>
 
@@ -458,8 +386,8 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
           <p className="text-[11px] tracking-[0.16em] text-accent-gold uppercase">Checkout</p>
           <h1 className="text-lg sm:text-xl font-bold mt-2">Payments are being set up</h1>
           <p className="text-xs text-text-muted mt-2">
-            Crypto and bank details are not published yet. Card payments already work — pay on the
-            Paystack page, then send the reference to {TELEGRAM_PROOF_HANDLE} or {PROOF_EMAIL}.
+            Crypto and bank details are not published yet. Paystack payments already work — pay online, then
+            send the reference to {TELEGRAM_PROOF_HANDLE} or {PROOF_EMAIL}.
           </p>
           <a
             href={PAYSTACK_STOREFRONT_URL}
@@ -467,7 +395,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
             rel="noopener"
             className="btn-primary rounded-full px-5 py-2.5 text-xs inline-block mt-4"
           >
-            Pay by card on Paystack
+            Pay on Paystack
           </a>
           <p className="text-[10px] text-text-muted mt-3">
             Questions? Message{' '}
@@ -502,7 +430,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
           {config.plan.days} days of access · {config.plan.graceDays}-day grace period · XAU/USD intraday signals
         </p>
         <p className="text-[11px] text-text-muted mt-3">
-          {config.plan.ngn > 0 ? `${naira(config.plan.ngn)} card or bank · ` : ''}
+          {config.plan.ngn > 0 ? `${naira(config.plan.ngn)} online or bank · ` : ''}
           {usd(config.plan.usd)} crypto
         </p>
         <p className="text-[11px] text-text-muted mt-2 leading-relaxed">
@@ -552,16 +480,16 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
 
         {!config.paystackEnabled && (
           <p className="mt-3 text-[11px] text-text-muted">
-            Card checkout is not switched on for this page yet — you can still{' '}
+            Online checkout is not switched on for this page yet — you can still{' '}
             <a
               href={PAYSTACK_STOREFRONT_URL}
               target="_blank"
               rel="noopener"
               className="text-accent-gold hover:underline font-semibold"
             >
-              pay by card on Paystack
+              pay on Paystack
             </a>{' '}
-            and send us the reference with /pay.
+            and send us the reference.
           </p>
         )}
 
@@ -579,64 +507,24 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
             style={{ borderColor: 'var(--glass-border)' }}
           />
           <span className="block text-[10px] text-text-muted mt-1">
-            Used to match your payment if you do not link Telegram. Never shared.
+            Used to match your payment and reach you. Never shared.
           </span>
         </label>
 
-        {/* Telegram identity — optional, recommended */}
-        {config.telegramBotUrl ? (
-          <div className="mt-4 rounded-xl p-3 bg-surface-overlay" style={{ border: '1px solid var(--glass-border)' }}>
-            <div className="flex items-start justify-between gap-3 flex-wrap">
-              <div className="min-w-0">
-                <p className="text-xs font-semibold">Verify with Telegram (recommended)</p>
-                <p className="text-[11px] text-text-muted mt-1 leading-relaxed">
-                  Proves this payment is yours, so access is granted automatically — no manual matching.
-                </p>
-              </div>
-              {tgState === 'verified' ? (
-                <span className="badge-win shrink-0">Verified {tgUsername ? `@${tgUsername}` : ''}</span>
-              ) : (
-                <button
-                  type="button"
-                  onClick={startTelegram}
-                  disabled={tgBusy || tgState === 'waiting'}
-                  className="btn-secondary rounded-full px-4 py-2 text-[11px] shrink-0"
-                >
-                  {tgBusy ? 'Opening…' : tgState === 'waiting' ? 'Waiting for bot…' : 'Open Telegram'}
-                </button>
-              )}
-            </div>
-            {tgState === 'waiting' && (
-              <p className="text-[11px] text-text-muted mt-2">
-                Press <b>Start</b> in the bot, then come back here.{' '}
-                {tgLink && (
-                  <a href={tgLink} target="_blank" rel="noopener" className="text-accent-gold hover:underline">
-                    Open the link again
-                  </a>
-                )}
-              </p>
-            )}
-          </div>
-        ) : (
-          <p className="text-[11px] text-text-muted mt-4">
-            Telegram linking is unavailable — your payment will be matched by email.
-          </p>
-        )}
-
-        {/* ── Card ─────────────────────────────────────────────────────── */}
+        {/* ── Paystack ─────────────────────────────────────────────────── */}
         {method === 'card' && (
           <div className="mt-4 space-y-3">
             <div className="rounded-xl p-3 bg-surface-overlay" style={{ border: '1px solid var(--glass-border)' }}>
-              <p className="text-xs font-semibold">Secure card checkout — Paystack</p>
+              <p className="text-xs font-semibold">Secure checkout — Paystack</p>
               <p className="text-[11px] text-text-muted mt-1 leading-relaxed">
-                You will be redirected to Paystack (Verve, Mastercard, Visa, bank USSD/transfer). We never see
-                or store your card details.
+                You will be redirected to Paystack, where you can pay with a card, bank transfer or USSD —
+                Verve, Mastercard and Visa are accepted. We never see or store your card details.
               </p>
               <p className="text-sm font-mono mt-2">{naira(config.plan.ngn)}</p>
             </div>
             {returnState === 'failed' && (
               <p className="text-[11px] text-status-loss">
-                That card payment did not complete. You have not been charged twice — check your bank app before
+                That payment did not complete. You have not been charged twice — check your bank app before
                 retrying, or{' '}
                 <a href={PAYSTACK_STOREFRONT_URL} target="_blank" rel="noopener" className="underline font-semibold">
                   pay directly on the Paystack page
@@ -747,7 +635,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
               <div className="rounded-xl p-3 bg-surface-overlay" style={{ border: '1px solid var(--glass-border)' }}>
                 <p className="text-xs font-semibold">Bank details are being set up</p>
                 <p className="text-[11px] text-text-muted mt-1">
-                  Use card or crypto for now, or message{' '}
+                  Use online checkout or crypto for now, or message{' '}
                   <a
                     href={TELEGRAM_PROOF_URL}
                     target="_blank"
@@ -814,14 +702,14 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
           {busy
             ? 'Working…'
             : method === 'card'
-              ? `Pay ${naira(config.plan.ngn)} with card →`
+              ? `Pay ${naira(config.plan.ngn)} on Paystack →`
               : method === 'crypto'
                 ? 'I have sent it — submit hash →'
                 : 'I have sent it — submit reference →'}
         </button>
 
         <p className="text-[11px] text-text-muted mt-3 leading-relaxed">
-          Every payment is checked by hand — card against the Paystack dashboard, crypto against the
+          Every payment is checked by hand — online payments against the Paystack dashboard, crypto against the
           chain, bank against the statement. Send your proof to {TELEGRAM_PROOF_HANDLE} on Telegram or
           email {PROOF_EMAIL}; you are added to the private group manually. Nothing is granted
           automatically.

@@ -20,7 +20,7 @@ export default function Footer() {
           <p className="font-bold text-text-primary mb-3">Business</p>
           <div className="space-y-2 text-xs text-text-muted">
             <a href="/pay" className="block hover:text-accent-gold">Pay / Subscribe</a>
-            <a href={PAYSTACK_STOREFRONT_URL} target="_blank" rel="noopener" className="block hover:text-accent-gold">Pay by card (Paystack)</a>
+            <a href={PAYSTACK_STOREFRONT_URL} target="_blank" rel="noopener" className="block hover:text-accent-gold">Pay online (Paystack)</a>
             <a href="/#proof" className="block hover:text-accent-gold">Proof of Execution</a>
             <a href="/services" className="block hover:text-accent-gold">Services</a>
             <a href="/services#api" className="block hover:text-accent-gold">Signals API</a>

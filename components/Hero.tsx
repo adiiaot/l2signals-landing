@@ -29,7 +29,7 @@ export default function Hero() {
               Join Our Channel on Telegram
             </a>
             <a href="/pay" className="inline-flex items-center justify-center rounded-full bg-accent-gold text-white text-xs font-semibold px-6 py-2.5 hover:opacity-90 transition">
-              Subscribe — pay with card or USDT
+              Subscribe — pay online or with USDT
             </a>
             <a href="#proof" className="inline-flex items-center justify-center rounded-full border text-xs font-medium px-6 py-2.5 backdrop-blur" style={{ borderColor: 'rgba(255,255,255,0.22)', color: '#fff', background: 'rgba(255,255,255,0.06)' }}>
               View Our Trade Ledger
