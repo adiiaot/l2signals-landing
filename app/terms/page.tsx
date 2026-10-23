@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { TELEGRAM_SUPPORT_URL } from '@/lib/payments/links'
 
 export const metadata: Metadata = { title: 'Terms & Conditions — L2 Signals', description: 'Terms governing use of L2 Signals website, signals, and services.' }
 
@@ -18,7 +19,7 @@ export default function TermsPage() {
           <section><h2 className="text-sm font-bold text-text-primary">5. Intellectual property</h2><p>All content, branding, code and docs remain owned by L2 Signals / AOT unless a contract assigns them. Custom-build IP is defined in the quote/SOW.</p></section>
           <section><h2 className="text-sm font-bold text-text-primary">6. Disclaimer & liability</h2><p>Services are provided “as is” without warranties. Trading involves substantial risk of loss. Past performance (e.g. demo $100→$1,007 or backtests) does not guarantee future results. To the fullest extent permitted by law, our liability is limited to fees you paid in the last 3 months.</p></section>
           <section><h2 className="text-sm font-bold text-text-primary">7. Termination</h2><p>We may suspend or terminate access for breach, abuse or legal reasons. You may stop using the services at any time.</p></section>
-          <section><h2 className="text-sm font-bold text-text-primary">8. Governing law & contact</h2><p>Unless a custom contract says otherwise, these Terms are governed by the laws applicable to our operating entity. Questions: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline">l2signalslab@gmail.com</a> • <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram</a>.</p></section>
+          <section><h2 className="text-sm font-bold text-text-primary">8. Governing law & contact</h2><p>Unless a custom contract says otherwise, these Terms are governed by the laws applicable to our operating entity. Questions: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline">l2signalslab@gmail.com</a> • <a href={TELEGRAM_SUPPORT_URL} target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram @aotayoL2</a>.</p></section>
         </div>
 
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4 sm:mt-6">

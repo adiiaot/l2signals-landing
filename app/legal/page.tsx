@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { TELEGRAM_SUPPORT_URL } from '@/lib/payments/links'
 
 export const metadata: Metadata = { title: 'Legal & Risk Disclosure — L2 Signals', description: 'Risk warnings, disclaimers and legal conditions for L2 Signals.' }
 
@@ -23,7 +24,7 @@ export default function LegalPage() {
           <section><h2 className="text-sm font-bold text-text-primary">5. Intellectual property & fair use</h2><p>All trademarks, content, signals and code are owned by L2 Signals / AOT or licensors. Don’t republish signals or scrape market-data beyond fair personal use.</p></section>
           <section><h2 className="text-sm font-bold text-text-primary">6. Cookies & analytics</h2><p>We use minimal cookies/localStorage for theme and session. Hosting analytics (Vercel) may log anonymized requests. See <a href="/privacy" className="text-accent-gold hover:underline">Privacy</a>.</p></section>
           <section><h2 className="text-sm font-bold text-text-primary">7. Limitation of liability</h2><p>To the extent permitted by law, L2 Signals and its founder exclude liability for trading losses, indirect or consequential damages. Total liability is limited as set in <a href="/terms" className="text-accent-gold hover:underline">Terms</a>.</p></section>
-          <section><h2 className="text-sm font-bold text-text-primary">8. Contact & governing law</h2><p>For questions: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline">l2signalslab@gmail.com</a> • <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram</a>. Unless a custom contract says otherwise, these notices are interpreted under applicable local law.</p></section>
+          <section><h2 className="text-sm font-bold text-text-primary">8. Contact & governing law</h2><p>For questions: <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline">l2signalslab@gmail.com</a> • <a href={TELEGRAM_SUPPORT_URL} target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram @aotayoL2</a>. Unless a custom contract says otherwise, these notices are interpreted under applicable local law.</p></section>
         </div>
 
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4 sm:mt-6">

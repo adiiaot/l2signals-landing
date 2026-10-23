@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { TELEGRAM_SUPPORT_URL } from '@/lib/payments/links'
 
 export const metadata: Metadata = {
   title: 'Services — Signals API, Trading Systems, Apps | L2 Signals',
@@ -20,7 +21,7 @@ export default function ServicesPage() {
           <Link href="/quote" className="btn-primary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Get a custom quote →</Link>
           <a href="mailto:l2signalslab@gmail.com" className="btn-secondary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Email us</a>
         </div>
-        <p className="text-[11px] text-text-muted mt-3 break-words">Response within 24h • <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram</a> • <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline break-all">l2signalslab@gmail.com</a></p>
+        <p className="text-[11px] text-text-muted mt-3 break-words">Response within 24h • <a href={TELEGRAM_SUPPORT_URL} target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram — @aotayoL2</a> • <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline break-all">l2signalslab@gmail.com</a></p>
       </div>
 
       {/* Track 1 — Signals API */}

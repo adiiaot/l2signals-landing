@@ -1,6 +1,7 @@
 "use client"
 import { Suspense, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { TELEGRAM_SUPPORT_URL } from '@/lib/payments/links'
 
 const TRACKS = [
   { key: 'api', name: 'Signals API access', desc: 'Live signals, results, history + webhooks for your bot or dashboard. Manual onboarding.', cta: 'Request API access' },
@@ -55,7 +56,7 @@ function QuoteInner() {
         <h1 className="text-xl sm:text-2xl font-bold mt-2 leading-tight">Get a quote — email us</h1>
         <p className="text-xs sm:text-sm text-text-muted mt-2 max-w-2xl mx-auto leading-relaxed">No fixed prices — every engagement is scoped and quoted custom. Pick your track below or send details — we reply within 24h with a quote or a short call to scope.</p>
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 justify-center mt-4">
-          <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Telegram — t.me/l2signals</a>
+          <a href={TELEGRAM_SUPPORT_URL} target="_blank" rel="noopener" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Telegram — @aotayoL2</a>
           <a href="mailto:l2signalslab@gmail.com" className="btn-primary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto break-all">l2signalslab@gmail.com</a>
         </div>
       </div>
@@ -98,7 +99,7 @@ function QuoteInner() {
         </div>
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4">
           <a href={mailto} onClick={() => setSent(true)} className="btn-primary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Send via email →</a>
-          <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="btn-secondary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Message us on Telegram</a>
+          <a href={TELEGRAM_SUPPORT_URL} target="_blank" rel="noopener" className="btn-secondary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Message us on Telegram</a>
         </div>
         {sent && <p className="text-xs text-status-win mt-3">Email draft opened — send it and we’ll reply within 24h.</p>}
         <p className="text-[11px] text-text-muted mt-3">By sending you agree to our <a href="/terms" className="text-accent-gold hover:underline">Terms</a> and <a href="/privacy" className="text-accent-gold hover:underline">Privacy</a>.</p>

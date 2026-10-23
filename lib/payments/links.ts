@@ -20,21 +20,24 @@ export const PAYSTACK_STOREFRONT_URL = (
 export const TELEGRAM_CHANNEL_URL = 'https://t.me/l2signals'
 
 /** Support handle for manual payment questions. */
-export const TELEGRAM_SUPPORT_URL = 'https://t.me/l2signals'
+export const TELEGRAM_SUPPORT_URL = 'https://t.me/aotayoL2'
 
 /**
  * Where a payer sends proof of payment. Verification is manual: the operator
  * checks the reference/hash and adds the member personally, so this is the one
  * link that turns a payment into access. Override with
  * NEXT_PUBLIC_TELEGRAM_PROOF_URL if the account ever changes.
+ *
+ * @aotayoL2 is the support/business account; @aotayo is the founder's personal
+ * account and stays as a fallback in the FAQ copy.
  */
 export const TELEGRAM_PROOF_URL = (
-  process.env.NEXT_PUBLIC_TELEGRAM_PROOF_URL || 'https://t.me/aot_ayo'
+  process.env.NEXT_PUBLIC_TELEGRAM_PROOF_URL || 'https://t.me/aotayoL2'
 ).trim()
 
-/** Display handle derived from the URL, e.g. `@aot_ayo`. */
+/** Display handle derived from the URL, e.g. `@aotayoL2`. */
 export const TELEGRAM_PROOF_HANDLE =
-  TELEGRAM_PROOF_URL.replace(/^https?:\/\/(www\.)?t\.me\//i, '@').replace(/\/$/, '') || '@aot_ayo'
+  TELEGRAM_PROOF_URL.replace(/^https?:\/\/(www\.)?t\.me\//i, '@').replace(/\/$/, '') || '@aotayoL2'
 
 /**
  * Email proof channel — for payers without Telegram, or anyone who would rather
