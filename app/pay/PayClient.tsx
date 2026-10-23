@@ -60,7 +60,7 @@ function CopyField({ label, value }: { label: string; value: string }) {
         <button
           type="button"
           onClick={copy}
-          className="btn-secondary rounded-lg px-3 text-[11px] shrink-0"
+          className="btn-secondary rounded-lg px-3 text-[11px] shrink-0 min-h-[44px]"
           aria-label={`Copy ${label}`}
         >
           {copied ? 'Copied' : 'Copy'}
@@ -516,8 +516,14 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
       </div>
 
       <div className="card">
-        {/* Method tabs */}
-        <div className="grid grid-cols-3 gap-2" role="tablist" aria-label="Payment method">
+        {/* Method tabs — columns follow the number of live rails so a single
+            rail fills the row instead of sitting in a 3-column grid */}
+        <div
+          className="grid gap-2"
+          style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}
+          role="tablist"
+          aria-label="Payment method"
+        >
           {tabs.map((tab) => {
             const active = method === tab.key
             return (
@@ -530,13 +536,15 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
                   setMethod(tab.key)
                   setError(null)
                 }}
-                className={`rounded-xl border px-2 py-2.5 text-center transition-colors min-h-[56px] ${
+                className={`rounded-xl border px-2 py-2.5 text-center transition-colors min-h-[52px] flex flex-col items-center justify-center ${
                   active ? 'border-accent-gold/60 bg-accent-gold/10' : 'border-transparent bg-surface-overlay'
                 }`}
                 style={active ? undefined : { borderColor: 'var(--glass-border)' }}
               >
-                <span className="block text-xs font-semibold">{tab.label}</span>
-                <span className="block text-[10px] text-text-muted mt-0.5 leading-tight">{tab.hint}</span>
+                <span className="block text-xs font-semibold leading-tight">{tab.label}</span>
+                {/* The hint is long ("USDT · TRON/BSC · USDC · Solana") — hide it on
+                    phones, where a third of the row cannot hold it */}
+                <span className="hidden sm:block text-[10px] text-text-muted mt-0.5 leading-tight">{tab.hint}</span>
               </button>
             )
           })}
