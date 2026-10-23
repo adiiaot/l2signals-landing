@@ -1,3 +1,5 @@
+import { PAYSTACK_STOREFRONT_URL } from '@/lib/payments/links'
+
 export default function Footer() {
   return (
     <footer className="border-t mt-16" style={{ borderColor: 'var(--glass-border)', background: 'var(--glass-bg)' }}>
@@ -17,6 +19,8 @@ export default function Footer() {
         <div>
           <p className="font-bold text-text-primary mb-3">Business</p>
           <div className="space-y-2 text-xs text-text-muted">
+            <a href="/pay" className="block hover:text-accent-gold">Pay / Subscribe</a>
+            <a href={PAYSTACK_STOREFRONT_URL} target="_blank" rel="noopener" className="block hover:text-accent-gold">Pay by card (Paystack)</a>
             <a href="/#proof" className="block hover:text-accent-gold">Proof of Execution</a>
             <a href="/services" className="block hover:text-accent-gold">Services</a>
             <a href="/services#api" className="block hover:text-accent-gold">Signals API</a>
@@ -49,6 +53,7 @@ export default function Footer() {
       </div>
       <div className="max-w-6xl mx-auto px-4 py-4 border-t flex flex-col md:flex-row items-center justify-between gap-2 text-[11px] text-text-muted" style={{ borderColor: 'var(--glass-border)' }}>
         <div className="flex flex-wrap gap-3">
+          <a href="/pay" className="hover:text-accent-gold">Pay</a>
           <a href="/terms" className="hover:text-accent-gold">Terms</a>
           <a href="/privacy" className="hover:text-accent-gold">Privacy</a>
           <a href="/legal" className="hover:text-accent-gold">Legal &amp; Risk</a>

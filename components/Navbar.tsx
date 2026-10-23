@@ -8,6 +8,7 @@ const LINKS = [
   { label: 'Ledger', href: '#proof' },
   { label: 'How it Works', href: '#how' },
   { label: 'Services', href: '/services' },
+  { label: 'Pay', href: '/pay' },
   { label: 'Quote', href: '/quote' },
   { label: 'Roadmap', href: '#roadmap' },
   { label: 'FAQ', href: '#faq' },

@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
+import { PAYSTACK_STOREFRONT_URL } from '@/lib/payments/links'
 
 const FAQS = [
   {
@@ -32,6 +33,10 @@ const FAQS = [
     q: 'When will the web app and private group launch?',
     a: 'Timing depends on demand and validation. The free Telegram channel is the waitlist — when we see consistent demand and the live forward validation holds, we open the private Telegram for paid signals and then the multi-user web app with auth, subscriptions and tooling. Join the channel now to be first to know; no deposit or pre-payment is taken before launch.',
   },
+  {
+    q: 'How do I pay for access?',
+    a: 'Three rails on the payment page: card via Paystack (Verve, Mastercard, Visa, bank USSD/transfer), USDT or USDC on TRON (TRC20) or BNB Chain (BEP20), or Nigerian bank transfer in NGN. Card is instant; crypto and transfer are verified manually, then access is activated. Stablecoins only — the amount is always 1:1 with the USD price, so it never changes between checkout and confirmation.',
+  },
 ]
 
 export default function FAQ() {
@@ -50,6 +55,17 @@ export default function FAQ() {
               {open === i && <div className="px-4 pb-3 text-xs leading-relaxed text-text-secondary">{f.a}</div>}
             </div>
           ))}
+        </div>
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+          <a href="/pay" className="btn-primary rounded-full px-5 py-2 text-xs">Pay for access</a>
+          <a
+            href={PAYSTACK_STOREFRONT_URL}
+            target="_blank"
+            rel="noopener"
+            className="btn-secondary rounded-full px-5 py-2 text-xs"
+          >
+            Card on Paystack
+          </a>
         </div>
       </div>
     </section>

@@ -1,0 +1,23 @@
+/**
+ * Canonical payment links — importable from server components AND client
+ * components (NEXT_PUBLIC_* is inlined at build time). One place to change.
+ */
+
+/** Landing checkout: card + USDT/USDC + bank, records a claim. Preferred. */
+export const PAY_PAGE_PATH = '/pay'
+
+/**
+ * Standalone Paystack storefront. Works with zero setup (no secret key, no
+ * Firestore) but captures no identity and no claim — a FALLBACK card rail for
+ * when `/pay` is unavailable or the redirect fails. Card payments taken here
+ * must be matched manually by email/reference.
+ */
+export const PAYSTACK_STOREFRONT_URL = (
+  process.env.NEXT_PUBLIC_PAYSTACK_STOREFRONT_URL || 'https://paystack.shop/pay/l2signals-pro'
+).trim()
+
+/** Free public channel — the waitlist. */
+export const TELEGRAM_CHANNEL_URL = 'https://t.me/l2signals'
+
+/** Support handle for manual payment questions. */
+export const TELEGRAM_SUPPORT_URL = 'https://t.me/l2signals'
