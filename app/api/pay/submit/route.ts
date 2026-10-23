@@ -8,6 +8,7 @@ import {
   recordPayment,
 } from '@/lib/payments/claims'
 import { getPaymentsConfig } from '@/lib/payments/config'
+import { verifyWithBot } from '@/lib/payments/bot-verify'
 import { clientKey, rateLimit } from '@/lib/payments/rate-limit'
 import { looksLikeBot, normalizeEmail, str } from '@/lib/payments/validate'
 import { PAYMENT_NETWORKS, PaymentNetwork } from '@/lib/payments/types'
@@ -114,6 +115,36 @@ export async function POST(req: NextRequest) {
     }
 
     const isCrypto = method === 'crypto'
+
+    // On-chain verification lives in the bot so this page and the Telegram /pay
+    // flow share one implementation. `null` means the verifier is not configured
+    // or the bot is asleep — that is a manual review, never a silent grant.
+    if (isCrypto && network) {
+      const verification = await verifyWithBot({
+        txHash: reference,
+        network,
+        email,
+        token: str(body.token, 80) || undefined,
+      })
+
+      if (verification?.verified) {
+        if (claim) await markClaimSubmitted(claim.id).catch(() => undefined)
+        return NextResponse.json({
+          ok: true,
+          verified: true,
+          paymentId: verification.paymentId,
+          amount: verification.amount ?? config.plan.usd,
+          currency: verification.asset || 'USD',
+          inviteLink: verification.inviteLink || null,
+          telegramVerified: Boolean(claim?.telegramId),
+        })
+      }
+
+      adminNotes = verification
+        ? `Auto-verify: ${verification.reason || 'not verified'}`
+        : 'Auto-verify unavailable (bot offline) — manual review'
+    }
+
     const result = await recordPayment({
       email,
       method,
@@ -139,6 +170,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       ok: true,
+      verified: false,
       paymentId: result.paymentId,
       amount: isCrypto ? config.plan.usd : config.plan.ngn,
       currency: isCrypto ? 'USD' : 'NGN',

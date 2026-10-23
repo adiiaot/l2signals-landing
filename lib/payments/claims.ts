@@ -33,9 +33,15 @@ export interface ClaimSnapshot {
   telegramUsername: string
   telegramVerified: boolean
   method: PaymentMethod | null
-  status: 'open' | 'submitted'
+  status: 'open' | 'submitted' | 'confirmed'
   createdAt: Timestamp | null
   expiresAt: Timestamp | null
+  /** Written by the bot when it verifies an on-chain payment. */
+  inviteLink: string
+  paymentId: string
+  paymentStatus: string
+  amount: number | null
+  asset: string
 }
 
 function hashToken(token: string): string {
@@ -50,9 +56,14 @@ function toClaim(id: string, data: Record<string, unknown>): ClaimSnapshot {
     telegramUsername: String(data.telegramUsername || ''),
     telegramVerified: Boolean(data.telegramVerified),
     method: (data.method as PaymentMethod) || null,
-    status: (data.status as 'open' | 'submitted') || 'open',
+    status: (data.status as 'open' | 'submitted' | 'confirmed') || 'open',
     createdAt: (data.createdAt as Timestamp) || null,
     expiresAt: (data.expiresAt as Timestamp) || null,
+    inviteLink: String(data.inviteLink || ''),
+    paymentId: String(data.paymentId || ''),
+    paymentStatus: String(data.paymentStatus || ''),
+    amount: typeof data.amount === 'number' ? data.amount : null,
+    asset: String(data.asset || ''),
   }
 }
 

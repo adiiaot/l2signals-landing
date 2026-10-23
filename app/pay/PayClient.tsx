@@ -22,6 +22,9 @@ interface Done {
   currency: string
   telegramVerified?: boolean
   viaCard?: boolean
+  /** True only when the bot verified the transfer on-chain. */
+  verified?: boolean
+  inviteLink?: string | null
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
@@ -283,6 +286,8 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
         amount: json.amount,
         currency: json.currency,
         telegramVerified: json.telegramVerified,
+        verified: Boolean(json.verified),
+        inviteLink: json.inviteLink || null,
       })
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong. Try again.')
@@ -308,31 +313,64 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
     return (
       <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6 sm:py-8 space-y-4">
         <div className="card-glow text-center">
-          <p className="text-[11px] tracking-[0.16em] text-accent-gold uppercase">Payment received</p>
-          <h1 className="text-xl sm:text-2xl font-bold mt-2">
-            {done.currency === 'NGN' ? naira(done.amount) : usd(done.amount)} submitted
-          </h1>
-          <p className="text-xs text-text-muted mt-2 max-w-md mx-auto leading-relaxed">
-            Your reference is <code className="text-accent-gold">{done.paymentId}</code>. It is queued for
-            review — access is activated manually, usually within a few hours.
+          <p className="text-[11px] tracking-[0.16em] text-accent-gold uppercase">
+            {done.verified ? 'Payment verified' : 'Payment received'}
           </p>
+          <h1 className="text-xl sm:text-2xl font-bold mt-2">
+            {done.currency === 'NGN' ? naira(done.amount) : usd(done.amount)}{' '}
+            {done.verified ? 'confirmed' : 'submitted'}
+          </h1>
+          {done.verified ? (
+            <p className="text-xs text-text-muted mt-2 max-w-md mx-auto leading-relaxed">
+              The transfer was checked on-chain and your access is active. Join the private group below.
+            </p>
+          ) : (
+            <p className="text-xs text-text-muted mt-2 max-w-md mx-auto leading-relaxed">
+              Your reference is <code className="text-accent-gold">{done.paymentId}</code>. It is queued for
+              review — access is activated manually, usually within a few hours.
+            </p>
+          )}
           <div className="inline-flex flex-wrap justify-center gap-2 mt-4">
-            <span className="badge-win">Reference saved</span>
+            <span className={done.verified ? 'badge-win' : 'badge-info'}>
+              {done.verified ? 'Verified on-chain' : 'Reference saved'}
+            </span>
             {done.telegramVerified ? (
               <span className="badge-info">Telegram linked</span>
             ) : (
               <span className="badge-warn">Matched by email</span>
             )}
           </div>
+          {done.verified && done.inviteLink && (
+            <a
+              href={done.inviteLink}
+              target="_blank"
+              rel="noopener"
+              className="btn-primary rounded-full px-6 py-2.5 text-xs inline-block mt-4"
+            >
+              Join the private group
+            </a>
+          )}
         </div>
 
         <div className="card">
           <h2 className="text-sm font-bold">What happens next</h2>
-          <ol className="mt-2 space-y-2 text-xs text-text-secondary list-decimal ml-4 leading-relaxed">
-            <li>We verify the payment against the chain, bank receipt or Paystack dashboard.</li>
-            <li>Your subscription is extended and any ban is lifted.</li>
-            <li>The bot sends your single-use invite to the private group.</li>
-          </ol>
+          {done.verified ? (
+            <ol className="mt-2 space-y-2 text-xs text-text-secondary list-decimal ml-4 leading-relaxed">
+              <li>Your subscription is now active for this billing period.</li>
+              <li>
+                {done.telegramVerified
+                  ? 'The bot has also sent the invite to your Telegram — check that chat.'
+                  : 'Use the join button above. Send /status to the bot any time to see your expiry.'}
+              </li>
+              <li>Nothing else is required. Renew from this page when your period ends.</li>
+            </ol>
+          ) : (
+            <ol className="mt-2 space-y-2 text-xs text-text-secondary list-decimal ml-4 leading-relaxed">
+              <li>We verify the payment against the chain, bank receipt or Paystack dashboard.</li>
+              <li>Your subscription is extended and any ban is lifted.</li>
+              <li>The bot sends your single-use invite to the private group.</li>
+            </ol>
+          )}
           <p className="text-[11px] text-text-muted mt-3">
             Nothing arrived within 24h? Message{' '}
             <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">

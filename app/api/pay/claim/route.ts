@@ -86,6 +86,10 @@ export async function GET(req: NextRequest) {
       verified: claim.telegramVerified && Boolean(claim.telegramId),
       username: claim.telegramUsername || '',
       expired: !claimIsUsable(claim),
+      paymentStatus: claim.paymentStatus || '',
+      inviteLink: claim.inviteLink || '',
+      amount: claim.amount,
+      asset: claim.asset || '',
     })
   } catch (error) {
     console.error('[pay] claim lookup failed:', error)
