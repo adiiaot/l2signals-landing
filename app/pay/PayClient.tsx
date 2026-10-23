@@ -2,13 +2,13 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { QRCodeSVG } from 'qrcode.react'
 import { isValidTxHash } from '@/lib/payments/chains'
 import {
-  NETWORK_ASSETS,
+  NETWORK_ASSET,
   NETWORK_LABELS,
   NETWORK_PLACEHOLDERS,
   PAYMENT_NETWORKS,
+  networkOptionLabel,
   type PaymentNetwork,
 } from '@/lib/payments/types'
 import type { PublicPayConfig } from '@/lib/payments/config'
@@ -85,7 +85,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
       list.push({ key: 'card', label: 'Card', hint: 'Paystack · instant' })
     }
     if (config.methods.crypto.enabled && networks.length > 0) {
-      list.push({ key: 'crypto', label: 'Crypto', hint: 'USDT / USDC · TRON · BSC' })
+      list.push({ key: 'crypto', label: 'Crypto', hint: 'USDT · TRON/BSC · USDC · Solana' })
     }
     // A bank tab without account details is a dead end — hide it until configured.
     if (config.methods.ngn.enabled && config.methods.ngn.accountNumber) {
@@ -97,7 +97,9 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
   const [method, setMethod] = useState<Method>(tabs[0]?.key ?? 'bank')
   const [email, setEmail] = useState('')
   const [network, setNetwork] = useState<PaymentNetwork>(networks[0] ?? 'tron')
-  const [asset, setAsset] = useState<string>(NETWORK_ASSETS[networks[0] ?? 'tron'][0] ?? 'USDT')
+  // One asset per network — derived, never chosen separately. Picking them
+  // independently is what put USDC on the TRON address.
+  const asset = NETWORK_ASSET[network]
   const [txHash, setTxHash] = useState('')
   const [bankRef, setBankRef] = useState('')
   const [note, setNote] = useState('')
@@ -225,7 +227,6 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
 
   const onNetworkChange = (next: PaymentNetwork) => {
     setNetwork(next)
-    setAsset(NETWORK_ASSETS[next][0] ?? 'USDT')
     setTxHash('')
   }
 
@@ -319,10 +320,12 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
       [
         'L2 Signals — payment proof',
         '',
+        'Full name: ',
+        'Telegram username: ',
         `Email used: ${done.email || ''}`,
+        'Phone / WhatsApp: ',
         `Reference: ${proofRef}`,
         `Amount: ${amountLabel}`,
-        'Telegram username (for the invite): ',
         '',
         'Screenshot attached below.',
       ].join('\n')
@@ -366,12 +369,13 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
               <code className="text-accent-gold break-all">{proofRef}</code>
             </li>
             <li>
-              <span className="text-text-primary font-semibold">3.</span> A screenshot of the payment
-              (or the explorer page for crypto)
+              <span className="text-text-primary font-semibold">3.</span> Your member details — full
+              name, Telegram <code>@username</code>, email and phone / WhatsApp number, so you can be
+              added to the member database and tracked
             </li>
             <li>
-              <span className="text-text-primary font-semibold">4.</span> Your Telegram{' '}
-              <code>@username</code> so the invite can be sent — skip this if you want email only
+              <span className="text-text-primary font-semibold">4.</span> A screenshot of the payment
+              (or the explorer page for crypto)
             </li>
           </ul>
 
@@ -392,7 +396,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
             </a>
           </div>
           <p className="text-[11px] text-text-muted mt-3">
-            Either one works — no Telegram account needed to join. Proof by email goes to{' '}
+            Either channel works — Telegram is fastest. Proof by email goes to{' '}
             <a href={mailto} className="text-accent-gold hover:underline break-all">
               {PROOF_EMAIL}
             </a>
@@ -408,7 +412,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
               You get a single-use invite to the private group — on Telegram, or by email if you asked
               for that.
             </li>
-            <li>Your {config.plan.days} days start when you join, not when you paid.</li>
+            <li>Your access starts from the date you paid, for {config.plan.days} days.</li>
           </ol>
           <p className="text-[11px] text-text-muted mt-3">
             Usually within a few hours. Nothing after 24h? Message{' '}
@@ -647,41 +651,25 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
         {method === 'crypto' && (
           <div className="mt-4 space-y-3">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.14em] text-text-muted">Network</p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
+              <p className="text-[10px] uppercase tracking-[0.14em] text-text-muted">Pay with</p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-1">
                 {networks.map((net) => (
                   <button
                     key={net}
                     type="button"
                     onClick={() => onNetworkChange(net)}
-                    className={`rounded-lg border px-2 py-2 text-[11px] font-semibold min-h-[40px] ${
+                    className={`rounded-lg border px-3 py-2.5 text-[11px] font-semibold min-h-[48px] ${
                       network === net ? 'border-accent-gold/60 bg-accent-gold/10' : 'bg-surface-overlay'
                     }`}
                     style={network === net ? undefined : { borderColor: 'var(--glass-border)' }}
                   >
-                    {NETWORK_LABELS[net]}
+                    {networkOptionLabel(net)}
                   </button>
                 ))}
               </div>
-            </div>
-
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.14em] text-text-muted">Asset</p>
-              <div className="flex flex-wrap gap-2 mt-1">
-                {NETWORK_ASSETS[network].map((option) => (
-                  <button
-                    key={option}
-                    type="button"
-                    onClick={() => setAsset(option)}
-                    className={`rounded-full border px-3 py-1.5 text-[11px] font-semibold min-h-[34px] ${
-                      asset === option ? 'border-accent-gold/60 bg-accent-gold/10' : 'bg-surface-overlay'
-                    }`}
-                    style={asset === option ? undefined : { borderColor: 'var(--glass-border)' }}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
+              <p className="text-[10px] text-text-muted mt-1">
+                Each network accepts one asset only. The address below belongs to the network you pick.
+              </p>
             </div>
 
             <div className="rounded-xl p-3 bg-surface-overlay" style={{ border: '1px solid var(--glass-border)' }}>
@@ -690,20 +678,17 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
                 {cryptoAmount.toFixed(2)} {asset}
               </p>
               <p className="text-[10px] text-text-muted mt-0.5">
-                ${config.plan.usd.toFixed(2)} — stablecoin, 1:1 with USD. The amount never moves.
+                on {NETWORK_LABELS[network]} — stablecoin, 1:1 with USD. The amount never moves.
               </p>
-              <div className="flex justify-center mt-3">
-                <div className="rounded-lg bg-white p-2">
-                  <QRCodeSVG value={config.addresses[network]} size={132} level="M" />
-                </div>
-              </div>
               <div className="mt-3 space-y-2">
-                <CopyField label={`${NETWORK_LABELS[network]} address`} value={config.addresses[network]} />
+                <CopyField label={`${asset} address — ${NETWORK_LABELS[network]}`} value={config.addresses[network]} />
                 <CopyField label="Amount" value={cryptoAmount.toFixed(2)} />
               </div>
               <p className="text-[11px] text-status-warn mt-2 font-semibold">
-                Wrong network = unrecoverable. Copy the address — never type it.
+                Only send {asset} on {NETWORK_LABELS[network]}. Anything else sent to this address cannot be
+                recovered.
               </p>
+              <p className="text-[10px] text-text-muted mt-1">Copy the address — never type it.</p>
             </div>
 
             <label className="block">
