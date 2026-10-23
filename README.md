@@ -33,6 +33,20 @@ npx tsc --noEmit
 npm run build
 ```
 
+## Custom domain (l2signals.com)
+
+The site is domain-agnostic — no absolute URLs are hardcoded in components.
+
+1. Vercel → project → Domains → add `l2signals.com` (+ `www` redirect).
+2. Set `NEXT_PUBLIC_SITE_URL="https://l2signals.com"` in Vercel and redeploy.
+   Canonical links, `metadataBase`, OpenGraph `url` and `/sitemap.xml` all derive
+   from it; the Paystack `callbackUrl` already derives from the request origin.
+3. Update outside the repo:
+   - Paystack dashboard → **Webhook URL** → `https://l2signals.com/api/pay/paystack/webhook`
+   - `l2signal_web` → `/dashboard/payments` → **Payment page URL** → `https://l2signals.com/pay`
+   - bot env `PAY_PAGE_URL="https://l2signals.com/pay"`
+   - bot env `NEXT_PUBLIC_SITE_URL` is not needed; the landing link in bot copy comes from `PAY_PAGE_URL`.
+
 ## Neon (optional — static fallback works)
 
 ```bash
