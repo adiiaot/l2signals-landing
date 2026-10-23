@@ -10,8 +10,8 @@ Standalone Next.js 14 business site — **separate repo** from `l2signal_web` (p
 
 - **Hero**: Demo milestone `$100 → $1,007.41 in 37 days` (July 29 → Sept 4, 0.01 lot, systematic)
 - **About / Problem / Who For / Services** (Custom Trading Bots, Signal Systems, Business Websites, Mobile Apps)
-- **How It Works**: 3 strategies (EMA bounce · consolidation breakout · trend continuation) + hybrid `limit + stop` to 21:00 UTC, real Dukascopy + backtest `76.9% WR / PF 4.0`, hybrid `74.2% / PF 5.12 / +103R`
-- **Roadmap, Pricing (Coming Soon — Telegram is the waitlist), Proof, FAQ, Founder**
+- **How It Works**: 3 strategies (EMA bounce · consolidation breakout · trend continuation) + hybrid `limit + stop` to 21:00 UTC, real MT5 broker feed (Dukascopy fallback) + 4.25-yr backtest `20,237 signals · 64.8% WR · +0.69R avg`, 2-month current config `152 fills · 74.2% WR · PF 5.12 · +103R`
+- **Roadmap, Pricing (access open — `/pay`), Proof, FAQ, Founder**
 - **Proof**: pill `Demo | Prop` — **Demo** = L2 card + metrics + X links (public), **Prop $10k** = 11 private screenshots (`public/prop/prop-*.jpg`) with `Private — will publish when funded` badge (no X to avoid copy-trade)
 - **FAQ #1 disclaimer**: *Not an investment service. We don’t manage funds unless signed agreement. No investment advice. Users only pay for signal access in private Telegram + upcoming web app.*
 

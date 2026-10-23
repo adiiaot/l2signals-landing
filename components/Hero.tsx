@@ -22,7 +22,7 @@ export default function Hero() {
             <span className="font-mono font-light tracking-tight" style={{ color: 'var(--accent-gold)' }}>No guesswork.</span>
           </h1>
           <p className="text-sm md:text-[15px] leading-relaxed text-white/80 max-w-2xl mx-auto">
-            L2 Signals is a Systematic Intraday Signal Service — 3 Complementary Strategies, Hybrid <span className="text-white font-medium">Execution </span> Model. Backtested on real market data, forward validated live. Every trade, every R.
+            L2 Signals is a Systematic Intraday Signal Service — 3 Complementary Strategies, Hybrid <span className="text-white font-medium">Execution </span> Model. Backtested over 4.25 years of real gold data, forward validated on a live demo ledger. Every trade, every R.
           </p>
           <div className="flex flex-wrap justify-center gap-3 pt-1">
             <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="inline-flex items-center justify-center rounded-full bg-white text-black text-xs font-semibold px-6 py-2.5 hover:bg-white/90 transition">
@@ -36,7 +36,9 @@ export default function Hero() {
             </a>
           </div>
           <div className="flex flex-wrap justify-center pt-2 font-mono text-[10px]">
-            <span className="px-2.5 py-1 rounded-full bg-white/10 text-white border border-white/15">74.2% · PF 5.12 · +103R hybrid</span>
+            <span className="px-2.5 py-1 rounded-full bg-white/10 text-white border border-white/15">
+              4.25-yr backtest · 20,237 signals · 64.8% WR · +0.69R avg
+            </span>
           </div>
         </motion.div>
       </div>

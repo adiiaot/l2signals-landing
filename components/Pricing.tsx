@@ -7,7 +7,7 @@ export default function Pricing() {
         <p className="text-[11px] tracking-[0.16em] text-accent-gold uppercase">Access</p>
         <h3 className="text-lg font-bold text-text-primary mt-1">Need Signals To Scale Your Capital?</h3>
         <p className="text-xs text-text-muted mt-2 max-w-xl mx-auto">
-          We post pricing and availability in the channel. Join free, see the ledger, then decide. No pressure, no DMs.
+          Access is open — the payment page shows the current price and all three rails. Join the free channel, check the ledger, then decide. No pressure, no DMs.
         </p>
         <div className="flex flex-wrap justify-center gap-3 mt-4">
           <a href="/pay" className="btn-primary rounded-full px-6 py-2.5 text-xs">Subscribe — pay now</a>

@@ -1,6 +1,6 @@
 const STEPS = [
   { phase: 'Milestone Achieved', title: 'Demo $100 → $1,007.41 in 37 Days', desc: 'July 29 → Sept 4, 2026 · Systematic, 1–2% risk · Proof complete', done: true },
-  { phase: 'Now', title: 'Live Demo + Prop Parallel', desc: 'Both ledgers run for years — live validated, daily channel posts.', done: true },
+  { phase: 'Now', title: 'Live Demo + Prop Parallel', desc: 'Demo ledger since Jul 2026 and the prop account running side by side — daily channel posts, 4.25-year backtest behind both.', done: true },
   { phase: 'Validation', title: 'Prop Firm Live', desc: 'Any firm, any size — trades verified privately in L2 Signals Pro', done: false },
   { phase: 'Next', title: 'Private Signals + Web App', desc: 'Private group + web app when demand proves — channel is the waitlist for the Pro', done: false },
   { phase: 'Open now', title: 'API + Custom Builds', desc: 'Signals API access, trading systems, apps — contact for a custom quote.', done: false, href: '/services' },

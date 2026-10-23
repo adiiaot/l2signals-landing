@@ -11,15 +11,15 @@ const FAQS = [
   },
   {
     q: 'What is L2 Signals and how does it work?',
-    a: 'L2 Signals is a systematic XAU/USD intraday product built for disciplined retail traders. It uses three complementary strategies that each handle a different market regime and hybrid pending orders — limit + stop with the same SL/TP, whichever touches first fills and the other is cancelled — to 21:00 UTC close. The system is deterministic: same rules every time, no discretion, no chasing. Backtested on real Dukascopy spot gold and forward validated live, with every trade, R and date logged.',
+    a: 'L2 Signals is a systematic XAU/USD intraday product built for disciplined retail traders. It uses three complementary strategies that each handle a different market regime and hybrid pending orders — limit + stop with the same SL/TP, whichever touches first fills and the other is cancelled — to 21:00 UTC close. The system is deterministic: same rules every time, no discretion, no chasing. It has been backtested over 4.25 years of broker gold data (20,237 signals · 64.8% WR · +0.69R per signal, profitable in every year) and is forward validated on a live demo ledger, with every trade, R and date logged.',
   },
   {
     q: 'Do I need trading experience to use it?',
-    a: 'Yes, basic experience is needed. You should understand stop loss, take profit, lot sizing and risk per trade (we use 1–2% per trade). L2 provides the system, the entry/SL/TP, the exit playbook (50% at +1R to breakeven, rest to TP) and the ledger. You execute on your own broker or prop firm. If you are new, paper trade first and follow the free channel to learn the workflow before paying for private access.',
+    a: 'Yes, basic experience is needed. You should understand stop loss, take profit, lot sizing and risk per trade (we use 1–2% per trade). L2 provides the system, the entry/SL/TP, the exit playbook — 50% off at +1R, stop to breakeven, rest to TP; or a full exit at TP when the target is under 1R — and the ledger. You execute on your own broker or prop firm. If you are new, paper trade first and follow the free channel to learn the workflow before paying for private access.',
   },
   {
     q: 'How are signals delivered?',
-    a: 'Signals and daily results are posted in the free public channel for transparency. Paid members get private Telegram access for intraday signals when the private group launches, and later the upcoming web app will mirror the same signals with additional tooling. No email list is needed — the Telegram channel is the waitlist and update channel.',
+    a: 'Signals and daily results are posted in the free public channel for transparency. Paid members get the private Telegram group for intraday signals, and the web app mirrors the same signals with extra tooling as it rolls out. No email list is needed — the Telegram channel is the update channel.',
   },
   {
     q: 'Why hybrid limit + stop entries?',
@@ -27,15 +27,15 @@ const FAQS = [
   },
   {
     q: 'How can I verify the results are real?',
-    a: 'The demo milestone — $100 to $1,007.41 in 37 days — is documented trade by trade on X with links in the Demo ledger, and the full trade history is verifiable there and in the Telegram channel. Live prop trades are verified privately with screenshots and account statements, and published after the challenge is completed to avoid copy-trading from others using the same firm. The ledger on this site is the single source of truth and updates as new trades are logged.',
+    a: 'Two separate records. The backtest covers 20,237 signals over 4.25 years (Jul 2022 – Oct 2026) with the same rules and cost model the engine runs today — 64.8% WR and +0.69R per signal across that whole period, not a hand-picked sample. The demo ledger — $100 to $1,007.41 in 37 days (Jul 29 – Sep 4, 2026) — is logged trade by trade, with each one posted on X and linked in the Demo ledger below. Live prop trades are verified privately with screenshots and account statements, and published after the challenge is completed to avoid copy-trading from others using the same firm. The ledger on this site is the single source of truth and updates as new trades are logged.',
   },
   {
     q: 'When will the web app and private group launch?',
-    a: 'Timing depends on demand and validation. The free Telegram channel is the waitlist — when we see consistent demand and the live forward validation holds, we open the private Telegram for paid signals and then the multi-user web app with auth, subscriptions and tooling. Join the channel now to be first to know; no deposit or pre-payment is taken before launch.',
+    a: 'The private group is open now and access is sold on the payment page. The multi-user web app (auth, subscriptions, extra tooling) ships alongside it as the member base grows, and paid members get it as it lands. You can still join the free channel first and watch the ledger before paying — nothing is charged until you check out.',
   },
   {
     q: 'How do I pay for access?',
-    a: 'Three rails on the payment page: card via Paystack (Verve, Mastercard, Visa, bank USSD/transfer), USDT or USDC on TRON (TRC20) or BNB Chain (BEP20), or Nigerian bank transfer in NGN. Card is instant; crypto and transfer are verified manually, then access is activated. Stablecoins only — the amount is always 1:1 with the USD price, so it never changes between checkout and confirmation.',
+    a: 'Three rails on the payment page: card via Paystack (Verve, Mastercard, Visa, bank USSD/transfer), USDT or USDC on TRON (TRC20) or BNB Chain (BEP20), or Nigerian bank transfer in NGN. Card is instant. Crypto is checked on-chain automatically — send the email and transaction hash to the bot and your invite is issued as soon as the transfer confirms; if verification is unavailable the payment is queued for manual review instead. Bank transfers are confirmed manually. Stablecoins only — the amount is always 1:1 with the USD price, so it never changes between checkout and confirmation.',
   },
 ]
 

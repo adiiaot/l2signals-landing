@@ -20,8 +20,8 @@ export default function Page() {
       <Founder />
       <section id="contact" className="max-w-6xl mx-auto px-4 py-6 scroll-reveal">
         <div className="card text-center">
-          <h3 className="text-lg font-bold text-text-primary">Stay updated — Telegram is the waitlist</h3>
-          <p className="text-xs text-text-muted mt-1 max-w-2xl mx-auto">We post daily results, trades, and app release updates in the public channel. Join now — when private signals + web app drop, you’ll be first to know. No email list needed.</p>
+          <h3 className="text-lg font-bold text-text-primary">Stay updated — Telegram is where we post</h3>
+          <p className="text-xs text-text-muted mt-1 max-w-2xl mx-auto">We post daily results, trades and release updates in the public channel. Join free to watch the ledger, or subscribe for private signals now.</p>
           <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 justify-center mt-4">
             <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="btn-primary rounded-full px-8 py-3 w-full sm:w-auto">Join Our Channel on Telegram</a>
             <a href="https://x.com/l2signals" target="_blank" rel="noopener" className="btn-secondary rounded-full px-8 py-3 w-full sm:w-auto">Follow on X</a>

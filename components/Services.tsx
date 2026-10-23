@@ -11,7 +11,7 @@ export default function Services() {
           </div>
           <div className="rounded-xl p-4" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
             <p className="text-xs font-semibold">Telegram delivery</p>
-            <p className="text-[11px] text-text-muted mt-1">Exit playbook 50%@+1R → BE → TP + daily channel updates.</p>
+            <p className="text-[11px] text-text-muted mt-1">Exit playbook 50%@+1R → BE → TP (or full exit at TP under 1R) + daily channel updates.</p>
           </div>
           <div className="rounded-xl p-4" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
             <p className="text-xs font-semibold">Verifiable ledger</p>

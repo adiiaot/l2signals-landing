@@ -15,13 +15,13 @@ export default function HowItWorks() {
           </div>
           <div className="rounded-xl p-4" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
             <p className="text-xs font-bold text-accent-gold">Real Data</p>
-            <p className="text-[11px] text-text-muted mt-1">Real Dukascopy XAU/USD candles, live validated. No synthetic data.</p>
+            <p className="text-[11px] text-text-muted mt-1">Live MT5 broker feed as primary, Dukascopy as fallback. Each signal is tagged with the feed it came from — unvalidated feeds never enter the stats.</p>
           </div>
         </div>
         <div className="mt-4 rounded-xl p-4 flex flex-wrap gap-2 text-[11px]" style={{ background: 'rgba(var(--accent-gold-rgb),0.06)', border: '1px solid rgba(var(--accent-gold-rgb),0.15)' }}>
-          <span className="badge-gold">Backtest 200 signals · 76.9% WR · PF 4.0</span>
-          <span className="badge-win">Hybrid EOD · 74.2% WR · PF 5.12 · +103R</span>
-          <span className="badge-info">Live Forward · 81% WR</span>
+          <span className="badge-gold">4.25-yr backtest · 20,237 signals · 64.8% WR · +0.69R avg</span>
+          <span className="badge-win">2-month current config · 152 fills · 74.2% WR · PF 5.12</span>
+          <span className="badge-info">Live demo · $100 → $1,007.41 in 37 days</span>
         </div>
       </div>
     </section>

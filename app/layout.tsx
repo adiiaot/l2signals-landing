@@ -7,10 +7,10 @@ import MobileStickyCTA from '../components/MobileStickyCTA'
 
 export const metadata: Metadata = {
   title: 'L2 Signals — Intraday Signals for Disciplined Traders',
-  description: 'Systematic XAU/USD intraday signals — 3 strategies + hybrid limit+stop to 21:00 UTC. Demo $100→$1,007.41 in 37 days. Proof of execution live. Plus Signals API access, custom trading systems, and fintech apps — quoted custom.',
+  description: 'Systematic XAU/USD intraday signals — 3 strategies + hybrid limit+stop to 21:00 UTC. 4.25-year backtest: 20,237 signals, 64.8% WR, +0.69R per signal. Live demo $100→$1,007.41 in 37 days. Plus Signals API access, custom trading systems, and fintech apps — quoted custom.',
   openGraph: {
     title: 'L2 Signals — Intraday Signals for Disciplined Traders',
-    description: 'Systematic XAU/USD — Demo $100→$1,007.41 in 37 days. Verifiable ledger. Plus Signals API, custom trading systems & fintech apps.',
+    description: 'Systematic XAU/USD — 4.25-year backtest (20,237 signals, 64.8% WR, +0.69R per signal) and a live demo ledger $100→$1,007.41 in 37 days. Verifiable proof. Plus Signals API, custom trading systems & fintech apps.',
     images: ['/images/l2signals_cover_banner.jpg'],
   },
   icons: { icon: '/images/l2signals_logo.jpg' },

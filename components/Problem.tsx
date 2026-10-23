@@ -28,7 +28,7 @@ export default function Problem() {
           <ul className="space-y-2 text-xs text-text-secondary">
             <li className="flex gap-2"><span className="text-status-win">✓</span> Deterministic signals — same 3 strategies every time, no discretion.</li>
             <li className="flex gap-2"><span className="text-status-win">✓</span> Hybrid limit + stop (whichever fills, same SL/TP, cancel other) → never miss the move.</li>
-            <li className="flex gap-2"><span className="text-status-win">✓</span> Risk-first sizing (0.01 lot · 1–2% · to 21:00 UTC close), exit playbook 50%@+1R → BE.</li>
+            <li className="flex gap-2"><span className="text-status-win">✓</span> Risk-first sizing (0.01 lot · 1–2% · to 21:00 UTC close), exit playbook 50%@+1R → BE, TP-first when the target is under 1R.</li>
             <li className="flex gap-2"><span className="text-status-win">✓</span> Every trade logged — Firestore ledger + X posts + Telegram daily → verifiable.</li>
             <li className="flex gap-2"><span className="text-status-win">✓</span> Community channel — daily results, accountability, education, not isolation.</li>
           </ul>

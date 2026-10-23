@@ -9,10 +9,10 @@ export default function About() {
           <h2 className="text-lg font-bold text-text-primary">What is L2 Signals?</h2>
         </div>
         <p className="text-sm text-text-secondary leading-relaxed">
-          <span className="font-semibold text-text-primary">L2 Signals</span> is a systematic XAU/USD intraday service for disciplined retail traders. We don&apos;t sell a bot that doubles capital. We generate deterministic signals — same rules every time — on real Dukascopy spot gold data, with a hybrid pending-order engine that catches the move whether price retraces to our limit or runs away to our stop. Backtest on 2-month real data: <span className="text-accent-gold font-semibold">76.9% WR / PF 4.0</span>. Hybrid EOD: <span className="text-accent-gold font-semibold">74.2% / PF 5.12 / +103R</span>.
+          <span className="font-semibold text-text-primary">L2 Signals</span> is a systematic XAU/USD intraday service for disciplined retail traders. We don&apos;t sell a bot that doubles capital. We generate deterministic signals — same rules every time — from real broker gold candles (MT5 feed, Dukascopy fallback), with a hybrid pending-order engine that catches the move whether price retraces to our limit or runs away to our stop. The long-run test is <span className="text-accent-gold font-semibold">4.25 years · 20,237 signals · 64.8% WR · +0.69R per signal</span> — profitable in every year, 2022 through 2026. On the current config over the last 2 months (Jun 18 – Aug 18, 2026): <span className="text-accent-gold font-semibold">152 fills · 74.2% WR · PF 5.12 · +103R</span>.
         </p>
         <p className="text-sm text-text-secondary leading-relaxed mt-3">
-          Built by <span className="font-semibold text-accent-gold">AOT — Cross Asset Quant</span>. Every signal, R, date and outcome is logged. Nothing hidden, nothing cherry-picked. The page you&apos;re reading pulls the same Firestore ledger the private dashboard uses — so when we’re funded, it updates here.
+          Built by <span className="font-semibold text-accent-gold">AOT — Cross Asset Quant</span>. Every signal, R, date and outcome is logged. Nothing hidden, nothing cherry-picked. The ledger on this page pulls the same Firestore trades the private dashboard uses, so it updates here as new trades are logged.
         </p>
       </div>
     </section>
