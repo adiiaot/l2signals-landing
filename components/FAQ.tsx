@@ -35,7 +35,7 @@ const FAQS = [
   },
   {
     q: 'How do I pay for access?',
-    a: 'Three rails on the payment page: card via Paystack (Verve, Mastercard, Visa, bank USSD/transfer), USDT or USDC on TRON (TRC20) or BNB Chain (BEP20), or Nigerian bank transfer in NGN. Card is instant. Crypto is checked on-chain automatically — send the email and transaction hash to the bot and your invite is issued as soon as the transfer confirms; if verification is unavailable the payment is queued for manual review instead. Bank transfers are confirmed manually. Stablecoins only — the amount is always 1:1 with the USD price, so it never changes between checkout and confirmation.',
+    a: 'Three rails on the payment page: card via Paystack (Verve, Mastercard, Visa, bank USSD/transfer), USDT or USDC on TRON (TRC20) or BNB Chain (BEP20), or Nigerian bank transfer in NGN. Card is instant to pay. Every payment is then checked by hand — send the reference (or crypto transaction hash) plus a screenshot to @aot_ayo on Telegram, or email l2signalslab@gmail.com if you prefer, and you are added to the private group with a single-use invite, usually within a few hours. No Telegram is needed to join: email works. Stablecoins only — the amount is always 1:1 with the USD price, so it never changes between checkout and confirmation.',
   },
 ]
 

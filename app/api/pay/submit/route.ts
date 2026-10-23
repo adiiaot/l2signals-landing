@@ -116,10 +116,13 @@ export async function POST(req: NextRequest) {
 
     const isCrypto = method === 'crypto'
 
-    // On-chain verification lives in the bot so this page and the Telegram /pay
-    // flow share one implementation. `null` means the verifier is not configured
-    // or the bot is asleep — that is a manual review, never a silent grant.
-    if (isCrypto && network) {
+    // Manual-first (2026-10-23): the operator verifies every payment by hand and
+    // adds the member personally. Auto-verification is kept for later and only
+    // runs when PAYMENTS_AUTO_VERIFY=true — flipping that flag must never be the
+    // difference between "manual review" and "silently granted".
+    const autoVerify = process.env.PAYMENTS_AUTO_VERIFY === 'true'
+
+    if (isCrypto && network && autoVerify) {
       const verification = await verifyWithBot({
         txHash: reference,
         network,
@@ -143,6 +146,8 @@ export async function POST(req: NextRequest) {
       adminNotes = verification
         ? `Auto-verify: ${verification.reason || 'not verified'}`
         : 'Auto-verify unavailable (bot offline) — manual review'
+    } else {
+      adminNotes = 'Manual review — payer sends proof on Telegram'
     }
 
     const result = await recordPayment({

@@ -12,7 +12,7 @@ import {
   type PaymentNetwork,
 } from '@/lib/payments/types'
 import type { PublicPayConfig } from '@/lib/payments/config'
-import { PAYSTACK_STOREFRONT_URL } from '@/lib/payments/links'
+import { PAYSTACK_STOREFRONT_URL, PROOF_EMAIL, TELEGRAM_PROOF_HANDLE, TELEGRAM_PROOF_URL } from '@/lib/payments/links'
 
 type Method = 'card' | 'crypto' | 'bank'
 
@@ -22,9 +22,9 @@ interface Done {
   currency: string
   telegramVerified?: boolean
   viaCard?: boolean
-  /** True only when the bot verified the transfer on-chain. */
-  verified?: boolean
-  inviteLink?: string | null
+  /** What the payer shows as proof: Paystack reference, tx hash or bank narration. */
+  reference?: string
+  email?: string
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
@@ -137,6 +137,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
             currency: json.currency,
             telegramVerified: json.telegramVerified,
             viaCard: true,
+            reference: returnReference,
           })
           setReturnState(null)
         } else {
@@ -286,8 +287,8 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
         amount: json.amount,
         currency: json.currency,
         telegramVerified: json.telegramVerified,
-        verified: Boolean(json.verified),
-        inviteLink: json.inviteLink || null,
+        reference: method === 'crypto' ? txHash.trim() : bankRef.trim(),
+        email: email.trim(),
       })
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong. Try again.')
@@ -310,73 +311,120 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
   }
 
   if (done) {
+    const proofRef = done.reference || done.paymentId
+    const amountLabel = done.currency === 'NGN' ? naira(done.amount) : usd(done.amount)
+    const mailto = `mailto:${PROOF_EMAIL}?subject=${encodeURIComponent(
+      'L2 Signals — payment proof'
+    )}&body=${encodeURIComponent(
+      [
+        'L2 Signals — payment proof',
+        '',
+        `Email used: ${done.email || ''}`,
+        `Reference: ${proofRef}`,
+        `Amount: ${amountLabel}`,
+        'Telegram username (for the invite): ',
+        '',
+        'Screenshot attached below.',
+      ].join('\n')
+    )}`
+
     return (
       <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6 sm:py-8 space-y-4">
         <div className="card-glow text-center">
-          <p className="text-[11px] tracking-[0.16em] text-accent-gold uppercase">
-            {done.verified ? 'Payment verified' : 'Payment received'}
+          <p className="text-[11px] tracking-[0.16em] text-accent-gold uppercase">Payment received</p>
+          <h1 className="text-xl sm:text-2xl font-bold mt-2">{amountLabel} submitted</h1>
+          <p className="text-xs text-text-muted mt-2 max-w-md mx-auto leading-relaxed">
+            One step left: send your proof so it can be checked and you can be added to the private
+            group. Nothing is charged twice and this page is not needed again.
           </p>
-          <h1 className="text-xl sm:text-2xl font-bold mt-2">
-            {done.currency === 'NGN' ? naira(done.amount) : usd(done.amount)}{' '}
-            {done.verified ? 'confirmed' : 'submitted'}
-          </h1>
-          {done.verified ? (
-            <p className="text-xs text-text-muted mt-2 max-w-md mx-auto leading-relaxed">
-              The transfer was checked on-chain and your access is active. Join the private group below.
-            </p>
-          ) : (
-            <p className="text-xs text-text-muted mt-2 max-w-md mx-auto leading-relaxed">
-              Your reference is <code className="text-accent-gold">{done.paymentId}</code>. It is queued for
-              review — access is activated manually, usually within a few hours.
-            </p>
-          )}
           <div className="inline-flex flex-wrap justify-center gap-2 mt-4">
-            <span className={done.verified ? 'badge-win' : 'badge-info'}>
-              {done.verified ? 'Verified on-chain' : 'Reference saved'}
-            </span>
+            <span className="badge-info">Reference saved</span>
             {done.telegramVerified ? (
               <span className="badge-info">Telegram linked</span>
             ) : (
               <span className="badge-warn">Matched by email</span>
             )}
           </div>
-          {done.verified && done.inviteLink && (
+        </div>
+
+        <div className="card">
+          <h2 className="text-sm font-bold">Send these 4 things</h2>
+          <ul className="mt-2 space-y-1.5 text-xs text-text-secondary leading-relaxed">
+            <li>
+              <span className="text-text-primary font-semibold">1.</span>{' '}
+              {done.email ? (
+                <>
+                  The email you paid with —{' '}
+                  <code className="text-accent-gold">{done.email}</code>
+                </>
+              ) : (
+                'The email you paid with'
+              )}
+            </li>
+            <li>
+              <span className="text-text-primary font-semibold">2.</span> Your reference —{' '}
+              <code className="text-accent-gold break-all">{proofRef}</code>
+            </li>
+            <li>
+              <span className="text-text-primary font-semibold">3.</span> A screenshot of the payment
+              (or the explorer page for crypto)
+            </li>
+            <li>
+              <span className="text-text-primary font-semibold">4.</span> Your Telegram{' '}
+              <code>@username</code> so the invite can be sent — skip this if you want email only
+            </li>
+          </ul>
+
+          <div className="mt-4 grid gap-2 sm:grid-cols-2">
             <a
-              href={done.inviteLink}
+              href={TELEGRAM_PROOF_URL}
               target="_blank"
               rel="noopener"
-              className="btn-primary rounded-full px-6 py-2.5 text-xs inline-block mt-4"
+              className="btn-primary rounded-full px-5 py-2.5 text-xs text-center"
             >
-              Join the private group
+              Send on Telegram ({TELEGRAM_PROOF_HANDLE})
             </a>
-          )}
+            <a
+              href={mailto}
+              className="btn-secondary rounded-full px-5 py-2.5 text-xs text-center break-all"
+            >
+              Email instead
+            </a>
+          </div>
+          <p className="text-[11px] text-text-muted mt-3">
+            Either one works — no Telegram account needed to join. Proof by email goes to{' '}
+            <a href={mailto} className="text-accent-gold hover:underline break-all">
+              {PROOF_EMAIL}
+            </a>
+            . Keep the reference above; it is how the payment gets matched.
+          </p>
         </div>
 
         <div className="card">
           <h2 className="text-sm font-bold">What happens next</h2>
-          {done.verified ? (
-            <ol className="mt-2 space-y-2 text-xs text-text-secondary list-decimal ml-4 leading-relaxed">
-              <li>Your subscription is now active for this billing period.</li>
-              <li>
-                {done.telegramVerified
-                  ? 'The bot has also sent the invite to your Telegram — check that chat.'
-                  : 'Use the join button above. Send /status to the bot any time to see your expiry.'}
-              </li>
-              <li>Nothing else is required. Renew from this page when your period ends.</li>
-            </ol>
-          ) : (
-            <ol className="mt-2 space-y-2 text-xs text-text-secondary list-decimal ml-4 leading-relaxed">
-              <li>We verify the payment against the chain, bank receipt or Paystack dashboard.</li>
-              <li>Your subscription is extended and any ban is lifted.</li>
-              <li>The bot sends your single-use invite to the private group.</li>
-            </ol>
-          )}
+          <ol className="mt-2 space-y-2 text-xs text-text-secondary list-decimal ml-4 leading-relaxed">
+            <li>The payment is checked by hand against the wallet, bank statement or Paystack dashboard.</li>
+            <li>
+              You get a single-use invite to the private group — on Telegram, or by email if you asked
+              for that.
+            </li>
+            <li>Your {config.plan.days} days start when you join, not when you paid.</li>
+          </ol>
           <p className="text-[11px] text-text-muted mt-3">
-            Nothing arrived within 24h? Message{' '}
-            <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">
-              t.me/l2signals
+            Usually within a few hours. Nothing after 24h? Message{' '}
+            <a
+              href={TELEGRAM_PROOF_URL}
+              target="_blank"
+              rel="noopener"
+              className="text-accent-gold hover:underline"
+            >
+              {TELEGRAM_PROOF_HANDLE}
             </a>{' '}
-            with your reference.
+            or email{' '}
+            <a href={`mailto:${PROOF_EMAIL}`} className="text-accent-gold hover:underline">
+              {PROOF_EMAIL}
+            </a>{' '}
+            with the reference above — the reference is the only thing needed to find your payment.
           </p>
         </div>
 
@@ -407,7 +455,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
           <h1 className="text-lg sm:text-xl font-bold mt-2">Payments are being set up</h1>
           <p className="text-xs text-text-muted mt-2">
             Crypto and bank details are not published yet. Card payments already work — pay on the
-            Paystack page and send us the reference on Telegram.
+            Paystack page, then send the reference to {TELEGRAM_PROOF_HANDLE} or {PROOF_EMAIL}.
           </p>
           <a
             href={PAYSTACK_STOREFRONT_URL}
@@ -418,11 +466,20 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
             Pay by card on Paystack
           </a>
           <p className="text-[10px] text-text-muted mt-3">
-            Or message{' '}
-            <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">
-              t.me/l2signals
+            Questions? Message{' '}
+            <a
+              href={TELEGRAM_PROOF_URL}
+              target="_blank"
+              rel="noopener"
+              className="text-accent-gold hover:underline"
+            >
+              {TELEGRAM_PROOF_HANDLE}
             </a>{' '}
-            and we will sort out access.
+            or email{' '}
+            <a href={`mailto:${PROOF_EMAIL}`} className="text-accent-gold hover:underline">
+              {PROOF_EMAIL}
+            </a>
+            .
           </p>
         </div>
       </div>
@@ -443,6 +500,14 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
         <p className="text-[11px] text-text-muted mt-3">
           {config.plan.ngn > 0 ? `${naira(config.plan.ngn)} card or bank · ` : ''}
           {usd(config.plan.usd)} crypto
+        </p>
+        <p className="text-[11px] text-text-muted mt-2 leading-relaxed">
+          Pay here, then send your reference and a screenshot to {TELEGRAM_PROOF_HANDLE} on Telegram or{' '}
+          <a href={`mailto:${PROOF_EMAIL}`} className="text-accent-gold hover:underline break-all">
+            {PROOF_EMAIL}
+          </a>
+          . Payments are checked by hand — usually a few hours — and you are added to the private group
+          manually.
         </p>
       </div>
 
@@ -690,10 +755,19 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
                 <p className="text-xs font-semibold">Bank details are being set up</p>
                 <p className="text-[11px] text-text-muted mt-1">
                   Use card or crypto for now, or message{' '}
-                  <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">
-                    t.me/l2signals
-                  </a>
-                  .
+                  <a
+                    href={TELEGRAM_PROOF_URL}
+                    target="_blank"
+                    rel="noopener"
+                    className="text-accent-gold hover:underline"
+                  >
+                    {TELEGRAM_PROOF_HANDLE}
+                  </a>{' '}
+                  / email{' '}
+                  <a href={`mailto:${PROOF_EMAIL}`} className="text-accent-gold hover:underline">
+                    {PROOF_EMAIL}
+                  </a>{' '}
+                  and we will send transfer details.
                 </p>
               </div>
             )}
@@ -754,8 +828,10 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
         </button>
 
         <p className="text-[11px] text-text-muted mt-3 leading-relaxed">
-          Access is activated after review — Paystack payments are checked against the Paystack dashboard, crypto
-          against the chain. Nothing is auto-granted from a redirect alone.
+          Every payment is checked by hand — card against the Paystack dashboard, crypto against the
+          chain, bank against the statement. Send your proof to {TELEGRAM_PROOF_HANDLE} on Telegram or
+          email {PROOF_EMAIL}; you are added to the private group manually. Nothing is granted
+          automatically.
         </p>
       </div>
 
