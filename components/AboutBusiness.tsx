@@ -5,14 +5,14 @@ const CARD = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid
 const PRINCIPLES = [
   {
     title: 'Systems over signals',
-    body: 'Every product starts with explicit rules: entries, invalidation, targets and risk. If a rule cannot be stated, it is not ready to be automated or sold.',
+    body: 'Every product starts with explicit rules: entries, invalidation, targets and risk. If a rule cannot be stated, it is not ready to be automated or offered.',
   },
   {
     title: 'One record, honestly labelled',
     body: 'Official engine outcomes, execution results and personal account results are kept separate. A member’s profit or loss never rewrites the official record.',
   },
   {
-    title: 'Status before sales copy',
+    title: 'Status before marketing',
     body: 'Live, in development and planned are different things. Unreleased products are not presented as available, and no release date is invented.',
   },
   {
@@ -29,18 +29,19 @@ export default function AboutBusiness() {
           <div>
             <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">About the business</p>
             <h2 className="text-lg sm:text-xl font-bold mt-1">
-              {BUSINESS.name} builds the tools; you keep the controls.
+              A signal provider that builds the tools — you keep the controls.
             </h2>
             <p className="text-xs sm:text-sm text-text-secondary mt-3 leading-relaxed">
-              L2 Signals Services is a software and trading-technology business. We design systematic trading
-              tools, automation, market-analysis products and the infrastructure behind them. The business is
-              intended to grow into a product ecosystem, not a single signal page.
+              L2 Signals Services is a trading-technology business and signal provider. We design systematic
+              trading tools, automation, market-analysis products and the infrastructure behind them. The
+              business is intended to grow into a product ecosystem, not a single signal page.
             </p>
             <p className="text-xs sm:text-sm text-text-secondary mt-3 leading-relaxed">
-              The first product is L2 Signals: an intraday XAU/USD signal service with a deterministic engine,
-              a published exit playbook and a performance record measured from the engine. It is live in early
-              access. Around it, L2 EA, L2 Indicator and the L2 Signals App are being specified or built, and
-              the same team takes on custom systems, API integrations and software work.
+              Our flagship is L2 Signals: a rule-based intraday XAU/USD signal service delivered to a private
+              group for interested members. It has a deterministic engine, a published exit playbook and a
+              performance record measured from the engine. It is live in early access. Around it, L2 EA, L2
+              Indicator and the L2 Signals App are being specified or built, and the same team takes on custom
+              systems, API integrations and software work.
             </p>
 
             <div className="grid gap-2 sm:grid-cols-2 mt-4">
@@ -58,7 +59,7 @@ export default function AboutBusiness() {
               <p className="text-[10px] tracking-[0.16em] uppercase text-text-muted">What we do</p>
               <ul className="mt-2 space-y-1.5 text-[11px] text-text-secondary leading-relaxed">
                 <li className="flex gap-2"><span className="text-accent-gold">•</span>Build systematic trading engines and execution tools</li>
-                <li className="flex gap-2"><span className="text-accent-gold">•</span>Publish signals with entries, stops, targets and updates</li>
+                <li className="flex gap-2"><span className="text-accent-gold">•</span>Publish rule-based signals to a private group for interested members</li>
                 <li className="flex gap-2"><span className="text-accent-gold">•</span>Measure official performance from engine outcomes</li>
                 <li className="flex gap-2"><span className="text-accent-gold">•</span>Take on scoped software and API work for traders and firms</li>
               </ul>

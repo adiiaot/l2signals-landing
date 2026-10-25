@@ -8,7 +8,6 @@ import HowItWorks from '../components/HowItWorks'
 import Why from '../components/Why'
 import Roadmap from '../components/Roadmap'
 import Pricing from '../components/Pricing'
-import TrustDocs from '../components/TrustDocs'
 import FAQ from '../components/FAQ'
 import Founder from '../components/Founder'
 import Link from 'next/link'
@@ -19,6 +18,7 @@ export default function Page() {
     <div className="space-y-2">
       <Hero />
       <AboutBusiness />
+      <Founder />
       <Products />
       <SignalsSpotlight />
       <ProofSection />
@@ -27,16 +27,14 @@ export default function Page() {
       <Why />
       <Roadmap />
       <Pricing />
-      <TrustDocs />
       <FAQ />
-      <Founder />
 
       <section id="contact" className="max-w-6xl mx-auto px-4 py-6 scroll-reveal scroll-mt-20">
         <div className="card">
           <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center">
             <div>
               <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Contact the business</p>
-              <h3 className="text-base sm:text-lg font-bold mt-1">Questions before you subscribe — or a project to scope?</h3>
+              <h3 className="text-base sm:text-lg font-bold mt-1">Questions before you join — or a project to scope?</h3>
               <p className="text-xs text-text-muted mt-2 leading-relaxed">
                 Ask about L2 Signals, access or a payment, or talk to us about an EA, indicator, API or custom
                 software project. Messages are answered by a person.
@@ -87,21 +85,12 @@ export default function Page() {
               </a>
               <Link
                 href="/services"
-                className="rounded-xl p-3 hover:border-accent-gold/40 transition"
+                className="rounded-xl p-3 hover:border-accent-gold/40 transition sm:col-span-2"
                 style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}
               >
                 <p className="text-[10px] uppercase tracking-[0.14em] text-text-muted">Build with us</p>
                 <p className="text-[11px] font-semibold text-accent-gold mt-1">Services &amp; API</p>
                 <p className="text-[10px] text-text-muted mt-1">Scoped custom work.</p>
-              </Link>
-              <Link
-                href="/legal"
-                className="rounded-xl p-3 hover:border-accent-gold/40 transition"
-                style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}
-              >
-                <p className="text-[10px] uppercase tracking-[0.14em] text-text-muted">Before paying</p>
-                <p className="text-[11px] font-semibold text-accent-gold mt-1">Legal &amp; risk</p>
-                <p className="text-[10px] text-text-muted mt-1">All documents in one place.</p>
               </Link>
             </div>
           </div>

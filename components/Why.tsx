@@ -13,7 +13,7 @@ const PILLARS = [
   },
   {
     tag: 'The boundary',
-    title: 'We sell access, not control of your account',
+    title: 'You get access, not control of your account',
     body: 'You keep your funds, your broker and your decisions. We do not take custody, ask for passwords, or promise a return. That boundary is stated before checkout.',
   },
   {

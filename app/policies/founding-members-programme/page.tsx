@@ -4,7 +4,7 @@ import { POLICIES } from '../../../data/policies'
 
 export const metadata: Metadata = {
   title: 'Founding Members Programme',
-  description: 'The L2 Signals Founding Members Programme: an early-access membership open ahead of the 2027 launch target, capped at 50 members, with details on pricing, access and the performance-based extension.',
+  description: 'The L2 Signals Founding Members Programme: an early-access membership open ahead of official launch, capped at 50 members, with details on pricing, access and the performance-based extension.',
 }
 
 const pdf = POLICIES.find(p => p.slug === 'founding-members-programme')?.pdf
@@ -20,7 +20,7 @@ export default function FoundingMembersProgrammePage() {
         <>
           The Founding Members Programme is an early-access membership for traders who want access to the platform&apos;s
           systematic intraday signals while L2 Signals continues to develop its technology, validate its strategies and
-          improve delivery infrastructure. It is open while places remain, with an official launch target of 1 January 2027.
+          improve delivery infrastructure. It is open while places remain, ahead of official launch.
         </>
       }
     >

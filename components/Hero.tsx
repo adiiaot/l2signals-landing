@@ -2,11 +2,11 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import QuantBackground from './QuantBackground'
-import { BUSINESS, OFFER } from '../data/business'
+import { BUSINESS } from '../data/business'
 
 const CTAS = [
   { label: 'Explore products', href: '#products', primary: true },
-  { label: 'Explore L2 Signals', href: '#signals', primary: false },
+  { label: 'See the signal service', href: '#signals', primary: false },
   { label: 'View performance', href: '#proof', primary: false },
   {
     label: 'Contact the business',
@@ -35,22 +35,23 @@ export default function Hero() {
             style={{ background: 'rgba(0,0,0,0.28)', borderColor: 'rgba(255,255,255,0.14)', color: '#fff' }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-soft" />
-            {BUSINESS.name} · trading technology &amp; software
+            {BUSINESS.name} · signal provider
+            <span className="hidden sm:inline">&nbsp;&amp; trading technology</span>
           </div>
 
-          <h1 className="text-[30px] md:text-[46px] font-bold leading-[1.03] tracking-tight text-white">
-            Software for traders
+          <h1 className="text-[30px] sm:text-[38px] md:text-[46px] font-bold leading-[1.03] tracking-tight text-white">
+            Software for Firms, Retail Traders and Businesses
             <br />
             <span className="font-mono font-light tracking-tight" style={{ color: 'var(--accent-gold)' }}>
-              who want a system.
+              who want a system or product.
             </span>
           </h1>
 
           <p className="text-sm md:text-[15px] leading-relaxed text-white/80 max-w-2xl mx-auto">
-            We build systematic trading tools, automation and market-analysis products. Our flagship,{' '}
-            <span className="text-white font-medium">L2 Signals</span>, delivers rule-based intraday XAU/USD
-            setups to a private Telegram group — live in early access, with an official launch target of{' '}
-            <span className="text-white font-medium">{OFFER.launchTarget}</span>.
+            L2 Signals Services is a signal provider and trading-technology business. Our flagship service,{' '}
+            <span className="text-white font-medium">L2 Signals</span>, publishes rule-based XAU/USD setups to a
+            private group for interested members — with a stated entry, invalidation, target and expiry, so members
+            can act with structure, context and a repeatable process.
           </p>
 
           <div className="flex flex-wrap justify-center gap-2.5 pt-1">
@@ -61,8 +62,8 @@ export default function Hero() {
                 {...(cta.external ? { target: '_blank', rel: 'noopener' } : {})}
                 className={
                   cta.primary
-                    ? 'inline-flex items-center justify-center rounded-full bg-accent-gold text-white text-xs font-semibold px-6 py-2.5 min-h-[44px] hover:opacity-90 transition'
-                    : 'inline-flex items-center justify-center rounded-full border text-xs font-medium px-6 py-2.5 min-h-[44px] backdrop-blur hover:border-white/40 transition'
+                    ? 'inline-flex items-center justify-center rounded-full bg-accent-gold text-white text-xs font-semibold px-6 py-2.5 min-h-[44px] w-full sm:w-auto hover:opacity-90 transition'
+                    : 'inline-flex items-center justify-center rounded-full border text-xs font-medium px-6 py-2.5 min-h-[44px] w-full sm:w-auto backdrop-blur hover:border-white/40 transition'
                 }
                 style={
                   cta.primary

@@ -82,7 +82,7 @@ export default function SubscriptionTermsPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">9. Founding Members Programme</h2>
-        <p>The Founding Members Programme is an early-access subscription programme, open while places remain ahead of the official launch target of 1 January 2027. It is capped at a maximum of 50 founding members and is subject to availability and confirmation. Unless stated otherwise in writing, founding members remain subject to the applicable price and these terms. Founding-member status does not guarantee preferential trading outcomes, a minimum number of signals, or permanent access regardless of subscription status.</p>
+        <p>The Founding Members Programme is an early-access subscription programme, open while places remain ahead of official launch. It is capped at a maximum of 50 founding members and is subject to availability and confirmation. Unless stated otherwise in writing, founding members remain subject to the applicable price and these terms. Founding-member status does not guarantee preferential trading outcomes, a minimum number of signals, or permanent access regardless of subscription status.</p>
       </section>
 
       <section>

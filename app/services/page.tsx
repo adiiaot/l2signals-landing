@@ -34,7 +34,7 @@ export default function ServicesPage() {
           <div className="rounded-xl p-3" style={cardStyle}>
             <p className="text-xs font-semibold">What you get</p>
             <ul className="mt-2 space-y-1.5 text-xs text-text-secondary">
-              <li className="flex gap-2"><span className="text-accent-gold">•</span>Signals + outcomes (entry, SL/TP, hybrid legs, confidence)</li>
+              <li className="flex gap-2"><span className="text-accent-gold">•</span>Signals + outcomes (entry, SL/TP, order type, confidence)</li>
               <li className="flex gap-2"><span className="text-accent-gold">•</span>Trade history + proof ledger feed</li>
               <li className="flex gap-2"><span className="text-accent-gold">•</span>Spot price + account/prop snapshots</li>
               <li className="flex gap-2"><span className="text-accent-gold">•</span>Webhook delivery scoped to your bot or dashboard</li>

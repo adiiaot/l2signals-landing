@@ -26,21 +26,18 @@ export default function HowItWorks() {
         </div>
 
         <div className="mt-4 flex flex-col sm:flex-row gap-2">
-          <Link href="/legal" className="btn-secondary rounded-full px-5 py-2.5 text-xs justify-center">
-            Read the documents first
-          </Link>
           <Link href="#proof" className="btn-secondary rounded-full px-5 py-2.5 text-xs justify-center">
             Check the record
           </Link>
           <Link href="/pay" className="btn-primary rounded-full px-5 py-2.5 text-xs justify-center">
-            Go to the payment page
+            Start membership
           </Link>
         </div>
 
         <p className="text-[10px] text-text-muted mt-3 leading-relaxed">
-          Purchasing a subscription buys access for the paid period. It does not buy ownership of the software,
-          the strategy or the brand, and it does not grant a right to redistribute signals or private-group
-          content.
+          Membership gives access to the signal service for the paid period. It does not buy ownership of the
+          software, the strategy or the brand, and it does not grant a right to redistribute signals or
+          private-group content.
         </p>
       </div>
     </section>

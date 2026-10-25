@@ -8,15 +8,15 @@ const STEPS = [
     tone: 'live',
   },
   {
-    phase: 'Target',
-    title: 'Official launch — 1 January 2027',
-    desc: 'The published launch target for L2 Signals. A target, not a guarantee; changes will be announced in the channel.',
+    phase: 'Next',
+    title: 'Official launch — planned',
+    desc: 'The official launch is planned; timing will be announced in the channel. No date is promised.',
     tone: 'target',
   },
   {
     phase: 'In development',
     title: 'L2 EA — MetaTrader 5',
-    desc: 'Rule-based execution with independent risk controls, hybrid orders and detailed logs. Not yet for sale.',
+    desc: 'Rule-based execution with independent risk controls, clear order handling and detailed logs. Not yet for sale.',
     tone: 'build',
   },
   {
@@ -65,12 +65,12 @@ export default function Roadmap() {
             const inner = (
               <>
                 <span
-                  className="absolute top-3 right-3 text-[9px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-full"
+                  className="inline-flex sm:absolute sm:top-3 sm:right-3 text-[9px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-full"
                   style={{ color: tone.color, background: 'rgba(0,0,0,0.16)', border: `1px solid ${tone.border}` }}
                 >
                   {step.phase}
                 </span>
-                <p className="text-xs font-bold text-text-primary mt-4 pr-16">{step.title}</p>
+                <p className="text-xs font-bold text-text-primary mt-2 sm:mt-4 sm:pr-20">{step.title}</p>
                 <p className="text-[10px] text-text-muted mt-1 leading-relaxed">{step.desc}</p>
               </>
             )

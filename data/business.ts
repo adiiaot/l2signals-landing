@@ -15,9 +15,9 @@
 export const BUSINESS = {
   name: 'L2 Signals Services',
   shortName: 'L2 Signals',
-  tagline: 'Systematic trading technology & software',
+  tagline: 'Systematic trading technology & signal services',
   description:
-    'L2 Signals Services builds systematic trading tools, automation and market-analysis software. L2 Signals is its first product: a rules-based intraday XAU/USD signal service for experienced traders.',
+    'L2 Signals Services is a trading-technology business and signal provider. We build systematic trading tools, automation and market-analysis products. L2 Signals is our flagship signal service: rule-based intraday XAU/USD setups delivered to a private group for interested members.',
   email: 'l2signalslab@gmail.com',
   telegramSupport: 'https://t.me/aotayoL2',
   telegramSupportHandle: '@aotayoL2',
@@ -35,8 +35,6 @@ export const OFFER = {
   usd: 40,
   days: 31,
   graceDays: 5,
-  /** Official launch target. A target is not a promise of a release date. */
-  launchTarget: '1 January 2027',
   foundingCap: 50,
   /**
    * The current subscription is sold as the founding-member offer, so the
@@ -79,18 +77,18 @@ export const PRODUCTS: Product[] = [
     statusLabel: 'Live — early access',
     tagline: 'Systematic intraday XAU/USD signals',
     description:
-      'A rules-based engine publishes intraday gold setups to a private Telegram group. Each setup states the direction, order type, entry, stop-loss, take-profit and the applicable trade-management instructions.',
+      'L2 Signals Services provides rule-based intraday XAU/USD setups to interested members through a private group. Each setup states the direction, order type, entry, stop-loss, take-profit and the applicable trade-management instructions.',
     audience: 'Experienced discretionary and prop-firm traders who can execute and size their own trades.',
     capabilities: [
       'Three-tier strategy stack with direction-aware routing',
-      'Market, limit and hybrid pending orders with a stop-fallback leg',
+      'One clear order type per setup — market or pending — with entry, stop and target',
       'Published stop-loss, take-profit and exit playbook on every setup',
       'Official monthly performance measured from engine outcomes, not member accounts',
-      'Private Telegram delivery; members execute on their own broker or prop firm',
+      'Private group delivery; members execute on their own broker or prop firm',
     ],
     cta: { label: 'Explore L2 Signals', href: '#signals' },
     secondary: { label: 'View performance', href: '#proof' },
-    note: `Official launch target ${OFFER.launchTarget} · founding cohort capped at ${OFFER.foundingCap} members`,
+    note: `Founding cohort capped at ${OFFER.foundingCap} members · official launch planned`,
     featured: true,
   },
   {
@@ -100,12 +98,12 @@ export const PRODUCTS: Product[] = [
     statusLabel: 'In development',
     tagline: 'MetaTrader 5 Expert Advisor',
     description:
-      'A native MQL5 Expert Advisor built on the L2 Signals rules, designed to execute eligible setups automatically — the same entries, stop-loss, take-profit and hybrid pending structure, with risk controls applied independently of signal generation.',
+      'A native MQL5 Expert Advisor built on the L2 Signals rules, designed to execute eligible setups automatically — the same entries, stop-loss and take-profit logic, with risk controls applied independently of signal generation.',
     audience: 'Traders who want systematic execution on MetaTrader 5 without placing every order by hand.',
     capabilities: [
       'Rule-based execution of eligible L2 Signals setups',
       'Configurable risk per trade, spread, slippage, exposure and daily-loss limits',
-      'Hybrid pending orders, partial-profit management and expiry handling',
+      'Order management, partial-profit management and expiry handling',
       'Duplicate-order protection and restart reconciliation',
       'Detailed trade logs that separate signal, execution and account outcomes',
     ],
@@ -203,7 +201,7 @@ export const JOURNEY = [
   },
   {
     step: '03',
-    title: 'Subscribe with informed consent',
+    title: 'Join with informed consent',
     body: 'The payment page states the product, price, period, access and risks. You must actively accept the terms, risk disclosure and, where applicable, the founding-member conditions.',
   },
   {

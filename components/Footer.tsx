@@ -18,9 +18,9 @@ export default function Footer() {
             </div>
           </div>
           <p className="text-xs text-text-muted leading-relaxed">
-            We build systematic trading tools, automation and market-analysis software. L2 Signals is our
-            flagship signal service, live in early access. We do not manage member funds under the signal
-            subscription.
+            L2 Signals Services is a signal provider and trading-technology business. We build systematic
+            trading tools, automation and market-analysis software. L2 Signals is our flagship signal service,
+            live in early access. We do not manage member funds.
           </p>
           <p className="text-[10px] text-text-muted leading-relaxed">
             Trading involves substantial risk. No profit, win rate or funding outcome is guaranteed.
@@ -42,18 +42,13 @@ export default function Footer() {
         </div>
 
         <div>
-          <p className="font-bold text-text-primary mb-3">Legal &amp; policies</p>
+          <p className="font-bold text-text-primary mb-3">Legal</p>
           <div className="space-y-2">
             <Link href="/legal" className={CARD_LINK}>Legal &amp; trust centre</Link>
-            <Link href="/terms" className={CARD_LINK}>Terms of Service</Link>
-            <Link href="/privacy" className={CARD_LINK}>Privacy Policy</Link>
-            <Link href="/policies/trading-risk-disclosure" className={CARD_LINK}>Trading Risk Disclosure</Link>
-            <Link href="/policies/subscription-terms" className={CARD_LINK}>Subscription Terms</Link>
-            <Link href="/policies/performance-measurement" className={CARD_LINK}>Performance Measurement</Link>
-            <Link href="/policies/acceptable-use" className={CARD_LINK}>Acceptable Use</Link>
-            <Link href="/policies/refunds-and-cancellations" className={CARD_LINK}>Refunds &amp; Cancellations</Link>
-            <Link href="/policies/founding-members-programme" className={CARD_LINK}>Founding Members</Link>
           </div>
+          <p className="text-[10px] text-text-muted mt-2 leading-relaxed">
+            Terms, privacy, risk, subscription, performance and refund documents are all kept in one place.
+          </p>
         </div>
 
         <div>
@@ -71,7 +66,7 @@ export default function Footer() {
             <a href={BUSINESS.x} target="_blank" rel="noopener" className={CARD_LINK}>
               X — @l2signals
             </a>
-            <Link href="/pay" className={CARD_LINK}>Payment page</Link>
+            <Link href="/pay" className={CARD_LINK}>Membership</Link>
           </div>
 
           <p className="font-bold text-text-primary mt-5 mb-2">Founder</p>
@@ -89,11 +84,8 @@ export default function Footer() {
         style={{ borderColor: 'var(--glass-border)' }}
       >
         <div className="flex flex-wrap items-center gap-3">
-          <Link href="/pay" className="hover:text-accent-gold">Pay</Link>
-          <Link href="/terms" className="hover:text-accent-gold">Terms</Link>
-          <Link href="/privacy" className="hover:text-accent-gold">Privacy</Link>
+          <Link href="/pay" className="hover:text-accent-gold">Membership</Link>
           <Link href="/legal" className="hover:text-accent-gold">Legal</Link>
-          <Link href="/policies" className="hover:text-accent-gold">Policies</Link>
           <Link href="/services" className="hover:text-accent-gold">Services</Link>
         </div>
         <p className="text-center md:text-right leading-relaxed">

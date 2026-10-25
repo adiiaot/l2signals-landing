@@ -4,7 +4,7 @@ import { OFFER } from '../data/business'
 const CARD = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' } as const
 
 const INCLUDED = [
-  `${OFFER.days} days of access to the private L2 Signals Telegram group`,
+  `${OFFER.days} days of access to the private L2 Signals group`,
   'Intraday XAU/USD setups with direction, order type, entry, stop and target',
   'Trade-management and expiry instructions where applicable',
   'Access to the official monthly performance record',
@@ -23,8 +23,8 @@ export default function Pricing() {
       <div className="card">
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start">
           <div>
-            <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">L2 Signals subscription</p>
-            <h2 className="text-lg sm:text-xl font-bold mt-1">One product. One 31-day price.</h2>
+            <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">L2 Signals membership</p>
+            <h2 className="text-lg sm:text-xl font-bold mt-1">One service. One clear {OFFER.days}-day membership.</h2>
             <div className="mt-3 flex flex-wrap items-end gap-3">
               <p className="text-2xl sm:text-3xl font-bold font-mono">₦{OFFER.ngn.toLocaleString('en-NG')}</p>
               <p className="text-sm text-text-muted mb-1">/ {OFFER.days} days · naira payments</p>
@@ -39,13 +39,7 @@ export default function Pricing() {
 
             <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4">
               <Link href="/pay" className="btn-primary rounded-full px-6 py-2.5 text-xs justify-center">
-                Subscribe — go to payment
-              </Link>
-              <Link href="/policies/subscription-terms" className="btn-secondary rounded-full px-6 py-2.5 text-xs justify-center">
-                Subscription terms
-              </Link>
-              <Link href="/policies/refunds-and-cancellations" className="btn-secondary rounded-full px-6 py-2.5 text-xs justify-center">
-                Refunds &amp; cancellation
+                Start membership — go to payment
               </Link>
             </div>
 
@@ -57,7 +51,7 @@ export default function Pricing() {
 
           <div className="grid gap-2 sm:grid-cols-2">
             <div className="rounded-xl p-3" style={CARD}>
-              <p className="text-[10px] tracking-[0.14em] uppercase text-accent-gold">What you get</p>
+              <p className="text-[10px] tracking-[0.14em] uppercase text-accent-gold">What membership includes</p>
               <ul className="mt-2 space-y-1.5 text-[11px] text-text-secondary leading-relaxed">
                 {INCLUDED.map((item) => (
                   <li key={item} className="flex gap-2"><span className="text-accent-gold">•</span>{item}</li>
@@ -65,7 +59,7 @@ export default function Pricing() {
               </ul>
             </div>
             <div className="rounded-xl p-3" style={CARD}>
-              <p className="text-[10px] tracking-[0.14em] uppercase text-status-warn">What you do not get</p>
+              <p className="text-[10px] tracking-[0.14em] uppercase text-status-warn">What it does not include</p>
               <ul className="mt-2 space-y-1.5 text-[11px] text-text-secondary leading-relaxed">
                 {NOT_INCLUDED.map((item) => (
                   <li key={item} className="flex gap-2"><span className="text-status-warn">•</span>{item}</li>
@@ -79,10 +73,7 @@ export default function Pricing() {
                 eligible first paid subscription may receive one additional month of access if the official
                 cumulative Net R for the calendar month in which that period begins is zero or below. It is a
                 one-time access benefit, not a cash refund, and it does not recur. It is measured from the
-                official engine record, not your account.{' '}
-                <Link href="/policies/founding-members-programme" className="font-semibold text-accent-gold hover:underline">
-                  Read the conditions →
-                </Link>
+                official engine record, not your account.
               </p>
             </div>
           </div>

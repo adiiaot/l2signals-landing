@@ -67,7 +67,7 @@ export default function Navbar() {
               <p className="text-[9px] tracking-[0.16em] text-text-muted uppercase">Trading Technology</p>
             </div>
           </a>
-          <nav className="hidden md:flex items-center gap-0.5">
+          <nav className="hidden lg:flex items-center gap-0.5">
             {LINKS.map(l => (
               l.href.startsWith('/') ? (
                 <a key={l.href} href={l.href} className="px-3 py-1.5 rounded-full text-[11px] font-medium text-text-secondary hover:text-text-primary hover:bg-surface-overlay transition">{l.label}</a>
@@ -88,7 +88,7 @@ export default function Navbar() {
             >
               {mounted && theme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
             </button>
-            <button onClick={() => setOpen(!open)} aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="mobile-nav" className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center border" style={{ background: 'rgb(var(--surface-overlay-rgb))', borderColor: 'var(--glass-border)' }}>
+            <button onClick={() => setOpen(!open)} aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="mobile-nav" className="lg:hidden w-8 h-8 rounded-lg flex items-center justify-center border" style={{ background: 'rgb(var(--surface-overlay-rgb))', borderColor: 'var(--glass-border)' }}>
               {open ? <X className="w-3.5 h-3.5" /> : <Menu className="w-3.5 h-3.5" />}
             </button>
           </div>
@@ -99,7 +99,7 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setOpen(false)} className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden" />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setOpen(false)} className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden" />
             <motion.div
               ref={drawerRef}
               id="mobile-nav"
@@ -110,7 +110,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-              className="fixed right-0 top-0 h-full w-[300px] z-50 md:hidden flex flex-col"
+              className="fixed right-0 top-0 h-full w-[85vw] max-w-[300px] z-50 lg:hidden flex flex-col"
               style={{ background: 'rgb(var(--surface-raised-rgb))', borderLeft: '1px solid var(--glass-border)' }}
             >
               <div className="h-[56px] flex items-center justify-between px-4 border-b" style={{ borderColor: 'var(--glass-border)' }}>
@@ -129,7 +129,7 @@ export default function Navbar() {
                 ))}
               </div>
               <div className="p-4 border-t space-y-2" style={{ borderColor: 'var(--glass-border)' }}>
-                <a href="/pay" onClick={() => setOpen(false)} className="btn-primary w-full justify-center">Payment page</a>
+                <a href="/pay" onClick={() => setOpen(false)} className="btn-primary w-full justify-center">Start membership</a>
                 <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="btn-secondary w-full justify-center">Public channel</a>
                 <a href="mailto:l2signalslab@gmail.com" className="btn-secondary w-full justify-center">Email the business</a>
               </div>

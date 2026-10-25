@@ -14,7 +14,7 @@ const FACTS = [
   { k: '21:00 UTC', label: 'Daily cutoff', d: 'Close open trades and cancel unfilled pendings by the applicable cutoff.' },
   { k: 'Calendar month', label: 'Official measurement cycle', d: 'Monthly net R in West Africa Time (UTC+1) and resets at the start of each month.' },
   { k: '₦50,000 / US$40', label: '31-day subscription', d: 'Naira or US dollar payment, depending on the method. The checkout shows the exact amount before payment.' },
-  { k: '50 members', label: 'Founding programme cap', d: 'Open during early access ahead of the 2027 launch target — limited to 50 founding members.' },
+  { k: '50 members', label: 'Founding programme cap', d: 'Open during early access ahead of official launch — limited to 50 founding members.' },
   { k: '≤ 0R', label: 'One-time extension', d: 'Official net R of zero or below for the calendar month in which the first paid period begins qualifies for one additional month.' },
 ]
 
@@ -53,10 +53,10 @@ export default function PoliciesPage() {
           ))}
         </div>
         <p className="text-[11px] text-text-muted mt-4 leading-relaxed">
-          The L2 Signals service is live in early access, with an official launch target of 1 January 2027.
-          Official performance is measured from the L2 Signals signal engine — never from the founder&apos;s or
-          any member&apos;s personal trading account. Personal results may differ from the official outcome.
-          Nothing here is personalised financial advice.
+          The L2 Signals service is live in early access, ahead of official launch. Official performance is
+          measured from the L2 Signals signal engine — never from the founder&apos;s or any member&apos;s
+          personal trading account. Personal results may differ from the official outcome. Nothing here is
+          personalised financial advice.
         </p>
       </div>
 

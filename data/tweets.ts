@@ -105,7 +105,7 @@ export const demoTweets: ProofTweet[] = [
     capitalAfter: 470.61,
     tweetUrl: 'https://x.com/l2signals/status/2090071368851144743',
     imagePath: null,
-    caption: 'Market Order 15 + 16 — $326 → $470.61 · Hybrid entry validated',
+    caption: 'Market Order 15 + 16 — $326 → $470.61 · Entry validated',
   },
   {
     id: 'demo-2026-08-21-signal-20-22',
@@ -172,7 +172,7 @@ export const propTweets: ProofTweet[] = [
     capitalAfter: 10180.36,
     tweetUrl: '',
     imagePath: null,
-    caption: 'Signal 25 — Buy Limit EMA Bounce · Hybrid fill · +2.5R',
+    caption: 'Signal 25 — Buy Limit EMA Bounce · Limit fill · +2.5R',
   },
   {
     id: 'prop-2026-09-03-signal-26-27',

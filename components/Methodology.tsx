@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 const CARD = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' } as const
 
 const RULES = [
@@ -31,14 +29,9 @@ export default function Methodology() {
               Unfilled signals are shown separately and never counted as wins or losses. Backtest, forward-test
               and live results are labelled separately and are not merged into one figure.
             </p>
-            <div className="flex flex-wrap gap-2 mt-3">
-              <Link href="/policies/performance-measurement" className="text-[11px] font-semibold text-accent-gold hover:underline">
-                Full measurement policy →
-              </Link>
-              <Link href="/policies/founding-member-extension" className="text-[11px] font-semibold text-accent-gold hover:underline">
-                Extension eligibility →
-              </Link>
-            </div>
+            <p className="text-[11px] text-text-muted mt-3 leading-relaxed">
+              The full measurement and extension rules are in the Legal &amp; Trust Centre.
+            </p>
           </div>
 
           <div className="grid gap-2 sm:grid-cols-2">

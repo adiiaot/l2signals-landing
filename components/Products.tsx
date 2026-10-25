@@ -61,7 +61,7 @@ export default function Products() {
           <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">The product ecosystem</p>
           <h2 className="text-lg sm:text-xl font-bold mt-1">One business. Four products and a services track.</h2>
         </div>
-        <span className="text-[10px] font-mono text-text-muted">Status is updated when it changes — not when it sells</span>
+        <span className="text-[10px] font-mono text-text-muted">Status is updated when it changes — not when it is marketed</span>
       </div>
 
       <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
@@ -170,9 +170,9 @@ export default function Products() {
       </div>
 
       <p className="text-[10px] text-text-muted mt-3 leading-relaxed">
-        Purchasing an L2 Signals subscription buys access to the signal service for the paid period. It does not
-        buy the software, the strategy, the brand or a right to redistribute signals. L2 EA, L2 Indicator and
-        the L2 Signals App are not currently for sale.
+        An L2 Signals membership gives access to the signal service for the paid period. It does not buy the
+        software, the strategy, the brand or a right to redistribute signals. L2 EA, L2 Indicator and the L2
+        Signals App are not currently for sale.
       </p>
     </section>
   )

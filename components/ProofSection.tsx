@@ -5,11 +5,14 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { ExternalLink, ShieldCheck } from 'lucide-react'
 
 type Account = 'demo' | 'prop'
+type Outcome = 'win' | 'loss' | 'expired' | 'unknown'
 
 interface TradeRow {
   id: string
   date: string
   result: string
+  outcome: Outcome
+  resultLabel: string
   direction: string
   entry: number | null
   exit: number | null
@@ -23,8 +26,10 @@ interface TradeRow {
 
 const WEB_API = (process.env.NEXT_PUBLIC_L2_WEB_API || 'https://l2signal-web-six.vercel.app').replace(/\/$/, '')
 const PUBLIC_PROOF = `${WEB_API}/proof`
+const VISIBLE_TRADES = 30
 
 function finite(value: unknown): number | null {
+  if (value === null || value === undefined || value === '') return null
   const parsed = typeof value === 'number' ? value : Number(value)
   return Number.isFinite(parsed) ? parsed : null
 }
@@ -43,7 +48,7 @@ function dateOf(value: unknown): string {
 /**
  * Realised R is only reported when the record actually supports it:
  *  1. an explicit realised R, or
- *  2. entry + exit + stop-loss, from which R can be calculated.
+ *  2. entry + exit + a positive stop-loss, from which R can be calculated.
  *
  * Planned R is not substituted for realised R, and no assumed stop distance is
  * invented. A missing value displays as "not recorded" rather than a guess.
@@ -56,6 +61,7 @@ function realisedR(raw: Record<string, unknown>): number | null {
   const exit = finite(raw.exitPrice)
   const sl = finite(raw.stopLoss)
   if (entry === null || exit === null || sl === null) return null
+  if (entry <= 0 || exit <= 0 || sl <= 0) return null
 
   const risk = Math.abs(entry - sl)
   if (risk <= 0.0001) return null
@@ -69,11 +75,39 @@ function realisedR(raw: Record<string, unknown>): number | null {
   return Number.isFinite(r) ? r : null
 }
 
+/**
+ * The execution ledger is a record of what happened, not a marketing score.
+ * A negative P/L is a loss even if the stored result field says "win"; an
+ * explicit "loss" stays a loss. Expired/unfilled records are kept separate.
+ */
+function outcomeOf(raw: Record<string, unknown>): Outcome {
+  const result = String(raw.result || '').toLowerCase()
+  if (result.includes('expire')) return 'expired'
+  if (result.includes('loss')) return 'loss'
+
+  const pnl = finite(raw.pnl)
+  if (pnl !== null && pnl < 0) return 'loss'
+  if (result.includes('win')) return 'win'
+  if (pnl !== null && pnl > 0) return 'win'
+  return 'unknown'
+}
+
+function labelFor(outcome: Outcome, result: string): string {
+  if (outcome === 'expired') return 'EXPIRED'
+  if (outcome === 'loss') return 'LOSS'
+  if (outcome === 'win') return result.toLowerCase().includes('partial') ? 'PARTIAL' : 'WIN'
+  return 'RECORDED'
+}
+
 function normalise(raw: Record<string, unknown>, account: Account): TradeRow {
+  const result = String(raw.result || 'recorded')
+  const outcome = outcomeOf(raw)
   return {
     id: String(raw.id || raw.tradeId || `${account}-${dateOf(raw.timestamp)}-${raw.entryPrice || ''}-${raw.exitPrice || ''}`),
     date: dateOf(raw.timestamp),
-    result: String(raw.result || 'recorded'),
+    result,
+    outcome,
+    resultLabel: labelFor(outcome, result),
     direction: String(raw.direction || (raw.trend === 'UP' ? 'LONG' : raw.trend === 'DOWN' ? 'SHORT' : '—')),
     entry: finite(raw.entryPrice),
     exit: finite(raw.exitPrice),
@@ -85,8 +119,8 @@ function normalise(raw: Record<string, unknown>, account: Account): TradeRow {
   }
 }
 
-function fmt(value: number | null, digits = 2): string {
-  return value === null ? '—' : value.toFixed(digits)
+function fmtLevel(value: number | null): string {
+  return value === null || value <= 0 ? '—' : value.toFixed(2)
 }
 
 function fmtR(value: number | null): string {
@@ -108,7 +142,7 @@ export default function ProofSection() {
 
     const load = async () => {
       try {
-        const res = await fetch(`${WEB_API}/api/trades?account=${tab}&limit=30`, { cache: 'no-store' })
+        const res = await fetch(`${WEB_API}/api/trades?account=${tab}&limit=200`, { cache: 'no-store' })
         const json = await res.json().catch(() => null)
         if (cancelled) return
         if (!json?.success || !Array.isArray(json.trades)) throw new Error('ledger unavailable')
@@ -135,14 +169,20 @@ export default function ProofSection() {
   }, [tab])
 
   const summary = useMemo(() => {
-    const decided = trades.filter((trade) => trade.rr !== null)
-    const wins = decided.filter((trade) => (trade.rr as number) > 0).length
-    const losses = decided.filter((trade) => (trade.rr as number) < 0).length
-    const flat = decided.filter((trade) => trade.rr === 0).length
-    const totalR = decided.reduce((sum, trade) => sum + (trade.rr as number), 0)
-    const winRate = wins + losses > 0 ? Math.round((wins / (wins + losses)) * 1000) / 10 : null
-    return { decided: decided.length, wins, losses, flat, totalR, winRate }
+    const wins = trades.filter((trade) => trade.outcome === 'win').length
+    const losses = trades.filter((trade) => trade.outcome === 'loss').length
+    const expired = trades.filter((trade) => trade.outcome === 'expired').length
+    const decided = wins + losses
+    const withR = trades.filter((trade) => trade.outcome !== 'expired' && trade.rr !== null).length
+    const totalR = trades.reduce(
+      (sum, trade) => (trade.outcome === 'expired' ? sum : sum + (trade.rr ?? 0)),
+      0
+    )
+    const winRate = decided > 0 ? Math.round((wins / decided) * 1000) / 10 : null
+    return { decided, wins, losses, expired, withR, totalR, winRate }
   }, [trades])
+
+  const shown = trades.slice(0, VISIBLE_TRADES)
 
   return (
     <section id="proof" className="max-w-6xl mx-auto px-4 py-6 scroll-mt-20 scroll-reveal">
@@ -158,7 +198,7 @@ export default function ProofSection() {
             your account.
           </p>
         </div>
-        <div className="flex items-center gap-1 p-1 rounded-full" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }} role="tablist" aria-label="Account">
+        <div className="flex items-center justify-center gap-1 p-1 rounded-full w-full sm:w-auto" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }} role="tablist" aria-label="Account">
           <button
             type="button"
             role="tab"
@@ -204,12 +244,13 @@ export default function ProofSection() {
           <>
             <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono">
               <span className="badge-info">{tab === 'demo' ? 'Demo account' : 'Prop account'}</span>
-              <span className="text-text-muted">{trades.length} latest recorded trades</span>
-              <span className="text-text-muted">· {summary.decided} with realised R</span>
-              {summary.winRate !== null && (
-                <span className="text-text-muted">· {summary.winRate}% of decided trades positive</span>
-              )}
-              <span className="ml-auto inline-flex items-center gap-1 text-text-muted">
+              <span className="text-text-muted">{trades.length} recorded trades</span>
+              <span className="text-text-muted">· {summary.decided} decided</span>
+              <span className="text-text-muted">· {summary.wins}W / {summary.losses}L</span>
+              {summary.expired > 0 && <span className="text-text-muted">· {summary.expired} expired</span>}
+              <span className="text-text-muted">· {summary.withR} with realised R</span>
+              {summary.winRate !== null && <span className="text-text-muted">· {summary.winRate}% win rate</span>}
+              <span className="inline-flex items-center gap-1 text-text-muted w-full sm:w-auto sm:ml-auto">
                 <ShieldCheck className="w-3 h-3" aria-hidden /> Source: public web ledger
               </span>
             </div>
@@ -218,34 +259,40 @@ export default function ProofSection() {
               <div className="rounded-xl p-2.5 bg-surface-overlay" style={{ border: '1px solid var(--glass-border)' }}>
                 <p className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Decided</p>
                 <p className="text-base font-bold font-mono mt-0.5">{summary.decided}</p>
+                <p className="text-[9px] text-text-muted mt-0.5">wins + losses</p>
               </div>
               <div className="rounded-xl p-2.5 bg-surface-overlay" style={{ border: '1px solid var(--glass-border)' }}>
-                <p className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Positive</p>
+                <p className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Wins</p>
                 <p className="text-base font-bold font-mono mt-0.5 text-status-win">{summary.wins}</p>
+                <p className="text-[9px] text-text-muted mt-0.5">includes partial wins</p>
               </div>
               <div className="rounded-xl p-2.5 bg-surface-overlay" style={{ border: '1px solid var(--glass-border)' }}>
-                <p className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Negative</p>
+                <p className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Losses</p>
                 <p className="text-base font-bold font-mono mt-0.5 text-status-loss">{summary.losses}</p>
+                <p className="text-[9px] text-text-muted mt-0.5">counted from result / P&amp;L</p>
               </div>
               <div className="rounded-xl p-2.5 bg-surface-overlay" style={{ border: '1px solid var(--glass-border)' }}>
-                <p className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Realised R</p>
+                <p className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Known R</p>
                 <p className="text-base font-bold font-mono mt-0.5 text-accent-gold">
                   {summary.totalR > 0 ? '+' : ''}
                   {summary.totalR.toFixed(2)}R
+                </p>
+                <p className="text-[9px] text-text-muted mt-0.5">
+                  from {summary.withR} of {summary.decided} decided
                 </p>
               </div>
             </div>
 
             <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {trades.slice(0, 30).map((trade, index) => {
+              {shown.map((trade, index) => {
                 const tone =
-                  trade.rr === null
-                    ? 'var(--text-muted)'
-                    : trade.rr > 0
+                  trade.outcome === 'loss'
+                    ? 'var(--status-loss)'
+                    : trade.outcome === 'win'
                       ? 'var(--status-win)'
-                      : trade.rr < 0
-                        ? 'var(--status-loss)'
-                        : 'var(--accent-gold)'
+                      : trade.outcome === 'expired'
+                        ? 'var(--accent-gold)'
+                        : 'var(--text-muted)'
                 return (
                   <motion.article
                     key={`${trade.id}-${index}`}
@@ -262,11 +309,25 @@ export default function ProofSection() {
                         {trade.direction}
                       </span>
                     </div>
-                    <p className="text-lg font-bold font-mono mt-1.5" style={{ color: tone }}>
-                      {fmtR(trade.rr)}
-                    </p>
+                    <div className="flex items-center justify-between gap-2 mt-1.5">
+                      {trade.outcome === 'expired' ? (
+                        <p className="text-sm font-bold font-mono" style={{ color: tone }}>
+                          Expired — no fill
+                        </p>
+                      ) : (
+                        <p className="text-lg font-bold font-mono" style={{ color: tone }}>
+                          {fmtR(trade.rr)}
+                        </p>
+                      )}
+                      <span
+                        className="text-[9px] font-bold uppercase tracking-[0.1em] px-1.5 py-0.5 rounded"
+                        style={{ color: tone, border: `1px solid ${tone}`, opacity: 0.9 }}
+                      >
+                        {trade.resultLabel}
+                      </span>
+                    </div>
                     <p className="text-[10px] font-mono text-text-muted mt-1">
-                      E {fmt(trade.entry)} → X {fmt(trade.exit)} · SL {fmt(trade.sl)}
+                      E {fmtLevel(trade.entry)} → X {fmtLevel(trade.exit)} · SL {fmtLevel(trade.sl)}
                     </p>
                     <div className="flex items-center justify-between mt-2 text-[10px] font-mono">
                       <span className="text-text-muted">{trade.lot !== null ? `${trade.lot.toFixed(2)} lot` : 'size not recorded'}</span>
@@ -280,9 +341,12 @@ export default function ProofSection() {
             </div>
 
             <p className="text-[10px] text-text-muted mt-3 leading-relaxed">
-              R is calculated from the recorded entry, exit and stop-loss, or taken from an explicit realised R.
-              Planned R and an assumed stop distance are never substituted. The official monthly Net R — measured
-              from engine outcomes — is published separately from this execution ledger.
+              R is calculated from the recorded entry, exit and a positive stop-loss, or taken from an explicit
+              realised R. If a record has no stop-loss, R is shown as not recorded; the trade still counts in the
+              win/loss tally but is excluded from Known R. Planned R and an assumed stop distance are never
+              substituted. The official monthly Net R — measured from engine outcomes — is published separately
+              from this execution ledger.
+              {trades.length > VISIBLE_TRADES && ` The summary covers all ${trades.length} recorded trades; the latest ${VISIBLE_TRADES} are shown.`}
             </p>
           </>
         )}
@@ -299,9 +363,6 @@ export default function ProofSection() {
         </a>
         <a href="#methodology" className="btn-secondary rounded-full px-5 py-2.5 text-xs justify-center">
           How Net R is measured
-        </a>
-        <a href="/policies/performance-measurement" className="btn-secondary rounded-full px-5 py-2.5 text-xs justify-center">
-          Measurement policy
         </a>
       </div>
     </section>

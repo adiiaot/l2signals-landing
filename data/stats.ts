@@ -1,6 +1,6 @@
 // Public performance figures — every number here is a measured engine result.
-// Keep the window attached to each figure: a 2-month run and a 4-year study are
-// not interchangeable, and mixing them is what makes a landing page misleading.
+// Keep the study window attached to the figure: a backtest is not a live result,
+// and mixing windows is what makes a landing page misleading.
 
 export const demoStats = {
   initial: 100,
@@ -28,12 +28,4 @@ export const engineStats = {
   studyDecided: 14239,
   studyWR: 64.8,
   studyAvgR: 0.69,
-
-  // Short-window check on the CURRENT config: 2 months (Jun 18 → Aug 18, 2026),
-  // hybrid limit + stop-fallback execution, trades held to the 21:00 UTC close.
-  hybridWindow: 'Jun 18 – Aug 18, 2026',
-  hybridFills: 152,
-  hybridWR: 74.2,
-  hybridPF: 5.12,
-  hybridR: 103,
 }

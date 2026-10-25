@@ -1,7 +1,7 @@
 # L2 Signals Services — business website (`l2signals-landing`)
 
 Standalone Next.js 14 (App Router) site for **L2 Signals Services**, the trading-technology
-business. **L2 Signals** is the live product (paid XAU/USD signals in a private Telegram group);
+business. **L2 Signals** is the live signal service (rule-based XAU/USD setups delivered to a private group);
 **L2 EA** is in development; **L2 Indicator** and the **L2 Signals App** are planned. Signals API
 access, custom systems, websites and apps are quoted per project.
 
@@ -35,9 +35,9 @@ redirect to the canonical routes in `next.config.js`. Do not duplicate the docum
 
 - Business identity, offer, products and journey live in `data/business.ts`.
 - Legal metadata, versions, effective dates and consent mapping live in `data/legal.ts`.
-- Public figures must stay labelled: the 4.25-year study and the 2-month backtest are
-  **backtested**; the `$100 → $1,007.41` result is **demo**. No profit, win rate, funding or
-  withdrawal is guaranteed.
+- Public figures must stay labelled: the 4.25-year study is **backtested**; the
+  `$100 → $1,007.41` result is **demo**. No profit, win rate, funding or withdrawal is guaranteed.
+  Short-window figures are deliberately not published.
 - Do not state a release date, broker, licence, registration, address or integration that is not
   verified. Product statuses are deliberately conservative (“in development” ≠ “available”).
 - The execution ledger (`components/ProofSection.tsx`) reads the public web API and only shows
