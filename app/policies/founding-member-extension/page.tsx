@@ -3,7 +3,7 @@ import PolicyShell from '../../../components/PolicyShell'
 import { POLICIES } from '../../../data/policies'
 
 export const metadata: Metadata = {
-  title: 'Founding Member Extension Policy — L2 Signals',
+  title: 'Founding Member Extension Policy',
   description: 'The conditions under which an eligible founding member receives one additional month of L2 Signals access when the official monthly net R is zero or negative.',
 }
 
@@ -18,6 +18,7 @@ const row = (label: string, value: string, accent = false) => (
 export default function FoundingMemberExtensionPage() {
   return (
     <PolicyShell
+      slug="founding-member-extension"
       title="Founding Member Extension Policy"
       pdf={pdf}
       intro={
@@ -72,7 +73,7 @@ export default function FoundingMemberExtensionPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">7. Extension benefit</h2>
-        <p>An eligible founding member receives one additional month of access to the designated members-only service. The extension provides additional access without an additional charge for that period, does not constitute a cash refund, does not reimburse personal trading losses, does not guarantee that future signals will be profitable, does not guarantee a minimum number of signals during the period, and does not create a recurring entitlement to additional free months.</p>
+        <p>An eligible founding member receives one additional month of access to the designated members-only service. For clarity, that additional access period equals the current standard subscription period (currently 31 days), unless the applicable programme terms state otherwise. The extension provides additional access without an additional charge for that period, does not constitute a cash refund, does not reimburse personal trading losses, does not guarantee that future signals will be profitable, does not guarantee a minimum number of signals during the period, and does not create a recurring entitlement to additional free months.</p>
       </section>
 
       <section>

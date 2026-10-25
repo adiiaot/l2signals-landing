@@ -84,7 +84,7 @@ export const NETWORK_PLACEHOLDERS: Record<PaymentNetwork, string> = {
 export const SOLANA_USDC_ADDRESS = '4jqTsSGsgwPdN6su8RMgrXTBXj5F2erU8BT2kqF7zzyo'
 
 export const DEFAULT_PAYMENTS_CONFIG: PaymentsConfig = {
-  plan: { usd: 40, ngn: 50000, days: 30, graceDays: 5 },
+  plan: { usd: 40, ngn: 50000, days: 31, graceDays: 5 },
   addresses: { tron: '', bnb: '', sol: SOLANA_USDC_ADDRESS },
   methods: {
     crypto: { enabled: true, note: 'Send the exact amount. Copy the address — never type it.' },

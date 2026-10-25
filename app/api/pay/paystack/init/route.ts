@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { hasAdminCredentials } from '@/lib/firebase-admin'
 import { attachPaystackReference, claimIsUsable, findClaimByToken } from '@/lib/payments/claims'
 import { getPaymentsConfig, isPaystackConfigured } from '@/lib/payments/config'
+import { attachConsentReference, consumeConsent, type ConsentFailureCode } from '@/lib/payments/consent'
 import { initializeTransaction, newReference, paystackCurrency } from '@/lib/payments/paystack'
 import { clientKey, rateLimit } from '@/lib/payments/rate-limit'
 import { normalizeEmail, str } from '@/lib/payments/validate'
@@ -9,12 +10,19 @@ import { normalizeEmail, str } from '@/lib/payments/validate'
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
+function consentStatus(code: ConsentFailureCode): number {
+  if (code === 'used' || code === 'plan_changed') return 409
+  if (code === 'unavailable') return 503
+  return 400
+}
+
 /**
  * POST /api/pay/paystack/init — start a hosted Paystack checkout.
  *
- * Creates the transaction server-side from the configured plan price. Paystack then
- * redirects back to /pay where the charge is verified against their API — the
- * redirect alone is never treated as proof of payment.
+ * Consent is required BEFORE a checkout exists. The consent id is consumed
+ * atomically here, attached to the transaction metadata, and stored on the
+ * consent record next to the Paystack reference. The redirect back to /pay is
+ * still only a hint: the charge is verified against Paystack's API.
  */
 export async function POST(req: NextRequest) {
   if (!hasAdminCredentials()) {
@@ -25,7 +33,7 @@ export async function POST(req: NextRequest) {
   }
   if (!isPaystackConfigured()) {
     return NextResponse.json(
-      { ok: false, error: 'Card payments are not available yet. Use crypto or bank transfer.' },
+      { ok: false, error: 'Online payments are not available yet. Use crypto or bank transfer.' },
       { status: 503 }
     )
   }
@@ -42,7 +50,38 @@ export async function POST(req: NextRequest) {
   const email = normalizeEmail(body?.email)
   if (!email) return NextResponse.json({ ok: false, error: 'Enter a valid email address.' }, { status: 400 })
 
+  const consentId = str(body?.consentId, 80)
+  if (!consentId) {
+    return NextResponse.json(
+      {
+        ok: false,
+        consentRequired: true,
+        error: 'Accept the required documents before payment. Reload the page and review them again.',
+      },
+      { status: 400 }
+    )
+  }
+
   const config = await getPaymentsConfig()
+
+  const consent = await consumeConsent({
+    id: consentId,
+    email,
+    mode: 'init',
+    expectedPlan: { ngn: config.plan.ngn, usd: config.plan.usd, days: config.plan.days },
+  })
+  if (!consent.ok) {
+    return NextResponse.json(
+      {
+        ok: false,
+        consentRequired: true,
+        error: consent.error,
+        code: consent.code,
+      },
+      { status: consentStatus(consent.code) }
+    )
+  }
+
   const currency = paystackCurrency()
   const amountMajor = currency === 'NGN' ? config.plan.ngn : config.plan.usd
   const amountMinor = Math.round(amountMajor * 100)
@@ -71,24 +110,32 @@ export async function POST(req: NextRequest) {
         claimId: usableClaim?.id || '',
         email,
         plan: 'signals_group',
+        consentId,
+        accepted: consent.record.accepted,
+        consentAt: consent.record.createdAt?.toDate().toISOString() || '',
       },
     })
 
+    const confirmedReference = transaction.reference || reference
+
+    // Both writes are best-effort bookkeeping: the metadata above is the
+    // authoritative link, and verify can still match by consentId.
+    await attachConsentReference(consentId, confirmedReference).catch(() => undefined)
     if (usableClaim) {
-      await attachPaystackReference(usableClaim.id, reference).catch(() => undefined)
+      await attachPaystackReference(usableClaim.id, confirmedReference).catch(() => undefined)
     }
 
     return NextResponse.json({
       ok: true,
       authorizationUrl: transaction.authorization_url,
-      reference: transaction.reference || reference,
+      reference: confirmedReference,
       amount: amountMajor,
       currency,
     })
   } catch (error) {
     console.error('[pay] paystack init failed:', error)
     return NextResponse.json(
-      { ok: false, error: 'Card checkout could not be started. Try bank transfer or crypto.' },
+      { ok: false, error: 'Online checkout could not be started. Try bank transfer or crypto.' },
       { status: 502 }
     )
   }

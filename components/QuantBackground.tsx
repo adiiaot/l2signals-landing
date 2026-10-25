@@ -109,7 +109,7 @@ export default function QuantBackground() {
             <span key={k} className="flex gap-8">
               <span>λ L2_SIGNALS · 3_STRATEGIES · HYBRID_LIMIT+STOP · 1–2%_RISK</span>
               <span>EMA20 · ADX · RSI · ATR · 21:00_UTC_CLOSE</span>
-              <span>20,237_SIGNALS · 64.8%_WR · +0.69R_AVG · $100→$1007.41</span>
+              <span>BACKTEST_20,237_SIGNALS · 64.8%_WR · +0.69R_AVG · DEMO_$100→$1007.41</span>
               <span>DETERMINISTIC · MT5_FEED · LIVE_LEDGER</span>
             </span>
           ))}

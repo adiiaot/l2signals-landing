@@ -8,6 +8,7 @@ import {
   recordPayment,
 } from '@/lib/payments/claims'
 import { getPaymentsConfig } from '@/lib/payments/config'
+import { attachConsentPayment, resolvePaystackConsent } from '@/lib/payments/consent'
 import { isValidWebhookSignature, verifyTransaction } from '@/lib/payments/paystack'
 
 export const dynamic = 'force-dynamic'
@@ -61,25 +62,37 @@ export async function POST(req: NextRequest) {
     const expected = currency === 'USD' ? config.plan.usd : config.plan.ngn
     const paid = transaction.amount / 100
 
-    const metadata = transaction.metadata as { claimId?: string } | null | undefined
+    const metadata = transaction.metadata as { claimId?: string; consentId?: string } | null | undefined
     let claim = await findClaimByPaystackReference(reference)
     if (!claim && metadata?.claimId) claim = await findClaimById(metadata.claimId)
     const usable = claim && claimIsUsable(claim) ? claim : null
 
-    const adminNotes =
-      paid + 0.01 < expected
-        ? `Amount mismatch — paid ${currency} ${paid.toFixed(2)}, expected ${currency} ${expected.toFixed(2)}`
-        : ''
+    const { consent, issue: consentIssue } = await resolvePaystackConsent({
+      consentId: metadata?.consentId || '',
+      reference,
+      customerEmail: transaction.customer?.email,
+    })
+
+    const notes: string[] = []
+    if (paid + 0.01 < expected) {
+      notes.push(`Amount mismatch — paid ${currency} ${paid.toFixed(2)}, expected ${currency} ${expected.toFixed(2)}`)
+    }
+    if (consentIssue) {
+      notes.push(`${consentIssue} — do not grant access until checked`)
+    }
 
     const result = await recordPayment({
-      email: usable?.email || transaction.customer?.email || '',
+      email: consent?.email || usable?.email || transaction.customer?.email || '',
       method: 'paystack',
       provider: 'paystack',
       amount: paid,
       currency,
       reference,
       claim: usable,
-      adminNotes,
+      adminNotes: notes.join(' · '),
+      consentId: consent?.id || '',
+      consentVersions: consent?.accepted || {},
+      consentAcceptedAt: consent?.createdAt || null,
       idempotent: true,
     })
 
@@ -87,6 +100,12 @@ export async function POST(req: NextRequest) {
       // Return 500 so Paystack retries — a lost charge notification is worse than a retry.
       console.error('[pay] webhook could not record payment:', result.error)
       return NextResponse.json({ ok: false, error: result.error }, { status: 500 })
+    }
+
+    if (consent) {
+      await attachConsentPayment(consent.id, result.paymentId, reference).catch((error) =>
+        console.error('[pay] webhook could not attach payment to consent:', error)
+      )
     }
 
     if (usable) await markClaimSubmitted(usable.id).catch(() => undefined)

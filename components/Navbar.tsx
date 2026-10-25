@@ -1,25 +1,53 @@
 "use client"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 const LINKS = [
-  { label: 'Ledger', href: '#proof' },
-  { label: 'How it Works', href: '#how' },
+  { label: 'Products', href: '#products' },
+  { label: 'Performance', href: '#proof' },
+  { label: 'How it works', href: '#how' },
+  { label: 'Pricing', href: '#pricing' },
   { label: 'Services', href: '/services' },
+  { label: 'Legal', href: '/legal' },
   { label: 'Pay', href: '/pay' },
-  { label: 'Quote', href: '/quote' },
-  { label: 'Roadmap', href: '#roadmap' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Policies', href: '/policies' },
 ]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const drawerRef = useRef<HTMLDivElement>(null)
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    if (!open) return
+    const node = drawerRef.current
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+        return
+      }
+      if (event.key !== 'Tab' || !node) return
+
+      // Keep keyboard focus inside the modal drawer while it is open.
+      const focusable = node.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
   const scrollTo = (href: string) => {
     setOpen(false)
     if (href.startsWith('/')) { window.location.href = href; return }
@@ -32,11 +60,11 @@ export default function Navbar() {
     <>
       <header className="sticky top-0 z-50 border-b backdrop-blur-xl shadow-sm" style={{ background: 'rgb(var(--surface-raised-rgb))', borderColor: 'var(--glass-border)' }}>
         <div className="max-w-6xl mx-auto px-4 h-[56px] flex items-center justify-between gap-4">
-          <a href="#" className="flex items-center gap-2.5">
-            <img src="/images/l2signals_logo.jpg" alt="L2 Signals" className="w-8 h-8 rounded-lg object-cover border" style={{ borderColor: 'var(--glass-border)' }} />
+          <a href="/" className="flex items-center gap-2.5">
+            <img src="/images/l2signals_logo.jpg" alt="L2 Signals Services" className="w-8 h-8 rounded-lg object-cover border" style={{ borderColor: 'var(--glass-border)' }} />
             <div className="leading-tight">
-              <p className="text-[13px] font-bold tracking-tight text-accent-gold">L2 Signals</p>
-              <p className="text-[9px] tracking-[0.16em] text-text-muted uppercase">Intraday Trading</p>
+              <p className="text-[13px] font-bold tracking-tight text-accent-gold">L2 Signals Services</p>
+              <p className="text-[9px] tracking-[0.16em] text-text-muted uppercase">Trading Technology</p>
             </div>
           </a>
           <nav className="hidden md:flex items-center gap-0.5">
@@ -50,7 +78,7 @@ export default function Navbar() {
           </nav>
           <div className="flex items-center gap-1.5">
             <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="hidden sm:inline-flex items-center gap-1.5 bg-accent-gold text-white text-[11px] font-semibold px-3.5 py-1.5 rounded-full hover:opacity-90 transition">
-              Join Channel
+              Free channel
             </a>
             <button
               aria-label="Toggle theme"
@@ -60,7 +88,7 @@ export default function Navbar() {
             >
               {mounted && theme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
             </button>
-            <button onClick={() => setOpen(!open)} className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center border" style={{ background: 'rgb(var(--surface-overlay-rgb))', borderColor: 'var(--glass-border)' }}>
+            <button onClick={() => setOpen(!open)} aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="mobile-nav" className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center border" style={{ background: 'rgb(var(--surface-overlay-rgb))', borderColor: 'var(--glass-border)' }}>
               {open ? <X className="w-3.5 h-3.5" /> : <Menu className="w-3.5 h-3.5" />}
             </button>
           </div>
@@ -73,6 +101,11 @@ export default function Navbar() {
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setOpen(false)} className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden" />
             <motion.div
+              ref={drawerRef}
+              id="mobile-nav"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site menu"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
@@ -81,8 +114,8 @@ export default function Navbar() {
               style={{ background: 'rgb(var(--surface-raised-rgb))', borderLeft: '1px solid var(--glass-border)' }}
             >
               <div className="h-[56px] flex items-center justify-between px-4 border-b" style={{ borderColor: 'var(--glass-border)' }}>
-                <span className="text-sm font-bold">Menu</span>
-                <button onClick={() => setOpen(false)} className="w-8 h-8 rounded-lg border flex items-center justify-center" style={{ borderColor: 'var(--glass-border)' }}>
+                <span className="text-sm font-bold">L2 Signals Services</span>
+                <button onClick={() => setOpen(false)} autoFocus aria-label="Close menu" className="w-8 h-8 rounded-lg border flex items-center justify-center" style={{ borderColor: 'var(--glass-border)' }}>
                   <X className="w-4 h-4" />
                 </button>
               </div>
@@ -96,8 +129,9 @@ export default function Navbar() {
                 ))}
               </div>
               <div className="p-4 border-t space-y-2" style={{ borderColor: 'var(--glass-border)' }}>
-                <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="btn-primary w-full justify-center">Join Channel</a>
-                <a href="https://x.com/l2signals" target="_blank" rel="noopener" className="btn-secondary w-full justify-center">Follow on X</a>
+                <a href="/pay" onClick={() => setOpen(false)} className="btn-primary w-full justify-center">Payment page</a>
+                <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="btn-secondary w-full justify-center">Public channel</a>
+                <a href="mailto:l2signalslab@gmail.com" className="btn-secondary w-full justify-center">Email the business</a>
               </div>
             </motion.div>
           </>

@@ -3,8 +3,9 @@ import Link from 'next/link'
 import { TELEGRAM_SUPPORT_URL } from '@/lib/payments/links'
 
 export const metadata: Metadata = {
-  title: 'Services — Signals API, Trading Systems, Apps | L2 Signals',
-  description: 'Signals API access, custom trading systems built on your strategy or ours, business websites & mobile apps (crypto, broker, wallet, fintech). Plus hire & partnerships. Contact for a custom quote.',
+  title: 'Services — Signals API, trading systems & apps',
+  description:
+    'Signals API access, custom trading systems, business websites and mobile apps. Scoped and quoted per project by L2 Signals Services. Plus hire and partnerships.',
 }
 
 const cardStyle = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' } as const
@@ -16,19 +17,19 @@ export default function ServicesPage() {
       <div className="card text-center">
         <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Services • Contact for a custom quote</p>
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mt-2 leading-tight">One team. Four ways to work with us.</h1>
-        <p className="text-xs sm:text-sm text-text-muted mt-2 sm:mt-3 max-w-2xl mx-auto leading-relaxed">L2 Signals is our live product — the ledger below is the portfolio. Plug into our signals via API, get a trading system built on your strategy or ours, ship your business site or app, or hire and partner with us.</p>
+        <p className="text-xs sm:text-sm text-text-muted mt-2 sm:mt-3 max-w-2xl mx-auto leading-relaxed">L2 Signals is our first live product. Beyond it, we build signals infrastructure, custom trading systems, and business software. Plug into our data, get a system built on your strategy or ours, ship your site or app, or work with us directly.</p>
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 justify-center mt-4 sm:mt-6">
           <Link href="/quote" className="btn-primary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Get a custom quote →</Link>
           <a href="mailto:l2signalslab@gmail.com" className="btn-secondary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Email us</a>
         </div>
-        <p className="text-[11px] text-text-muted mt-3 break-words">Response within 24h • <a href={TELEGRAM_SUPPORT_URL} target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram — @aotayoL2</a> • <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline break-all">l2signalslab@gmail.com</a></p>
+        <p className="text-[11px] text-text-muted mt-3 break-words">We aim to reply within one business day • <a href={TELEGRAM_SUPPORT_URL} target="_blank" rel="noopener" className="text-accent-gold hover:underline">Telegram — @aotayoL2</a> • <a href="mailto:l2signalslab@gmail.com" className="text-accent-gold hover:underline break-all">l2signalslab@gmail.com</a></p>
       </div>
 
       {/* Track 1 — Signals API */}
       <div id="api" className="card scroll-mt-20">
         <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Track 01 — Signals API access</p>
         <h2 className="text-base sm:text-lg font-bold mt-1">Plug L2 signals into your own stack</h2>
-        <p className="text-xs sm:text-sm text-text-muted mt-2 leading-relaxed">Live signals, results, trade history, spot price and proof endpoints — for bots, dashboards, and execution tools (UTrading/3Commas-style webhooks included). Access is issued manually: contact us, we scope your use case and onboard you by hand. No self-serve keys yet — custom quote per integration.</p>
+        <p className="text-xs sm:text-sm text-text-muted mt-2 leading-relaxed">Signals, outcomes, trade history, spot price and proof data — exposed through scoped endpoints for bots, dashboards and execution tools. Webhook delivery can be scoped for your stack. Access is issued manually: contact us, we scope your use case and onboard you by hand. No self-serve keys yet — custom quote per integration.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 mt-3 sm:mt-4">
           <div className="rounded-xl p-3" style={cardStyle}>
             <p className="text-xs font-semibold">What you get</p>
@@ -36,7 +37,7 @@ export default function ServicesPage() {
               <li className="flex gap-2"><span className="text-accent-gold">•</span>Signals + outcomes (entry, SL/TP, hybrid legs, confidence)</li>
               <li className="flex gap-2"><span className="text-accent-gold">•</span>Trade history + proof ledger feed</li>
               <li className="flex gap-2"><span className="text-accent-gold">•</span>Spot price + account/prop snapshots</li>
-              <li className="flex gap-2"><span className="text-accent-gold">•</span>Webhook delivery for your bot or dashboard</li>
+              <li className="flex gap-2"><span className="text-accent-gold">•</span>Webhook delivery scoped to your bot or dashboard</li>
             </ul>
           </div>
           <div className="rounded-xl p-3 overflow-x-auto" style={cardStyle}>
@@ -103,14 +104,14 @@ export default function ServicesPage() {
       <div id="hire" className="card scroll-mt-20">
         <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Track 04 — Hire & partnerships</p>
         <h2 className="text-base sm:text-lg font-bold mt-1">Work with the team, not just the product</h2>
-        <p className="text-xs sm:text-sm text-text-muted mt-2 leading-relaxed">L2 Signals is built to compound — winning high-ticket client work, growing a trading community whose signal access sustains the engine, and earning long-term partnerships and sponsorships with brokers, prop firms and investors. If you&apos;re hiring or want to build together — here&apos;s how.</p>
+        <p className="text-xs sm:text-sm text-text-muted mt-2 leading-relaxed">We work with traders, desks, prop firms, founders and investors on trading systems, tooling and long-term partnerships. If you are hiring, sponsoring or want to build together, start here.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 mt-3 sm:mt-4">
           <div className="rounded-xl p-3" style={cardStyle}>
             <p className="text-xs font-semibold">Hire us — engineering led by AOT</p>
             <ul className="mt-2 space-y-1.5 text-xs text-text-secondary">
               <li className="flex gap-2"><span className="text-accent-gold">•</span>Trading systems, full-stack apps, AI tooling</li>
-              <li className="flex gap-2"><span className="text-accent-gold">•</span>Proof of work: this ledger, shipped daily</li>
-              <li className="flex gap-2"><span className="text-accent-gold">•</span>Team scales with scope — engineers added as needed</li>
+              <li className="flex gap-2"><span className="text-accent-gold">•</span>Proof of work: this site and its public performance ledger</li>
+              <li className="flex gap-2"><span className="text-accent-gold">•</span>Engineering led by AOT; collaborators added only when scope requires it</li>
             </ul>
             <a href="mailto:l2signalslab@gmail.com?subject=Hire%20inquiry%20—%20L2%20Signals" className="text-xs font-semibold text-accent-gold hover:underline mt-3 inline-block">Email about hiring →</a>
           </div>

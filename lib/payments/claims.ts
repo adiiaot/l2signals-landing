@@ -147,6 +147,13 @@ export interface RecordPaymentInput {
   network?: PaymentNetwork | null
   claim?: ClaimSnapshot | null
   adminNotes?: string
+  /**
+   * The consent record this payment was started under. Stored on the payment so
+   * the accepted versions can always be traced back to what was shown at checkout.
+   */
+  consentId?: string
+  consentVersions?: Record<string, string>
+  consentAcceptedAt?: Timestamp | null
   /** Paystack webhook + verify can both fire for one charge — replay must be a no-op. */
   idempotent?: boolean
 }
@@ -214,6 +221,9 @@ export async function recordPayment(input: RecordPaymentInput): Promise<RecordRe
         status: 'pending',
         telegramVerified: Boolean(telegramId),
         claimId: claim?.id || '',
+        consentId: input.consentId || '',
+        consentVersions: input.consentVersions || {},
+        consentAcceptedAt: input.consentAcceptedAt || null,
         adminNotes: input.adminNotes || '',
         createdAt: now,
       })
@@ -223,6 +233,23 @@ export async function recordPayment(input: RecordPaymentInput): Promise<RecordRe
   } catch (error) {
     if (error instanceof DuplicateReference) {
       if (input.idempotent && error.existingPaymentId) {
+        // The webhook and the redirect verifier can race. If this charge was
+        // recorded by the other path first, merge the consent link onto the
+        // existing payment instead of leaving an audit gap.
+        if (input.consentId) {
+          await db
+            .collection(PAYMENTS)
+            .doc(error.existingPaymentId)
+            .set(
+              {
+                consentId: input.consentId,
+                consentVersions: input.consentVersions || {},
+                consentAcceptedAt: input.consentAcceptedAt || null,
+              },
+              { merge: true }
+            )
+            .catch((mergeError) => console.error('[pay] could not merge consent onto existing payment:', mergeError))
+        }
         return { ok: true, paymentId: error.existingPaymentId, duplicate: true }
       }
       return {

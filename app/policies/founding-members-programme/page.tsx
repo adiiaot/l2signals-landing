@@ -3,8 +3,8 @@ import PolicyShell from '../../../components/PolicyShell'
 import { POLICIES } from '../../../data/policies'
 
 export const metadata: Metadata = {
-  title: 'Founding Members Programme — L2 Signals',
-  description: 'The L2 Signals Founding Members Programme: a 2027 early-access membership capped at 50 members, with details on pricing, access, benefits and the performance-based extension.',
+  title: 'Founding Members Programme',
+  description: 'The L2 Signals Founding Members Programme: an early-access membership open ahead of the 2027 launch target, capped at 50 members, with details on pricing, access and the performance-based extension.',
 }
 
 const pdf = POLICIES.find(p => p.slug === 'founding-members-programme')?.pdf
@@ -13,18 +13,19 @@ const box = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid 
 export default function FoundingMembersProgrammePage() {
   return (
     <PolicyShell
+      slug="founding-members-programme"
       title="Founding Members Programme"
       pdf={pdf}
       intro={
         <>
           The Founding Members Programme is an early-access membership for traders who want access to the platform&apos;s
           systematic intraday signals while L2 Signals continues to develop its technology, validate its strategies and
-          improve delivery infrastructure. Programme status: planned 2027 launch.
+          improve delivery infrastructure. It is open while places remain, with an official launch target of 1 January 2027.
         </>
       }
     >
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-        <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Programme status</p><p className="text-sm font-bold mt-1">Planned launch 2027</p></div>
+        <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Programme status</p><p className="text-sm font-bold mt-1">Early access — places open</p></div>
         <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Membership capacity</p><p className="text-sm font-bold mt-1">50 members maximum</p></div>
         <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Service</p><p className="text-sm font-bold mt-1">Premium access to L2 Signals</p></div>
       </div>
@@ -36,35 +37,35 @@ export default function FoundingMembersProgrammePage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">2. Membership capacity</h2>
-        <p>Founding membership is limited to a maximum of 50 members. Availability is determined by the number of places remaining when registration opens. Joining the waitlist does not constitute a paid subscription or guarantee membership — a place is confirmed only after the applicable registration and payment requirements are satisfied. L2 Signals may close registration when capacity is reached.</p>
+        <p>Founding membership is limited to a maximum of 50 members. Availability is determined by the number of places remaining. Joining the waitlist or expressing interest does not constitute a paid subscription or guarantee membership — a place is confirmed only after the applicable payment is verified. L2 Signals may close registration when capacity is reached.</p>
       </section>
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">3. Subscription pricing</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Nigerian members</p><p className="text-lg font-bold font-mono text-accent-gold mt-1">₦50,000</p><p className="text-[11px] text-text-muted">per month</p></div>
-          <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Non-Nigerian members</p><p className="text-lg font-bold font-mono text-accent-gold mt-1">US$40</p><p className="text-[11px] text-text-muted">per month</p></div>
+          <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Naira payments</p><p className="text-lg font-bold font-mono text-accent-gold mt-1">₦50,000</p><p className="text-[11px] text-text-muted">per 31-day access period</p></div>
+          <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">US dollar payments</p><p className="text-lg font-bold font-mono text-accent-gold mt-1">US$40</p><p className="text-[11px] text-text-muted">per 31-day access period</p></div>
         </div>
-        <p className="mt-2">Accepted currencies and methods may include Nigerian naira, US dollars and supported cryptocurrencies. The applicable price is determined by your designated pricing category and communicated before payment. Where crypto is accepted, the amount, supported network, address and requirements are communicated through official instructions — members must ensure payments use the correct asset, network and details.</p>
+        <p className="mt-2">The payment page shows the exact amount and currency for the method you select before you pay. Accepted methods may include Nigerian naira, US dollars and supported cryptocurrencies. Where crypto is accepted, the amount, supported network, address and requirements are communicated through official instructions — members must ensure payments use the correct asset, network and details.</p>
       </section>
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">4. Membership access</h2>
-        <p>A confirmed founding member receives access to the designated L2 Signals signal group for the duration of their active subscription. The service may include the instrument and direction, proposed entry price or zone, stop-loss, take-profit level(s), signal status and updates, and other trading information made available. The exact signal format and delivery process are communicated before launch.</p>
+        <p>A confirmed founding member receives access to the designated L2 Signals signal group for the duration of their active subscription. The service may include the instrument and direction, proposed entry price or zone, stop-loss, take-profit level(s), signal status and updates, and other trading information made available. The exact signal format and delivery process are described before payment and in the private group.</p>
         <p className="mt-2">Membership provides access to the signal service. It does not automatically include unrestricted access to the underlying application, source code, internal strategy parameters, administrative tools or signal-generation infrastructure. Additional features are included only where expressly stated in the applicable membership offer.</p>
       </section>
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">5. Founding member performance-based extension</h2>
-        <p>L2 Signals will provide eligible founding members with a one-time additional month of access if the eligible signals recorded during their first paid subscription month produce a cumulative net result of zero R or below, measured in R-multiples. Conditions:</p>
+        <p>L2 Signals will provide eligible founding members with a one-time additional month of access if the eligible signals recorded during the calendar month in which their first paid subscription period begins produce a cumulative net result of zero R or below, measured in R-multiples. Conditions:</p>
         <ol className="list-decimal ml-4 space-y-1 mt-1">
-          <li>The member must have completed their first paid subscription month.</li>
-          <li>The applicable performance period must have concluded.</li>
+          <li>The member must hold an eligible first paid subscription.</li>
+          <li>The calendar month in which that first paid period begins must have concluded.</li>
           <li>The eligible signals must have been evaluated under the Performance Measurement Policy.</li>
           <li>The cumulative net result for that period must be zero R or below.</li>
           <li>The member receives one additional month of access without an additional subscription charge.</li>
         </ol>
-        <p className="mt-2">A result above zero R does not qualify. The extension is available only once per founding member, applies exclusively to the first paid subscription month, and is not provided for subsequent paid months.</p>
+        <p className="mt-2">A result above zero R does not qualify. The extension is available only once per founding member, applies exclusively in relation to the calendar month in which the first paid subscription period begins, and is not provided for subsequent paid months.</p>
       </section>
 
       <section>
@@ -74,7 +75,7 @@ export default function FoundingMembersProgrammePage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">7. Subscription continuation and cancellation</h2>
-        <p>After the initial paid month, members may continue under the applicable renewal terms. Members who qualify retain access for the extension period without an additional charge; after it ends they may renew or discontinue. Members who do not qualify may cancel under the applicable cancellation terms. Cancellation does not entitle a member to a refund for a completed period unless required by law or expressly provided under the Subscription Terms and Conditions.</p>
+        <p>After the initial paid period, members may continue under the applicable renewal terms. Members who qualify retain access for the extension period without an additional charge; after it ends they may renew or discontinue. Members who do not qualify may cancel under the applicable cancellation terms. Cancellation does not automatically entitle a member to a refund for a completed period; refund requests are handled under the Refunds &amp; Cancellations policy, and nothing excludes a right you have under applicable law.</p>
       </section>
 
       <section>

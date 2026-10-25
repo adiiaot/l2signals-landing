@@ -9,6 +9,7 @@ import {
 } from '@/lib/payments/claims'
 import { getPaymentsConfig } from '@/lib/payments/config'
 import { verifyWithBot } from '@/lib/payments/bot-verify'
+import { attachConsentPayment, consumeConsent, type ConsentFailureCode } from '@/lib/payments/consent'
 import { clientKey, rateLimit } from '@/lib/payments/rate-limit'
 import { looksLikeBot, normalizeEmail, str } from '@/lib/payments/validate'
 import { PAYMENT_NETWORKS, PaymentNetwork } from '@/lib/payments/types'
@@ -17,6 +18,12 @@ export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
 const NETWORKS = new Set<string>(PAYMENT_NETWORKS)
+
+function consentStatus(code: ConsentFailureCode): number {
+  if (code === 'used' || code === 'plan_changed') return 409
+  if (code === 'unavailable') return 503
+  return 400
+}
 
 /**
  * POST /api/pay/submit — crypto hash or bank-transfer reference.
@@ -61,7 +68,11 @@ export async function POST(req: NextRequest) {
 
   if (method === 'crypto') {
     const requested = str(body.network)
-    if (!NETWORKS.has(requested) || !config.addresses[requested as PaymentNetwork]) {
+    if (
+      !NETWORKS.has(requested) ||
+      !config.methods.crypto.enabled ||
+      !config.addresses[requested as PaymentNetwork]
+    ) {
       return NextResponse.json(
         { ok: false, error: 'That network is not available. Pick another.' },
         { status: 400 }
@@ -85,7 +96,7 @@ export async function POST(req: NextRequest) {
   } else {
     if (!config.methods.ngn.enabled) {
       return NextResponse.json(
-        { ok: false, error: 'Bank transfer is not available right now. Use card or crypto.' },
+        { ok: false, error: 'Bank transfer is not available right now. Use online checkout or crypto.' },
         { status: 400 }
       )
     }
@@ -102,6 +113,36 @@ export async function POST(req: NextRequest) {
     adminNotes = str(body.note, 500)
   }
 
+  const consentId = str(body.consentId, 80)
+  if (!consentId) {
+    return NextResponse.json(
+      {
+        ok: false,
+        consentRequired: true,
+        error: 'Accept the required documents before submitting a payment. Reload the page and review them again.',
+      },
+      { status: 400 }
+    )
+  }
+
+  const consent = await consumeConsent({
+    id: consentId,
+    email,
+    mode: 'submit',
+    expectedPlan: { ngn: config.plan.ngn, usd: config.plan.usd, days: config.plan.days },
+  })
+  if (!consent.ok) {
+    return NextResponse.json(
+      {
+        ok: false,
+        consentRequired: true,
+        error: consent.error,
+        code: consent.code,
+      },
+      { status: consentStatus(consent.code) }
+    )
+  }
+
   try {
     let claim = null
     const token = str(body.token, 80)
@@ -116,7 +157,7 @@ export async function POST(req: NextRequest) {
 
     const isCrypto = method === 'crypto'
 
-    // Manual-first (2026-10-23): the operator verifies every payment by hand and
+    // Manual-first (2026-10-23): the operator verifies every manual payment by hand and
     // adds the member personally. Auto-verification is kept for later and only
     // runs when PAYMENTS_AUTO_VERIFY=true — flipping that flag must never be the
     // difference between "manual review" and "silently granted".
@@ -132,6 +173,10 @@ export async function POST(req: NextRequest) {
 
       if (verification?.verified) {
         if (claim) await markClaimSubmitted(claim.id).catch(() => undefined)
+        await (verification.paymentId
+          ? attachConsentPayment(consent.record.id, verification.paymentId, reference)
+          : Promise.resolve()
+        ).catch((error) => console.error('[pay] could not attach auto-verified payment to consent:', error))
         return NextResponse.json({
           ok: true,
           verified: true,
@@ -160,6 +205,9 @@ export async function POST(req: NextRequest) {
       network,
       claim,
       adminNotes,
+      consentId: consent.record.id,
+      consentVersions: consent.record.accepted,
+      consentAcceptedAt: consent.record.createdAt,
     })
 
     if (!result.ok) {
@@ -168,6 +216,10 @@ export async function POST(req: NextRequest) {
         { status: result.code === 'duplicate' ? 409 : 500 }
       )
     }
+
+    await attachConsentPayment(consent.record.id, result.paymentId, reference, 'submitted').catch((error) =>
+      console.error('[pay] could not attach payment to consent:', error)
+    )
 
     if (claim) {
       await markClaimSubmitted(claim.id).catch(() => undefined)

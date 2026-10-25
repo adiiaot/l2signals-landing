@@ -20,6 +20,8 @@ const ROUTES: { path: string; priority: number; changeFrequency: 'weekly' | 'mon
   { path: '/policies/signal-access-and-delivery', priority: 0.4, changeFrequency: 'monthly' },
   { path: '/policies/performance-measurement', priority: 0.4, changeFrequency: 'monthly' },
   { path: '/policies/trading-risk-disclosure', priority: 0.4, changeFrequency: 'monthly' },
+  { path: '/policies/acceptable-use', priority: 0.4, changeFrequency: 'monthly' },
+  { path: '/policies/refunds-and-cancellations', priority: 0.4, changeFrequency: 'monthly' },
   { path: '/policies/founding-members-programme', priority: 0.3, changeFrequency: 'monthly' },
   { path: '/policies/founding-member-extension', priority: 0.3, changeFrequency: 'monthly' },
 ]

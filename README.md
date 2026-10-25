@@ -1,83 +1,114 @@
-# L2 Signals — Business Website (L2signal_page)
+# L2 Signals Services — business website (`l2signals-landing`)
 
-Standalone Next.js 14 business site — **separate repo** from `l2signal_web` (private dashboard) and `l2signal_bot`. Built for public prospects to see proof, then join Telegram.
+Standalone Next.js 14 (App Router) site for **L2 Signals Services**, the trading-technology
+business. **L2 Signals** is the live product (paid XAU/USD signals in a private Telegram group);
+**L2 EA** is in development; **L2 Indicator** and the **L2 Signals App** are planned. Signals API
+access, custom systems, websites and apps are quoted per project.
 
-- **Live URL (Vercel)**: import this folder as `l2signals-landing` → `https://…vercel.app` → TinyURL
-- **Telegram (waitlist)**: `https://t.me/l2signals` — every CTA = *Join Our Channel on Telegram — Stay Updated on Progress & App Release*
-- **X**: `https://x.com/l2signals` · **Founder AOT**: `https://www.linkedin.com/in/aotayo` · `https://x.com/aot_ayo` · `https://aot-network-portfolio.vercel.app/` · `l2signalslab@gmail.com`
+This repo is separate from `l2signal_web` (private dashboard / signal engine) and `l2signal_bot`
+(payments and membership only).
 
-## What’s inside
+## Routes
 
-- **Hero**: Demo milestone `$100 → $1,007.41 in 37 days` (July 29 → Sept 4, 0.01 lot, systematic)
-- **About / Problem / Who For / Services** (Custom Trading Bots, Signal Systems, Business Websites, Mobile Apps)
-- **How It Works**: 3 strategies (EMA bounce · consolidation breakout · trend continuation) + hybrid `limit + stop` to 21:00 UTC, real MT5 broker feed (Dukascopy fallback) + 4.25-yr backtest `20,237 signals · 64.8% WR · +0.69R avg`, 2-month current config `152 fills · 74.2% WR · PF 5.12 · +103R`
-- **Roadmap, Pricing (access open — `/pay`), Proof, FAQ, Founder**
-- **Proof**: pill `Demo | Prop` — **Demo** = L2 card + metrics + X links (public), **Prop $10k** = 11 private screenshots (`public/prop/prop-*.jpg`) with `Private — will publish when funded` badge (no X to avoid copy-trade)
-- **FAQ #1 disclaimer**: *Not an investment service. We don’t manage funds unless signed agreement. No investment advice. Users only pay for signal access in private Telegram + upcoming web app.*
+| Route | Purpose |
+| --- | --- |
+| `/` | Business homepage: hero, about, products, L2 Signals spotlight, execution ledger, methodology, how it works, roadmap, pricing, trust, FAQ, founder, contact |
+| `/services` | Services tracks (Signals API, custom systems, apps, hire/partnership) |
+| `/quote` | Scoped quote request (email draft; no server-side payment) |
+| `/pay` | Checkout: disclosure, consent, Paystack / crypto / bank transfer |
+| `/legal` | Legal & Trust Centre index |
+| `/terms`, `/privacy` | Core website documents |
+| `/policies` | Member-policy index |
+| `/policies/subscription-terms` | Subscription, renewal, cancellation, refunds |
+| `/policies/trading-risk-disclosure` | Risk disclosure |
+| `/policies/signal-access-and-delivery` | Delivery, order types, cutoff, sizing |
+| `/policies/performance-measurement` | Calendar-month Net R methodology |
+| `/policies/founding-members-programme` | Founding cohort terms |
+| `/policies/founding-member-extension` | Extension benefit |
+| `/policies/acceptable-use` | Permitted use |
+| `/policies/refunds-and-cancellations` | Interim refund/cancellation process |
 
-Design mirrors `l2signal_web`: dark `10 14 20` / gold `0 201 120`, glass `card`, `btn::after` shine, `scroll-reveal`, light/dark toggle, premium motion.
+`/legal/terms`, `/legal/refunds`, `/legal/risk-disclosure` and the other `/legal/*` aliases
+redirect to the canonical routes in `next.config.js`. Do not duplicate the documents.
 
-## Data
+## Content and claims
 
-- **Ledger truth**: same Firestore as private app (`l2-signals` project) — reads `trades`/`signals` live. This site currently uses static `data/tweets.ts` + `data/stats.ts` for proof; Firestore wiring is via `lib/firebase.ts` + `/api/tweets` fallback.
-- **Tweet wall**: `data/tweets.ts` (`demoTweets` 10 incl. milestone, `propTweets` 11 private). Demo keeps `tweetUrl`, prop has `''` (private).
-- **Images**: `public/images/l2signals_logo.jpg`, `l2signals_cover_banner.jpg` + `public/prop/prop-*.jpg` (kebab, no `$`/spaces for Vercel).
+- Business identity, offer, products and journey live in `data/business.ts`.
+- Legal metadata, versions, effective dates and consent mapping live in `data/legal.ts`.
+- Public figures must stay labelled: the 4.25-year study and the 2-month backtest are
+  **backtested**; the `$100 → $1,007.41` result is **demo**. No profit, win rate, funding or
+  withdrawal is guaranteed.
+- Do not state a release date, broker, licence, registration, address or integration that is not
+  verified. Product statuses are deliberately conservative (“in development” ≠ “available”).
+- The execution ledger (`components/ProofSection.tsx`) reads the public web API and only shows
+  realised R where the record supports it. Planned R is never substituted for realised R.
 
-## Dev
+## Payments and consent
+
+Checkout is hosted on this site. The **storefront is deliberately not linked**: a hosted
+`paystack.shop` page cannot show the pre-payment disclosures or record consent.
+
+1. `/pay` fetches the plan from `l2signal_web` → `config/payments` (server-side, revalidated).
+   The browser never supplies the price.
+2. The payer must tick three initially-unchecked boxes: Terms + Subscription Terms; Trading Risk
+   Disclosure; Founding Members Programme (when `OFFER.foundingApplicable`).
+3. `POST /api/pay/consent` recomputes the required documents and versions from `data/legal.ts`,
+   stores a `payConsents` record (product, plan snapshot, versions, timestamp, salted IP hash,
+   truncated user agent) and returns an id.
+4. `/api/pay/paystack/init` and `/api/pay/submit` consume that id **once** in a Firestore
+   transaction, re-check the current plan, and refuse if the price changed (`plan_changed`).
+5. Paystack redirects are never proof. `/api/pay/paystack/verify` and the signed webhook re-check
+   the charge with Paystack. Crypto and bank transfers are recorded as pending and reviewed.
+6. Payment docs store `consentId`, `consentVersions` and `consentAcceptedAt`; duplicate
+   references are refused by `txIndex`.
+
+The Paystack rail is labelled **“Pay online”** (it also handles bank transfer and USSD), never
+“Card”. Card data never touches this site.
+
+## Environment
+
+Copy `.env.example` and set the values in Vercel. Required for real payments:
+
+- `PAYSTACK_SECRET_KEY` — server-only; online checkout stays hidden without a valid key.
+- `PAYSTACK_USD_ENABLED` — `true` charges USD, otherwise NGN.
+- `FIREBASE_CLIENT_EMAIL` / `FIREBASE_PRIVATE_KEY` — consent and payment records.
+- `NEXT_PUBLIC_L2_WEB_API` — web dashboard origin used for plan config and the public ledger.
+- `NEXT_PUBLIC_SITE_URL` — canonical origin, OG URLs and sitemap.
+- `NEXT_PUBLIC_TELEGRAM_BOT_URL` — optional bot deep link for identity.
+- `PAYMENTS_AUTO_VERIFY` — `false` by default; manual review.
+- `BOT_API_URL` / `PAYMENT_VERIFY_SECRET` — bot verify bridge, when enabled.
+- Proof channels: `NEXT_PUBLIC_TELEGRAM_PROOF_URL` and `NEXT_PUBLIC_CONTACT_EMAIL` (defaults in
+  `lib/payments/links.ts`).
+
+## Dev checks
 
 ```bash
-# from C:\l2page (junction avoids My Workspace spaces)
 npm install --legacy-peer-deps
-npm run dev      # http://localhost:3000
+npm run dev
 npx tsc --noEmit
+npx tsx scripts/check-consent.ts   # pure consent/version contract check
 npm run build
 ```
 
-## Custom domain (l2signals.com)
+`npm run lint` is not configured in this repo (no ESLint config); `next build` still runs its
+type checks. If ESLint is added, run it before shipping.
 
-The site is domain-agnostic — no absolute URLs are hardcoded in components.
+## Deploy
 
-1. Vercel → project → Domains → add `l2signals.com` (+ `www` redirect).
-2. Set `NEXT_PUBLIC_SITE_URL="https://l2signals.com"` in Vercel and redeploy.
-   Canonical links, `metadataBase`, OpenGraph `url` and `/sitemap.xml` all derive
-   from it; the Paystack `callbackUrl` already derives from the request origin.
-3. Update outside the repo:
-   - Paystack dashboard → **Webhook URL** → `https://l2signals.com/api/pay/paystack/webhook`
-   - `l2signal_web` → `/dashboard/payments` → **Payment page URL** → `https://l2signals.com/pay`
-   - bot env `PAY_PAGE_URL="https://l2signals.com/pay"`
-   - bot env `NEXT_PUBLIC_SITE_URL` is not needed; the landing link in bot copy comes from `PAY_PAGE_URL`.
+1. Vercel → project → Settings → Environment Variables: add the values above.
+2. Deploy. Verify `/pay`, `/legal`, `/terms`, `/privacy`, `/policies` and a `/legal/*` redirect.
+3. Paystack dashboard → Webhook URL → `https://<domain>/api/pay/paystack/webhook`.
+4. `l2signal_web` → `/dashboard/payments` → **Payment page URL** → `https://<domain>/pay`.
+5. Bot env `PAY_PAGE_URL` → `https://<domain>/pay`.
+6. Custom domain: set `NEXT_PUBLIC_SITE_URL`, then repeat steps 3–5 for the new origin.
 
-## Neon (optional — static fallback works)
+## Legal/owner decisions still open
 
-```bash
-# .env already has DATABASE_URL (pooler, sslmode=require&channel_binding=require)
-npx prisma generate
-npx prisma db push   # if P1001, check Neon IP allow / try direct host (remove -pooler)
-npx tsx prisma/seed.ts  # seeds demo+prop tweets (uses data/tweets.ts)
-# Or keep using static data — no DB required for deploy.
-```
-
-Update flow for years (zero stress):
-1. Log trades in private `l2signal_web` as now — ledger auto live (when Firestore wiring enabled).
-2. After posting on X (demo only), add row to `data/tweets.ts` + drop jpg to `public/prop/` (prop) → `git push` → Vercel auto. Later migrate to Neon via seed.
-
-## Deploy (separate repo)
-
-```bash
-cd C:\l2page
-git init
-git add .
-git commit -m "L2 Signals business site — demo $1007.41 milestone + prop private wall"
-git branch -M main
-git remote add origin https://github.com/<you>/l2signals-landing.git
-git push -u origin main
-# Vercel → Import l2signals-landing → Env: DATABASE_URL, NEXT_PUBLIC_* → Deploy → TinyURL
-```
-
-Env on Vercel: `DATABASE_URL`, `NEXT_PUBLIC_TELEGRAM_URL`, `NEXT_PUBLIC_X_URL`, `NEXT_PUBLIC_FIREBASE_*` (for future live ledger).
-
-## Notes
-
-- Prop tweets intentionally have `tweetUrl: ''` — UI shows *Private — will publish when funded*, not a broken X link (anti copy-trade).
-- No system internals disclosed (ATR/ADX thresholds etc remain in `l2signal_web/lib/signal-engine/config.ts` only).
-- `.env` is gitignored; share `...-pooler` URL only via Vercel env.
+- Final commercial refund policy (the current page is an interim, case-by-case process and says
+  so visibly).
+- Specific judicial venue / consumer-dispute route (Terms currently flags it as subject to
+  Nigerian counsel).
+- Regulatory status (no SEC approval, licence or exemption is claimed).
+- The live `config/payments` plan is currently **31 days**; the site copy mirrors that. If 30
+  days is intended, change the web config, then update `OFFER.days` in `data/business.ts`, the
+  fallback in `lib/payments/types.ts`, and the “31-day” references in the legal pages together.

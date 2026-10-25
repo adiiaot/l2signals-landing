@@ -7,6 +7,7 @@ import {
   recordPayment,
 } from '@/lib/payments/claims'
 import { getPaymentsConfig } from '@/lib/payments/config'
+import { attachConsentPayment, resolvePaystackConsent } from '@/lib/payments/consent'
 import { verifyTransaction } from '@/lib/payments/paystack'
 import { clientKey, rateLimit } from '@/lib/payments/rate-limit'
 import { str } from '@/lib/payments/validate'
@@ -19,6 +20,10 @@ export const runtime = 'nodejs'
  *
  * Runs after Paystack redirects back. Always re-checks the charge against the
  * Paystack API — a query string is attacker-controlled and proves nothing.
+ *
+ * The consent link comes from the transaction metadata Paystack returns (not
+ * from the URL). A successful charge with no usable consent record is still
+ * recorded for reconciliation, but it is explicitly flagged for manual review.
  */
 export async function GET(req: NextRequest) {
   if (!hasAdminCredentials()) {
@@ -51,27 +56,46 @@ export async function GET(req: NextRequest) {
     const claim = await findClaimByPaystackReference(reference)
     const usable = claim && claimIsUsable(claim) ? claim : null
 
+    // ── Consent: read from Paystack metadata, never from the query string ────
+    const { consent, issue: consentIssue } = await resolvePaystackConsent({
+      consentId: str(transaction.metadata?.consentId, 80),
+      reference,
+      customerEmail: transaction.customer?.email,
+    })
+
     // Paystack charges exactly what we asked for; a shortfall means the price moved
     // between checkout and confirmation. Flag it for review instead of rejecting.
-    const adminNotes =
-      paid + 0.01 < expected
-        ? `Amount mismatch — paid ${currency} ${paid.toFixed(2)}, expected ${currency} ${expected.toFixed(2)}`
-        : ''
+    const notes: string[] = []
+    if (paid + 0.01 < expected) {
+      notes.push(`Amount mismatch — paid ${currency} ${paid.toFixed(2)}, expected ${currency} ${expected.toFixed(2)}`)
+    }
+    if (consentIssue) {
+      notes.push(`${consentIssue} — do not grant access until checked`)
+    }
 
     const result = await recordPayment({
-      email: usable?.email || transaction.customer?.email || '',
+      email: consent?.email || usable?.email || transaction.customer?.email || '',
       method: 'paystack',
       provider: 'paystack',
       amount: paid,
       currency,
       reference,
       claim: usable,
-      adminNotes,
+      adminNotes: notes.join(' · '),
+      consentId: consent?.id || '',
+      consentVersions: consent?.accepted || {},
+      consentAcceptedAt: consent?.createdAt || null,
       idempotent: true,
     })
 
     if (!result.ok) {
       return NextResponse.json({ ok: false, error: result.error }, { status: 500 })
+    }
+
+    if (consent) {
+      await attachConsentPayment(consent.id, result.paymentId, reference).catch((error) =>
+        console.error('[pay] could not attach payment to consent:', error)
+      )
     }
 
     if (usable) await markClaimSubmitted(usable.id).catch(() => undefined)
@@ -83,6 +107,7 @@ export async function GET(req: NextRequest) {
       amount: paid,
       currency,
       duplicate: result.duplicate,
+      consentRecorded: Boolean(consent),
       telegramVerified: Boolean(usable?.telegramId),
       paidAt: transaction.paid_at || null,
     })

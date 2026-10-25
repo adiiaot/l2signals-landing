@@ -3,7 +3,7 @@ import PolicyShell from '../../../components/PolicyShell'
 import { POLICIES } from '../../../data/policies'
 
 export const metadata: Metadata = {
-  title: 'Trading Risk Disclosure — L2 Signals',
+  title: 'Trading Risk Disclosure',
   description: 'The principal risks of trading with L2 Signals: risk of loss, leverage and margin, broker execution, news events, position sizing and individual responsibility.',
 }
 
@@ -13,6 +13,7 @@ const box = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid 
 export default function TradingRiskDisclosurePage() {
   return (
     <PolicyShell
+      slug="trading-risk-disclosure"
       title="Trading Risk Disclosure"
       pdf={pdf}
       intro={
@@ -88,7 +89,7 @@ export default function TradingRiskDisclosurePage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">11. Signal expiry and instruction changes</h2>
-        <p>Follow the order type and instructions published for each signal. Under the current Signal Access &amp; Delivery Policy the daily expiry window is 21:00–21:50 UTC, subject to any more specific expiry on the individual signal card. Close open trades and cancel relevant pending orders by the applicable expiry. Expired signals must not be carried into the next trading day unless an official policy or signal instruction expressly provides otherwise. Monitor official updates, including changes to entries and cancellations; failing to follow them may produce results that differ from the official outcome.</p>
+        <p>Follow the order type and instructions published for each signal. Under the current Signal Access &amp; Delivery Policy the daily cutoff is 21:00 UTC, subject to any more specific time on the individual signal card. Close open trades and cancel relevant pending orders by the applicable cutoff. Expired signals must not be carried into the next trading day unless an official policy or signal instruction expressly provides otherwise. Monitor official updates, including changes to entries and cancellations; failing to follow them may produce results that differ from the official outcome.</p>
       </section>
 
       <section>
@@ -103,7 +104,7 @@ export default function TradingRiskDisclosurePage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">14. Founding member extension is not a cash refund</h2>
-        <p>Eligible founding members may qualify for one additional month of access after their first paid subscription month when the applicable official net R is zero or negative. This benefit is an extension of service access, not a cash refund; is assessed using official performance rather than personal account results; applies only once and only under the stated conditions; does not reimburse personal losses or broker charges; and does not guarantee that a subsequent month will be profitable.</p>
+        <p>Eligible founding members may qualify for one additional month of access in relation to the calendar month in which their first paid subscription period begins, when the official net R for that calendar month is zero or negative. This benefit is an extension of service access, not a cash refund; is assessed using official performance rather than personal account results; applies only once and only under the stated conditions; does not reimburse personal losses or broker charges; and does not guarantee that a subsequent month will be profitable.</p>
       </section>
 
       <section>

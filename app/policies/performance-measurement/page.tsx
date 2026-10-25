@@ -3,7 +3,7 @@ import PolicyShell from '../../../components/PolicyShell'
 import { POLICIES } from '../../../data/policies'
 
 export const metadata: Metadata = {
-  title: 'Performance Measurement Policy — L2 Signals',
+  title: 'Performance Measurement Policy',
   description: 'How L2 Signals records official signal outcomes, calculates calendar-month net R in WAT (UTC+1), and determines founding-member extension eligibility.',
 }
 
@@ -18,6 +18,7 @@ const row = (label: string, value: string, accent = false) => (
 export default function PerformanceMeasurementPage() {
   return (
     <PolicyShell
+      slug="performance-measurement"
       title="Performance Measurement Policy"
       pdf={pdf}
       intro={
@@ -119,7 +120,7 @@ export default function PerformanceMeasurementPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">10. Founding-member extension eligibility</h2>
-        <p>Eligibility is determined using the official net R for the applicable first paid subscription month, finalised under the month-end procedure. It is governed by the Founding Members Programme and the Founding Member Extension Policy.</p>
+        <p>Eligibility is determined using the official net R for the calendar month in which the member&apos;s first paid subscription period begins, finalised under the month-end procedure. It is governed by the Founding Members Programme and the Founding Member Extension Policy.</p>
         <div className="mt-2 overflow-hidden rounded-xl" style={{ border: '1px solid var(--glass-border)' }}>
           <div className="grid grid-cols-2 text-xs">
             <div className="p-2.5 font-semibold" style={{ background: 'rgb(var(--surface-overlay-rgb))' }}>Official monthly net R</div>
@@ -129,7 +130,7 @@ export default function PerformanceMeasurementPage() {
             {row('Above 0R', 'Not eligible')}
           </div>
         </div>
-        <p className="mt-2">The extension is available once, applies after the first paid subscription month, does not recur, provides additional service access, is not a cash refund, and does not guarantee future profitability. If a member&apos;s account is profitable while the official net R is zero or negative, the official result governs; if a member personally loses money while the official net R is positive, that individual loss does not establish eligibility.</p>
+        <p className="mt-2">The extension is available once, applies in relation to the calendar month in which the first paid subscription period begins, does not recur, provides additional service access, is not a cash refund, and does not guarantee future profitability. If a member&apos;s account is profitable while the official net R is zero or negative, the official result governs; if a member personally loses money while the official net R is positive, that individual loss does not establish eligibility.</p>
       </section>
 
       <section>

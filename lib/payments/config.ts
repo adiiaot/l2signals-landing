@@ -30,8 +30,10 @@ export interface PublicPayConfig {
   plan: PaymentsConfig['plan']
   addresses: PaymentsConfig['addresses']
   methods: PaymentsConfig['methods']
-  /** Card payments are hidden until the Paystack secret key is set. */
+  /** Online payments are hidden until the Paystack secret key is set. */
   paystackEnabled: boolean
+  /** Currency Paystack will actually charge — shown on the checkout button. */
+  paystackCurrency: 'NGN' | 'USD'
   /** Bot deep-link base, e.g. https://t.me/l2signals_bot — null hides Telegram verification. */
   telegramBotUrl: string | null
 }
@@ -43,13 +45,14 @@ export function toPublicConfig(config: PaymentsConfig): PublicPayConfig {
     addresses: config.addresses,
     methods: config.methods,
     paystackEnabled: isPaystackConfigured(),
+    paystackCurrency: process.env.PAYSTACK_USD_ENABLED === 'true' ? 'USD' : 'NGN',
     telegramBotUrl: botUrl || null,
   }
 }
 
 /**
  * A key is only usable if it looks like a real live/test key. The `.env.example`
- * placeholder must never make the card tab appear, or a checkout would 401.
+ * placeholder must never make the online tab appear, or a checkout would 401.
  */
 export function isPaystackConfigured(): boolean {
   const key = (process.env.PAYSTACK_SECRET_KEY || '').trim()

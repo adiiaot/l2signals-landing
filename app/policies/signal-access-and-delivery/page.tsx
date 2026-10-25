@@ -3,8 +3,8 @@ import PolicyShell from '../../../components/PolicyShell'
 import { POLICIES } from '../../../data/policies'
 
 export const metadata: Metadata = {
-  title: 'Signal Access & Delivery Policy — L2 Signals',
-  description: 'How L2 Signals members receive, interpret and execute signals — order types, the daily 21:00–21:50 UTC expiry window, position sizing, the 2% risk ceiling and official updates.',
+  title: 'Signal Access & Delivery Policy',
+  description: 'How L2 Signals members receive, interpret and execute signals — order types, the daily 21:00 UTC cutoff, position sizing, the 2% risk ceiling and official updates.',
 }
 
 const pdf = POLICIES.find(p => p.slug === 'signal-access-and-delivery')?.pdf
@@ -13,6 +13,7 @@ const box = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid 
 export default function SignalAccessPage() {
   return (
     <PolicyShell
+      slug="signal-access-and-delivery"
       title="Signal Access & Delivery Policy"
       pdf={pdf}
       intro={
@@ -53,15 +54,15 @@ export default function SignalAccessPage() {
       </section>
 
       <section>
-        <h2 className="text-sm font-bold text-text-primary">4. Daily signal expiry</h2>
-        <p>L2 Signals uses a daily expiry window of <span className="font-mono text-accent-gold">21:00–21:50 UTC</span>. Follow the expiry communicated for each signal, interpreted in UTC — convert from local time correctly. Before the applicable expiry:</p>
+        <h2 className="text-sm font-bold text-text-primary">4. Daily cutoff at 21:00 UTC</h2>
+        <p>L2 Signals uses a daily cutoff at <span className="font-mono text-accent-gold">21:00 UTC</span>, the end of the trading day. A signal is not a valid instruction for a new entry after that cutoff, and open L2 Signals trades are closed by it unless the signal card states a different time. Times are in UTC — convert from local time correctly. Before the cutoff:</p>
         <ul className="list-disc ml-4 space-y-1 mt-1">
-          <li>Close open L2 Signals trades by the specified expiry time.</li>
-          <li>Cancel unfilled pending orders associated with expired signals.</li>
-          <li>Do not carry expired signals into the next trading day.</li>
+          <li>Close open L2 Signals trades by the stated cutoff.</li>
+          <li>Cancel unfilled pending orders associated with the trading day.</li>
+          <li>Do not carry an expired signal into the next trading day.</li>
           <li>Wait for a new valid setup before entering another L2 Signals trade.</li>
         </ul>
-        <p className="mt-2">An expired signal must not be treated as a valid instruction for a new entry the following day. Members are responsible for checking their own positions and pending orders rather than assuming they close or cancel automatically. Where a signal card specifies an exact expiry within the window, that signal-specific instruction takes precedence.</p>
+        <p className="mt-2">An expired signal must not be treated as a valid instruction for a new entry the following day. Members are responsible for checking their own positions and pending orders rather than assuming they close or cancel automatically. Where a signal card states a different time, that signal-specific instruction takes precedence.</p>
       </section>
 
       <section>
@@ -122,7 +123,7 @@ export default function SignalAccessPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">13. Acknowledgement</h2>
-        <p>By using L2 Signals, members acknowledge that they must follow the specified order type; respect the daily expiry between 21:00 and 21:50 UTC; close open positions and cancel pending orders associated with expired signals; size positions according to their account, stop-loss distance and broker specifications; never risk more than 2% of their balance on a single signal; never widen or remove a stop-loss to avoid a loss; comply with their own broker and prop firm rules; remain responsible for execution and account management; understand that personal results do not determine official performance; and accept that trading involves risk and previous performance does not guarantee future results.</p>
+        <p>By using L2 Signals, members acknowledge that they must follow the specified order type; respect the daily 21:00 UTC cutoff; close open positions and cancel pending orders associated with the trading day; size positions according to their account, stop-loss distance and broker specifications; never risk more than 2% of their balance on a single signal; never widen or remove a stop-loss to avoid a loss; comply with their own broker and prop firm rules; remain responsible for execution and account management; understand that personal results do not determine official performance; and accept that trading involves risk and previous performance does not guarantee future results.</p>
       </section>
     </PolicyShell>
   )

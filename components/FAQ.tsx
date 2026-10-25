@@ -1,70 +1,258 @@
 "use client"
-import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
-import { PAYSTACK_STOREFRONT_URL } from '@/lib/payments/links'
 
-const FAQS = [
+import { useState } from 'react'
+import Link from 'next/link'
+import { ChevronDown } from 'lucide-react'
+
+const FAQS: { q: string; a: React.ReactNode; highlight?: boolean }[] = [
   {
-    q: 'Disclaimer — Is L2 Signals an investment service? Do you manage funds?',
-    a: 'No. L2 Signals is not a financial investment service and we do not manage or trade funds for anyone unless there is a signed agreement. We do not offer investment advice or take users money to trade. Users only pay for signal access in the private Telegram group and access to features in the upcoming web app as the business scales. Trade your own account, manage your own risk.',
+    q: 'Is L2 Signals an investment service? Do you manage funds?',
+    a: (
+      <>
+        No. L2 Signals is a subscription to a systematic signal service, not an investment service or a
+        managed account. Under the subscription we do not take custody of member funds or execute trades on a
+        member&apos;s behalf. You trade your own account, choose your own size and keep control of your own
+        money. Nothing on this site is personal financial, investment, legal or tax advice.
+      </>
+    ),
     highlight: true,
   },
   {
-    q: 'What is L2 Signals and how does it work?',
-    a: 'L2 Signals is a systematic XAU/USD intraday product built for disciplined retail traders. It uses three complementary strategies that each handle a different market regime and hybrid pending orders — limit + stop with the same SL/TP, whichever touches first fills and the other is cancelled — to 21:00 UTC close. The system is deterministic: same rules every time, no discretion, no chasing. It has been backtested over 4.25 years of broker gold data (20,237 signals · 64.8% WR · +0.69R per signal, profitable in every year) and is forward validated on a live demo ledger, with every trade, R and date logged.',
+    q: 'What is L2 Signals Services?',
+    a: (
+      <>
+        L2 Signals Services is the parent trading-technology and software business. L2 Signals is its first
+        product. The ecosystem also includes L2 EA (an Expert Advisor in development), L2 Indicator (planned),
+        L2 Signals App (planned) and custom systems or Signals API work (available by quote). Live, in
+        development and planned products are labelled separately — an unreleased product is never presented as
+        available.
+      </>
+    ),
   },
   {
-    q: 'Do I need trading experience to use it?',
-    a: 'Yes, basic experience is needed. You should understand stop loss, take profit, lot sizing and risk per trade (we use 1–2% per trade). L2 provides the system, the entry/SL/TP, the exit playbook — 50% off at +1R, stop to breakeven, rest to TP; or a full exit at TP when the target is under 1R — and the ledger. You execute on your own broker or prop firm. If you are new, paper trade first and follow the free channel to learn the workflow before paying for private access.',
+    q: 'What is L2 Signals and how does it work?',
+    a: (
+      <>
+        L2 Signals is a rules-based intraday XAU/USD service. The engine uses three complementary strategy
+        types — EMA bounce, consolidation breakout and trend continuation — with direction-aware routing.
+        Where applicable, a setup ships a limit entry and a stop-fallback leg with the same stop and target;
+        whichever touches first fills and the other is cancelled. Trades run to the daily close window at
+        21:00 UTC. The 4.25-year broker-data study covered 20,237 signals at 64.8% WR and +0.69R per signal;
+        that is a backtest, not a promise of future results.
+      </>
+    ),
+  },
+  {
+    q: 'Do I need trading experience?',
+    a: (
+      <>
+        Yes. The service is intended for experienced traders who already understand stop-losses, take-profit,
+        lot sizing and risk per trade. The published ceiling is 2% of account balance per signal — a cap, not
+        a target. Position sizing must account for your balance, stop distance, broker contract
+        specifications and execution costs. If you are new, paper trade first and follow the free channel
+        before paying for private access.
+      </>
+    ),
   },
   {
     q: 'How are signals delivered?',
-    a: 'Signals and daily results are posted in the free public channel for transparency. Paid members get the private Telegram group for intraday signals, and the web app mirrors the same signals with extra tooling as it rolls out. No email list is needed — the Telegram channel is the update channel.',
+    a: (
+      <>
+        Paid members receive a personal, single-use invitation to the private Telegram group after payment is
+        verified. The public channel carries updates and general results, not the paid service. Access is
+        personal and must not be shared, forwarded or resold. See the{' '}
+        <Link href="/policies/signal-access-and-delivery" className="text-accent-gold hover:underline">
+          Signal Access &amp; Delivery Policy
+        </Link>
+        .
+      </>
+    ),
   },
   {
     q: 'Why hybrid limit + stop entries?',
-    a: 'Gold often either retraces to a good limit or runs away without retracing. Every L2 signal ships both: a limit order at the ideal price and a stop fallback behind the entry with the same stop loss and take profit. Whichever level touches first fills and we cancel the other. If price is already past both at generation, it becomes a market order. This cuts missed moves while keeping risk fixed at 1–2% per trade.',
+    a: (
+      <>
+        Gold often either retraces to a good limit or runs away without retracing. Where the engine specifies
+        a hybrid setup, both levels are published with the same stop-loss and take-profit. Whichever level
+        touches first fills, and the other is cancelled. If price is already beyond both at generation, the
+        setup becomes a market order. This is an execution rule, not a guarantee that an order will fill.
+      </>
+    ),
   },
   {
-    q: 'How can I verify the results are real?',
-    a: 'Two separate records. The backtest covers 20,237 signals over 4.25 years (Jul 2022 – Oct 2026) with the same rules and cost model the engine runs today — 64.8% WR and +0.69R per signal across that whole period, not a hand-picked sample. The demo ledger — $100 to $1,007.41 in 37 days (Jul 29 – Sep 4, 2026) — is logged trade by trade, with each one posted on X and linked in the Demo ledger below. Live prop trades are verified privately with screenshots and account statements, and published after the challenge is completed to avoid copy-trading from others using the same firm. The ledger on this site is the single source of truth and updates as new trades are logged.',
+    q: 'How is performance measured?',
+    a: (
+      <>
+        Official performance is measured from the signal engine&apos;s recorded outcomes, not from a member&apos;s
+        broker balance. Monthly Net R is the sum of eligible decided outcomes attributed to the calendar month
+        in West Africa Time (UTC+1). Unfilled signals are reported but excluded. A month stays provisional
+        while eligible signals are unresolved. Read the{' '}
+        <Link href="/policies/performance-measurement" className="text-accent-gold hover:underline">
+          Performance Measurement Policy
+        </Link>{' '}
+        and the <Link href="/legal" className="text-accent-gold hover:underline">legal index</Link>.
+      </>
+    ),
   },
   {
-    q: 'When will the web app and private group launch?',
-    a: 'The private group is open now and access is sold on the payment page. The multi-user web app (auth, subscriptions, extra tooling) ships alongside it as the member base grows, and paid members get it as it lands. You can still join the free channel first and watch the ledger before paying — nothing is charged until you check out.',
+    q: 'What am I actually buying?',
+    a: (
+      <>
+        You buy access to the L2 Signals service for the paid period. You do not buy the software, the
+        strategy, the brand, the signal engine or the right to redistribute signals or private-group content.
+        The subscription does not renew automatically; a new payment is needed for another period. See the{' '}
+        <Link href="/policies/subscription-terms" className="text-accent-gold hover:underline">
+          Subscription Terms
+        </Link>
+        .
+      </>
+    ),
   },
   {
-    q: 'How do I pay for access?',
-    a: 'Three rails on the payment page: online via Paystack (card, bank transfer or USSD), USDT on TRON (TRC20) or BNB Chain (BEP20), USDC on Solana (SPL), or Nigerian bank transfer in NGN. Paystack goes through instantly. Each crypto network accepts one asset only — the page shows the address for the network you pick, and that is the only chain you should send on. Every payment is then checked by hand — send the reference (or crypto transaction hash), a screenshot and your member details (full name, Telegram @username, email, phone/WhatsApp) to @aotayoL2 on Telegram (@aotayo if you prefer), or email l2signalslab@gmail.com, and you are added to the private group with a single-use invite, usually within a few hours. Access is delivered as a Telegram invite; the email channel is there in case you would rather send proof by email. Stablecoins only — the amount is always 1:1 with the USD price, so it never changes between checkout and confirmation.',
+    q: 'What is the Founding Members Programme?',
+    a: (
+      <>
+        It is the limited early-access cohort, capped at a maximum of 50 members, with an official L2 Signals
+        launch target of 1 January 2027. A founding member with an eligible first paid subscription may qualify
+        for one additional month of access if the official cumulative Net R for the calendar month in which that
+        period begins is zero or below. It is a one-time service-access benefit — not a cash refund, not based
+        on your personal account, and not available again in later months. Read the{' '}
+        <Link href="/policies/founding-members-programme" className="text-accent-gold hover:underline">
+          programme
+        </Link>{' '}
+        and{' '}
+        <Link href="/policies/founding-member-extension" className="text-accent-gold hover:underline">
+          extension policy
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    q: 'When will L2 EA, L2 Indicator and the L2 Signals App be available?',
+    a: (
+      <>
+        L2 EA is in development. L2 Indicator and the L2 Signals App are planned. No release date or
+        performance claim is made for an unreleased product, and nothing on this site is an offer to sell one.
+        For L2 EA, you can register interest by email; product updates are posted in the public channel.
+      </>
+    ),
+  },
+  {
+    q: 'How do I pay, and what happens after?',
+    a: (
+      <>
+        The <Link href="/pay" className="text-accent-gold hover:underline">payment page</Link> shows the price,
+        period, access, risks and the legal documents. You must actively accept the Terms, the Trading Risk
+        Disclosure and — while the founding offer applies — the Founding Members conditions before a payment
+        can start. A consent record is stored server-side with the accepted document versions. Online payments
+        are verified with Paystack; crypto and bank transfers are matched and reviewed manually. After
+        verification you receive a single-use invite. A browser success page is never treated as proof of
+        payment.
+      </>
+    ),
+  },
+  {
+    q: 'Can I cancel? What about refunds?',
+    a: (
+      <>
+        Yes. The subscription does not renew automatically, so you can choose not to pay again. Access ends at
+        the end of the paid period (subject to any stated grace period). Duplicate or erroneous payments are
+        corrected. The final commercial refund policy is still pending owner confirmation, so requests are
+        reviewed individually and in good faith without removing any statutory right. See{' '}
+        <Link href="/policies/refunds-and-cancellations" className="text-accent-gold hover:underline">
+          Refunds &amp; Cancellations
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    q: 'How is my data handled?',
+    a: (
+      <>
+        We collect what is needed to verify a payment, apply access, keep a consent record and support you.
+        We do not sell data or store full card details. Payment providers, hosting and Telegram process
+        specific data as described in the{' '}
+        <Link href="/privacy" className="text-accent-gold hover:underline">Privacy Policy</Link>. You can ask
+        for access, correction or deletion of your data, subject to legal retention requirements.
+      </>
+    ),
+  },
+  {
+    q: 'Is L2 Signals regulated or approved?',
+    a: (
+      <>
+        We do not claim that L2 Signals Services or L2 Signals is approved, licensed, registered or exempt by
+        the Nigerian Securities and Exchange Commission or any other regulator. A disclaimer does not by
+        itself remove a regulatory obligation. The product is described as it operates: you receive signals,
+        keep control of your own funds and make your own execution decisions. See the{' '}
+        <Link href="/legal" className="text-accent-gold hover:underline">legal index</Link> for the current
+        position.
+      </>
+    ),
   },
 ]
 
 export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0)
+
   return (
-    <section id="faq" className="max-w-6xl mx-auto px-4 py-6 scroll-reveal">
+    <section id="faq" className="max-w-6xl mx-auto px-4 py-6 scroll-mt-20 scroll-reveal">
       <div className="card">
-        <h2 className="text-lg font-bold text-text-primary">FAQ & Disclaimer</h2>
-        <div className="mt-4 space-y-2">
-          {FAQS.map((f, i) => (
-            <div key={i} className="rounded-xl overflow-hidden" style={{ background: f.highlight ? 'rgba(var(--accent-gold-rgb),0.06)' : 'rgb(var(--surface-overlay-rgb))', border: `1px solid ${f.highlight ? 'rgba(var(--accent-gold-rgb),0.2)' : 'var(--glass-border)'}` }}>
-              <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left">
-                <span className={`text-xs font-bold ${f.highlight ? 'text-accent-gold' : 'text-text-primary'}`}>{f.q}</span>
-                <ChevronDown className={`w-4 h-4 shrink-0 transition ${open === i ? 'rotate-180' : ''} text-text-muted`} />
-              </button>
-              {open === i && <div className="px-4 pb-3 text-xs leading-relaxed text-text-secondary">{f.a}</div>}
-            </div>
-          ))}
+        <div className="flex flex-wrap items-end justify-between gap-2">
+          <h2 className="text-lg sm:text-xl font-bold">Questions, answered plainly</h2>
+          <Link href="/legal" className="text-[11px] font-semibold text-accent-gold hover:underline">
+            All legal documents →
+          </Link>
         </div>
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
-          <a href="/pay" className="btn-primary rounded-full px-5 py-2 text-xs">Pay for access</a>
+
+        <div className="mt-4 space-y-2">
+          {FAQS.map((faq, index) => {
+            const isOpen = open === index
+            return (
+              <div
+                key={faq.q}
+                className="rounded-xl overflow-hidden"
+                style={{
+                  background: faq.highlight ? 'rgba(var(--accent-gold-rgb),0.06)' : 'rgb(var(--surface-overlay-rgb))',
+                  border: `1px solid ${faq.highlight ? 'rgba(var(--accent-gold-rgb),0.2)' : 'var(--glass-border)'}`,
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : index)}
+                  aria-expanded={isOpen}
+                  className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left min-h-[44px]"
+                >
+                  <span className={`text-xs font-bold ${faq.highlight ? 'text-accent-gold' : 'text-text-primary'}`}>
+                    {faq.q}
+                  </span>
+                  <ChevronDown
+                    className={`w-4 h-4 shrink-0 transition ${isOpen ? 'rotate-180' : ''} text-text-muted`}
+                    aria-hidden
+                  />
+                </button>
+                {isOpen && <div className="px-4 pb-3 text-xs leading-relaxed text-text-secondary">{faq.a}</div>}
+              </div>
+            )
+          })}
+        </div>
+
+        <div className="mt-5 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2">
+          <Link href="/pay" className="btn-primary rounded-full px-5 py-2 text-xs justify-center">
+            Payment page
+          </Link>
+          <a href="mailto:l2signalslab@gmail.com" className="btn-secondary rounded-full px-5 py-2 text-xs justify-center">
+            Email the business
+          </a>
           <a
-            href={PAYSTACK_STOREFRONT_URL}
+            href="https://t.me/l2signals"
             target="_blank"
             rel="noopener"
-            className="btn-secondary rounded-full px-5 py-2 text-xs"
+            className="btn-secondary rounded-full px-5 py-2 text-xs justify-center"
           >
-            Pay on Paystack
+            Public channel
           </a>
         </div>
       </div>

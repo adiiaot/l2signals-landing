@@ -1,6 +1,5 @@
 "use client"
-import { Suspense, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { TELEGRAM_SUPPORT_URL } from '@/lib/payments/links'
 
 const TRACKS = [
@@ -25,10 +24,16 @@ const TYPE_LABEL: Record<string, string> = {
 const VALID_KEYS = new Set(['api', 'system-code', 'system-built', 'app', 'hire', 'other'])
 
 function QuoteInner() {
-  const params = useSearchParams()
-  const initial = VALID_KEYS.has(params.get('type') || '') ? (params.get('type') as TrackKey) : ('system-built' as TrackKey)
-  const [form, setForm] = useState({ name: '', email: '', telegram: '', type: initial as string, timeline: 'Flexible', budget: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', telegram: '', type: 'system-built' as TrackKey as string, timeline: 'Flexible', budget: '', message: '' })
   const [sent, setSent] = useState(false)
+
+  // Read the preselected track after hydration so the form itself is server-rendered.
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get('type') || ''
+    if (VALID_KEYS.has(requested)) {
+      setForm((current) => ({ ...current, type: requested }))
+    }
+  }, [])
 
   const subject = `Quote request — ${TYPE_LABEL[form.type] || form.type}`
   const bodyLines = [
@@ -52,9 +57,9 @@ function QuoteInner() {
   return (
     <div className="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-8 space-y-4 sm:space-y-6">
       <div className="card text-center">
-        <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Custom quote • Reply within 24h</p>
+        <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Custom quote • Aiming to reply within one business day</p>
         <h1 className="text-xl sm:text-2xl font-bold mt-2 leading-tight">Get a quote — email us</h1>
-        <p className="text-xs sm:text-sm text-text-muted mt-2 max-w-2xl mx-auto leading-relaxed">No fixed prices — every engagement is scoped and quoted custom. Pick your track below or send details — we reply within 24h with a quote or a short call to scope.</p>
+        <p className="text-xs sm:text-sm text-text-muted mt-2 max-w-2xl mx-auto leading-relaxed">No fixed prices — every engagement is scoped and quoted custom. Pick your track below or send details — we aim to reply within one business day with a quote or a short call to scope.</p>
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 justify-center mt-4">
           <a href={TELEGRAM_SUPPORT_URL} target="_blank" rel="noopener" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Telegram — @aotayoL2</a>
           <a href="mailto:l2signalslab@gmail.com" className="btn-primary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto break-all">l2signalslab@gmail.com</a>
@@ -101,7 +106,7 @@ function QuoteInner() {
           <a href={mailto} onClick={() => setSent(true)} className="btn-primary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Send via email →</a>
           <a href={TELEGRAM_SUPPORT_URL} target="_blank" rel="noopener" className="btn-secondary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Message us on Telegram</a>
         </div>
-        {sent && <p className="text-xs text-status-win mt-3">Email draft opened — send it and we’ll reply within 24h.</p>}
+        {sent && <p className="text-xs text-status-win mt-3">Email draft opened — send it and we’ll aim to reply within one business day.</p>}
         <p className="text-[11px] text-text-muted mt-3">By sending you agree to our <a href="/terms" className="text-accent-gold hover:underline">Terms</a> and <a href="/privacy" className="text-accent-gold hover:underline">Privacy</a>.</p>
       </div>
 
@@ -109,7 +114,7 @@ function QuoteInner() {
         <p className="font-semibold text-text-primary">How quoting works</p>
         <ul className="list-disc ml-4 mt-2 space-y-1">
           <li>Every engagement is scoped individually — no fixed prices, custom quote only.</li>
-          <li>We reply within 24h with a quote, or a short call if scope needs it.</li>
+          <li>We aim to reply within one business day with a quote, or a short call if scope needs it.</li>
           <li>Work starts from a written scope — what ships, timeline, payment terms.</li>
           <li>Timelines depend on data access and approvals on your side.</li>
         </ul>
@@ -119,9 +124,5 @@ function QuoteInner() {
 }
 
 export default function QuotePage() {
-  return (
-    <Suspense fallback={<div className="max-w-6xl mx-auto px-4 py-8 text-xs text-text-muted">Loading quote form…</div>}>
-      <QuoteInner />
-    </Suspense>
-  )
+  return <QuoteInner />
 }

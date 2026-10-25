@@ -3,7 +3,7 @@ import PolicyShell from '../../../components/PolicyShell'
 import { POLICIES } from '../../../data/policies'
 
 export const metadata: Metadata = {
-  title: 'Subscription Terms & Conditions — L2 Signals',
+  title: 'Subscription Terms & Conditions',
   description: 'Plans and pricing, payment methods, activation, the calendar-month performance cycle, renewal, cancellation and refunds for L2 Signals subscriptions.',
 }
 
@@ -12,6 +12,7 @@ const pdf = POLICIES.find(p => p.slug === 'subscription-terms')?.pdf
 export default function SubscriptionTermsPage() {
   return (
     <PolicyShell
+      slug="subscription-terms"
       title="Subscription Terms & Conditions"
       pdf={pdf}
       intro={
@@ -39,16 +40,16 @@ export default function SubscriptionTermsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
           <div className="rounded-xl p-3" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
             <p className="text-base font-bold font-mono text-accent-gold">₦50,000</p>
-            <p className="text-xs font-semibold mt-1">Nigerian subscribers</p>
-            <p className="text-[11px] text-text-muted mt-1">per month</p>
+            <p className="text-xs font-semibold mt-1">Naira payments</p>
+            <p className="text-[11px] text-text-muted mt-1">per 31-day access period · bank transfer and NGN online checkout</p>
           </div>
           <div className="rounded-xl p-3" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
             <p className="text-base font-bold font-mono text-accent-gold">US$40</p>
-            <p className="text-xs font-semibold mt-1">Non-Nigerian subscribers</p>
-            <p className="text-[11px] text-text-muted mt-1">per month</p>
+            <p className="text-xs font-semibold mt-1">US dollar payments</p>
+            <p className="text-[11px] text-text-muted mt-1">per 31-day access period · crypto and USD online checkout</p>
           </div>
         </div>
-        <p className="mt-2">The applicable price is determined by the subscriber category assigned during onboarding. Prices are fixed at the published rates unless L2 Signals announces a change. Price changes are communicated before they take effect and, unless otherwise stated, apply to future periods rather than retroactively to a completed payment.</p>
+        <p className="mt-2">The payment page shows the exact amount and currency for the method you select before you pay. Prices are fixed at the published rates unless L2 Signals announces a change. Price changes are communicated before they take effect and, unless otherwise stated, apply to future periods rather than retroactively to a completed payment.</p>
       </section>
 
       <section>
@@ -81,12 +82,12 @@ export default function SubscriptionTermsPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">9. Founding Members Programme</h2>
-        <p>The Founding Members Programme is an early-access subscription programme planned for the 2027 launch, capped at a maximum of 50 founding members and subject to availability and confirmation. Unless stated otherwise in writing, founding members remain subject to the applicable price and these terms. Founding-member status does not guarantee preferential trading outcomes, a minimum number of signals, or permanent access regardless of subscription status.</p>
+        <p>The Founding Members Programme is an early-access subscription programme, open while places remain ahead of the official launch target of 1 January 2027. It is capped at a maximum of 50 founding members and is subject to availability and confirmation. Unless stated otherwise in writing, founding members remain subject to the applicable price and these terms. Founding-member status does not guarantee preferential trading outcomes, a minimum number of signals, or permanent access regardless of subscription status.</p>
       </section>
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">10. One-time founding-member extension</h2>
-        <p>Eligible founding members may qualify for one additional month of access under the extension policy. It applies only after the first paid subscription month, once per eligible member, and is determined by the official calendar-month net R (see the table below). It is based exclusively on the signal engine&apos;s official performance — not the subscriber&apos;s personal account, net R, balance, or profit/loss. The extension is additional access; it is not a cash refund or reimbursement of losses.</p>
+        <p>Eligible founding members may qualify for one additional month of access under the extension policy. It applies only in relation to the calendar month in which the first paid subscription period begins, once per eligible member, and is determined by the official calendar-month net R (see the table below). It is based exclusively on the signal engine&apos;s official performance — not the subscriber&apos;s personal account, net R, balance, or profit/loss. The extension is additional access; it is not a cash refund or reimbursement of losses.</p>
         <div className="mt-2 overflow-hidden rounded-xl" style={{ border: '1px solid var(--glass-border)' }}>
           <div className="grid grid-cols-2 text-xs">
             <div className="p-2.5 font-semibold" style={{ background: 'rgb(var(--surface-overlay-rgb))' }}>Official monthly net R</div>
@@ -103,17 +104,17 @@ export default function SubscriptionTermsPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">11. Renewal and late payment</h2>
-        <p>Subscriptions are paid monthly. Subscribers who wish to continue must renew according to the communicated instructions. Where a subscription expires without successful renewal, access may be suspended until payment is received and verified. Late payment does not alter the official calendar-month performance cycle or create a new period, and payment alone does not guarantee uninterrupted access until it is verified.</p>
+        <p>Subscriptions are prepaid for a fixed access period (currently 31 days). Subscribers who wish to continue must renew according to the communicated instructions. Where a subscription expires without successful renewal, access may be suspended until payment is received and verified. Late payment does not alter the official calendar-month performance cycle or create a new period, and payment alone does not guarantee uninterrupted access until it is verified.</p>
       </section>
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">12. Cancellation</h2>
-        <p>Subscribers may choose not to renew. Notify L2 Signals through the designated contact or the onboarding cancellation procedure. Unless a separate written agreement provides otherwise, cancellation stops future renewal obligations but does not automatically entitle the subscriber to a refund for a period already paid. A qualifying extension is governed by the extension policy. Cancellation does not alter the official performance records for a calendar month.</p>
+        <p>Subscribers may choose not to renew. Because the subscription does not renew automatically, no cancellation action is required to stop a future charge. A subscriber may also ask to be removed from the private group or ask for confirmation that access will not be extended. Unless a separate written agreement provides otherwise, cancellation stops future access but does not automatically entitle the subscriber to a refund for a period already paid; refund requests are handled under the Refunds &amp; Cancellations policy. A qualifying extension is governed by the extension policy. Cancellation does not alter the official performance records for a calendar month.</p>
       </section>
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">13. Refunds and service extensions</h2>
-        <p>Except where required by applicable law or expressly stated in a written agreement, subscription payments are not refundable once access has been activated. The founding-member extension is a separate programme benefit and is not a monetary refund; it does not reimburse personal trading losses, broker fees, spreads or commissions. Nothing here excludes consumer rights that cannot lawfully be excluded.</p>
+        <p>Requests for a refund are reviewed individually under the Refunds &amp; Cancellations policy. A duplicate or erroneous payment is corrected once verified, and nothing in these terms excludes a consumer right that cannot lawfully be excluded. The founding-member extension is a separate programme benefit and is not a monetary refund; it does not reimburse personal trading losses, broker fees, spreads or commissions.</p>
       </section>
 
       <section>
