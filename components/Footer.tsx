@@ -8,23 +8,34 @@ export default function Footer() {
 
   return (
     <footer className="border-t mt-16" style={{ borderColor: 'var(--glass-border)', background: 'var(--glass-bg)' }}>
-      <div className="max-w-6xl mx-auto px-4 py-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-sm">
-        <div className="space-y-3">
+      <div className="max-w-6xl mx-auto px-4 py-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-6 text-sm">
+        <div className="space-y-3 sm:col-span-2">
           <div className="flex items-center gap-3">
             <img src="/images/l2signals_logo.jpg" alt="L2 Signals Services" className="w-9 h-9 rounded-xl object-cover" />
             <div>
               <p className="font-bold text-accent-gold">{BUSINESS.name}</p>
-              <p className="text-[10px] tracking-[0.18em] text-text-muted uppercase">Trading technology</p>
+              <p className="text-[10px] tracking-[0.18em] text-text-muted uppercase">Software &amp; trading technology</p>
             </div>
           </div>
           <p className="text-xs text-text-muted leading-relaxed">
-            L2 Signals Services is a signal provider and trading-technology business. We build systematic
-            trading tools, automation and market-analysis software. L2 Signals is our flagship signal service,
-            live in early access. We do not manage member funds.
+            L2 Signals Services is a software and trading-technology business. We develop software, support the
+            systems it runs on, build algorithmic trading tools and advise on technology. L2 Signals is our
+            flagship product, live in early access. We do not manage member funds.
           </p>
           <p className="text-[10px] text-text-muted leading-relaxed">
             Trading involves substantial risk. No profit, win rate or funding outcome is guaranteed.
           </p>
+        </div>
+
+        <div>
+          <p className="font-bold text-text-primary mb-3">Services</p>
+          <div className="space-y-2">
+            <Link href="/services#apps" className={CARD_LINK}>Software development</Link>
+            <Link href="/services#support" className={CARD_LINK}>IT support services</Link>
+            <Link href="/services#systems" className={CARD_LINK}>Algorithmic trading tools</Link>
+            <Link href="/services#advisory" className={CARD_LINK}>Technology consultancy</Link>
+            <Link href="/quote" className={CARD_LINK}>Request a quote</Link>
+          </div>
         </div>
 
         <div>
@@ -35,8 +46,6 @@ export default function Footer() {
             <Link href="/#products" className={CARD_LINK}>L2 Indicator — planned</Link>
             <Link href="/#products" className={CARD_LINK}>L2 Signals App — planned</Link>
             <Link href="/services#api" className={CARD_LINK}>Signals API</Link>
-            <Link href="/services" className={CARD_LINK}>Custom systems &amp; apps</Link>
-            <Link href="/quote" className={CARD_LINK}>Request a quote</Link>
             <Link href="/#roadmap" className={CARD_LINK}>Roadmap</Link>
           </div>
         </div>

@@ -21,11 +21,12 @@ const FAQS: { q: string; a: React.ReactNode; highlight?: boolean }[] = [
     q: 'What is L2 Signals Services?',
     a: (
       <>
-        L2 Signals Services is the parent trading-technology business and signal provider. L2 Signals is its
-        flagship signal service. The ecosystem also includes L2 EA (an Expert Advisor in development), L2
-        Indicator (planned), L2 Signals App (planned) and custom systems or Signals API work (available by
-        quote). Live, in development and planned products are labelled separately — an unreleased product is
-        never presented as available.
+        L2 Signals Services is the parent software and trading-technology business. Alongside L2 Signals it
+        develops software, provides IT support, builds algorithmic trading tools and advises on technology.
+        L2 Signals is its flagship product. The ecosystem also includes L2 EA (an
+        Expert Advisor in development), L2 Indicator (planned), L2 Signals App (planned) and custom systems or
+        Signals API work (available by quote). Live, in development and planned products are labelled separately —
+        an unreleased product is never presented as available.
       </>
     ),
   },

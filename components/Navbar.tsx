@@ -64,7 +64,7 @@ export default function Navbar() {
             <img src="/images/l2signals_logo.jpg" alt="L2 Signals Services" className="w-8 h-8 rounded-lg object-cover border" style={{ borderColor: 'var(--glass-border)' }} />
             <div className="leading-tight">
               <p className="text-[13px] font-bold tracking-tight text-accent-gold">L2 Signals Services</p>
-              <p className="text-[9px] tracking-[0.16em] text-text-muted uppercase">Trading Technology</p>
+              <p className="text-[9px] tracking-[0.16em] text-text-muted uppercase">Software &amp; Trading Tech</p>
             </div>
           </a>
           <nav className="hidden lg:flex items-center gap-0.5">

@@ -15,17 +15,17 @@ const SITE_URL = (
 ).replace(/\/$/, '')
 
 const DESCRIPTION =
-  'L2 Signals Services builds systematic trading tools, automation and market-analysis software. L2 Signals — rule-based intraday XAU/USD signals — is live in early access. L2 EA is in development; L2 Indicator and the L2 Signals App are planned. No profit is guaranteed.'
+  'L2 Signals Services develops software, provides IT support, builds algorithmic trading tools and advises on technology. L2 Signals — rule-based intraday XAU/USD signals — is live in early access. No profit is guaranteed.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'L2 Signals Services — Trading Technology & Software',
+    default: 'L2 Signals Services — Software, IT & Trading Technology',
     template: '%s | L2 Signals Services',
   },
   description: DESCRIPTION,
   openGraph: {
-    title: 'L2 Signals Services — Trading Technology & Software',
+    title: 'L2 Signals Services — Software, IT & Trading Technology',
     description: DESCRIPTION,
     url: SITE_URL,
     siteName: 'L2 Signals Services',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'L2 Signals Services — Trading Technology & Software',
+    title: 'L2 Signals Services — Software, IT & Trading Technology',
     description: DESCRIPTION,
     images: ['/images/l2signals_cover_banner.jpg'],
   },

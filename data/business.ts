@@ -15,9 +15,9 @@
 export const BUSINESS = {
   name: 'L2 Signals Services',
   shortName: 'L2 Signals',
-  tagline: 'Systematic trading technology & signal services',
+  tagline: 'Software development, IT support & trading technology',
   description:
-    'L2 Signals Services is a trading-technology business and signal provider. We build systematic trading tools, automation and market-analysis products. L2 Signals is our flagship signal service: rule-based intraday XAU/USD setups delivered to a private group for interested members.',
+    'L2 Signals Services is a software and trading-technology business. We develop software, provide IT support, build algorithmic trading tools and advise on technology. L2 Signals — rule-based intraday XAU/USD setups delivered to a private group for interested members — is our flagship product.',
   email: 'l2signalslab@gmail.com',
   telegramSupport: 'https://t.me/aotayoL2',
   telegramSupportHandle: '@aotayoL2',

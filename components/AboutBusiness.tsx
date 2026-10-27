@@ -29,12 +29,12 @@ export default function AboutBusiness() {
           <div>
             <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">About the business</p>
             <h2 className="text-lg sm:text-xl font-bold mt-1">
-              A signal provider that builds the tools — you keep the controls.
+              A technology partner that builds the tools — you keep the controls.
             </h2>
             <p className="text-xs sm:text-sm text-text-secondary mt-3 leading-relaxed">
-              L2 Signals Services is a trading-technology business and signal provider. We design systematic
-              trading tools, automation, market-analysis products and the infrastructure behind them. The
-              business is intended to grow into a product ecosystem, not a single signal page.
+              L2 Signals Services is a software and trading-technology business. We develop software, provide IT
+              support, build algorithmic trading tools and advise on technology decisions. The business is intended
+              to grow into a product ecosystem, not a single signal page.
             </p>
             <p className="text-xs sm:text-sm text-text-secondary mt-3 leading-relaxed">
               Our flagship is L2 Signals: a rule-based intraday XAU/USD signal service delivered to a private
@@ -58,10 +58,11 @@ export default function AboutBusiness() {
             <div className="rounded-xl p-4" style={CARD}>
               <p className="text-[10px] tracking-[0.16em] uppercase text-text-muted">What we do</p>
               <ul className="mt-2 space-y-1.5 text-[11px] text-text-secondary leading-relaxed">
-                <li className="flex gap-2"><span className="text-accent-gold">•</span>Build systematic trading engines and execution tools</li>
+                <li className="flex gap-2"><span className="text-accent-gold">•</span>Develop software — web, mobile, APIs, dashboards and internal tools</li>
+                <li className="flex gap-2"><span className="text-accent-gold">•</span>Support IT systems, integrations and day-to-day infrastructure</li>
+                <li className="flex gap-2"><span className="text-accent-gold">•</span>Build algorithmic trading tools — engines, MT5 EAs and indicators</li>
+                <li className="flex gap-2"><span className="text-accent-gold">•</span>Advise on technology, architecture and product decisions</li>
                 <li className="flex gap-2"><span className="text-accent-gold">•</span>Publish rule-based signals to a private group for interested members</li>
-                <li className="flex gap-2"><span className="text-accent-gold">•</span>Measure official performance from engine outcomes</li>
-                <li className="flex gap-2"><span className="text-accent-gold">•</span>Take on scoped software and API work for traders and firms</li>
               </ul>
             </div>
 

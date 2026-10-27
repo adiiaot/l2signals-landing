@@ -16,8 +16,8 @@ export default function ServicesPage() {
       {/* Hero */}
       <div className="card text-center">
         <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Services • Contact for a custom quote</p>
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mt-2 leading-tight">One team. Four ways to work with us.</h1>
-        <p className="text-xs sm:text-sm text-text-muted mt-2 sm:mt-3 max-w-2xl mx-auto leading-relaxed">L2 Signals is our first live product. Beyond it, we build signals infrastructure, custom trading systems, and business software. Plug into our data, get a system built on your strategy or ours, ship your site or app, or work with us directly.</p>
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mt-2 leading-tight">Software, IT and trading technology — built per project.</h1>
+        <p className="text-xs sm:text-sm text-text-muted mt-2 sm:mt-3 max-w-2xl mx-auto leading-relaxed">L2 Signals is our first live product. Beyond it we develop software, provide IT support, build algorithmic trading tools and advise on technology decisions. Pick a track below, or describe the problem and we will scope the simplest solution and quote it.</p>
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 justify-center mt-4 sm:mt-6">
           <Link href="/quote" className="btn-primary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Get a custom quote →</Link>
           <a href="mailto:l2signalslab@gmail.com" className="btn-secondary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Email us</a>
@@ -127,13 +127,36 @@ export default function ServicesPage() {
         </div>
       </div>
 
+      {/* Ongoing services — support and advice */}
+      <div id="support" className="card scroll-mt-20">
+        <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Ongoing services</p>
+        <h2 className="text-base sm:text-lg font-bold mt-1">Support and advice around the systems you run</h2>
+        <p className="text-xs sm:text-sm text-text-muted mt-2 leading-relaxed">Not every engagement is a build. We also maintain what already exists and advise before you commit budget. Both are scoped and quoted per engagement — no retainers are sold from a button.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mt-3 sm:mt-4 text-xs">
+          <div className="rounded-xl p-3" style={cardStyle}>
+            <p className="font-semibold">IT support services</p>
+            <p className="text-text-muted mt-1">Environment setup, maintenance, integrations, monitoring and troubleshooting — remote, per scope.</p>
+          </div>
+          <div id="advisory" className="rounded-xl p-3 scroll-mt-24" style={cardStyle}>
+            <p className="font-semibold">Technology consultancy</p>
+            <p className="text-text-muted mt-1">Architecture, tooling, build-vs-buy and product decisions reviewed before you spend on them.</p>
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4">
+          <a href="mailto:l2signalslab@gmail.com?subject=Support%20or%20advice%20—%20L2%20Signals" className="btn-primary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Talk to us about it →</a>
+          <Link href="/quote" className="btn-secondary rounded-full px-5 py-2.5 text-xs w-full sm:w-auto">Request a custom quote</Link>
+        </div>
+      </div>
+
       {/* Who we build for */}
       <div className="card">
         <h2 className="text-sm sm:text-base font-bold">Who we build for</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mt-3 sm:mt-4 text-xs">
-          <div className="rounded-xl p-3" style={cardStyle}><p className="font-semibold">Traders & desks</p><p className="text-text-muted mt-1">Need a deterministic system, ledger, and playbook — not discretion.</p></div>
-          <div className="rounded-xl p-3" style={cardStyle}><p className="font-semibold">Funds & prop firms</p><p className="text-text-muted mt-1">API access, custom risk, prop-sim, reporting, internal tools.</p></div>
-          <div className="rounded-xl p-3" style={cardStyle}><p className="font-semibold">Teams & founders</p><p className="text-text-muted mt-1">Websites, fintech apps, dashboards, AI assistants — shipped fast.</p></div>
+        <p className="text-xs text-text-muted mt-1">Software and systems for retail traders, hedge and prop firms, fintechs and businesses.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mt-3 sm:mt-4 text-xs">
+          <div className="rounded-xl p-3" style={cardStyle}><p className="font-semibold">Retail traders</p><p className="text-text-muted mt-1">Rule-based signals, MT5 tools and dashboards you run on your own account.</p></div>
+          <div className="rounded-xl p-3" style={cardStyle}><p className="font-semibold">Hedge &amp; prop firms</p><p className="text-text-muted mt-1">Custom systems, API access, risk tooling, reporting and prop-sim.</p></div>
+          <div className="rounded-xl p-3" style={cardStyle}><p className="font-semibold">Fintechs</p><p className="text-text-muted mt-1">Web and mobile products, backends, APIs, payments and real-time data.</p></div>
+          <div className="rounded-xl p-3" style={cardStyle}><p className="font-semibold">Businesses</p><p className="text-text-muted mt-1">Websites, internal tools, automation and IT support — scoped and quoted.</p></div>
         </div>
       </div>
 
