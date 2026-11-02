@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import PolicyShell from '@/components/PolicyShell'
 import Link from 'next/link'
-import { BUSINESS } from '@/data/business'
+import { BUSINESS, REGISTRATION } from '@/data/business'
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
@@ -71,10 +71,10 @@ export default function TermsPage() {
       <section>
         <h2 className="text-sm font-bold text-text-primary">4. Products, status and availability</h2>
         <p>
-          Products are labelled with their actual status. “Live” or “early access” means the product is
-          operating now. “In development” and “planned” mean it is not available for purchase, and features
-          described for those products are intended scope, not shipped functionality. We do not promise a
-          release date for an unreleased product, and we may change or cancel planned scope.
+          Products are labelled with their actual status. “Live” or “private” means the product is operating
+          now, whether or not it is open to the public. “In development” and “planned” mean it is not available
+          for purchase, and features described for those products are intended scope, not shipped functionality.
+          We do not promise a release date for an unreleased product, and we may change or cancel planned scope.
         </p>
         <p>
           Availability can depend on third parties such as MetaTrader 5, TradingView, Telegram, payment
@@ -86,10 +86,11 @@ export default function TermsPage() {
       <section>
         <h2 className="text-sm font-bold text-text-primary">5. Subscriptions, payments and access</h2>
         <p>
-          The L2 Signals subscription is sold for a prepaid access period shown at checkout. The price,
-          currency, payment methods and period are displayed on the payment page before you pay. A payment is
-          only treated as received after it is verified by our server-side process or by a person. A browser
-          redirect, screenshot or claim is not proof of payment.
+          The L2 Signals subscription is offered by invitation and sold for a prepaid access period. The fee,
+          currency, payment methods and period are shown on the payment page — after the Terms, the Trading Risk
+          Disclosure and the subscription documents have been read and accepted. A payment is only treated as
+          received after it is verified by our server-side process or by a person. A browser redirect,
+          screenshot or claim is not proof of payment.
         </p>
         <p>
           Access is personal. It is delivered by a single-use invitation to the private Telegram group after
@@ -256,14 +257,21 @@ export default function TermsPage() {
       </section>
 
       <section>
-        <h2 className="text-sm font-bold text-text-primary">15. Regulatory status</h2>
+        <h2 className="text-sm font-bold text-text-primary">15. What this business does, and does not do</h2>
         <p>
-          L2 Signals Services does not claim that it, or L2 Signals, is approved, licensed, registered or
-          exempt by the Nigerian Securities and Exchange Commission or any other regulator. A risk disclaimer
-          does not by itself remove a regulatory obligation. The current service model is described
-          accurately: customers receive signals, retain control of their own funds and make their own execution
-          decisions. These Terms will be updated if the regulatory position is confirmed.
+          L2 Signals Services is a software development business. It builds trading systems, signal engines,
+          Expert Advisors, indicators, dashboards, websites and applications, and it operates L2 Signals — a
+          private product of its own — as proof of work. It does not take custody of client or member funds, does
+          not execute trades on those accounts, and does not provide personal financial, investment, legal or tax
+          advice. These Terms will be updated if how the business operates changes in a way that requires it.
         </p>
+        {REGISTRATION.registered && (
+          <p className="mt-2">
+            The business is registered as a {REGISTRATION.type.toLowerCase()} with the {REGISTRATION.body},
+            registered {REGISTRATION.registeredOn}
+            {REGISTRATION.number ? ` (${REGISTRATION.number})` : ''}.
+          </p>
+        )}
       </section>
 
       <section>

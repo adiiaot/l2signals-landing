@@ -564,15 +564,21 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
       <div className="card text-center">
         <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">L2 Signals subscription</p>
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mt-2 leading-tight">
-          {headlinePrice} / {config.plan.days} days
+          {consentComplete ? `${headlinePrice} / ${config.plan.days} days` : 'Fee shown after you accept the documents'}
         </h1>
         <p className="text-xs sm:text-sm text-text-muted mt-2">
           {config.plan.days} days of access · {config.plan.graceDays}-day grace period · XAU/USD intraday signals
         </p>
         <p className="text-[11px] text-text-muted mt-3">
-          {onlineAvailable ? `${onlinePriceLabel} online · ` : ''}
-          {bankAvailable ? `${naira(config.plan.ngn)} bank · ` : ''}
-          {config.methods.crypto.enabled && networks.length > 0 ? `${usd(config.plan.usd)} crypto` : ''}
+          {consentComplete ? (
+            <>
+              {onlineAvailable ? `${onlinePriceLabel} online · ` : ''}
+              {bankAvailable ? `${naira(config.plan.ngn)} bank · ` : ''}
+              {config.methods.crypto.enabled && networks.length > 0 ? `${usd(config.plan.usd)} crypto` : ''}
+            </>
+          ) : (
+            'Read the documents below and confirm the three statements. Nothing is charged and no payment method is shown until then.'
+          )}
         </p>
         <p className="text-[11px] text-text-muted mt-2 leading-relaxed">
           Pay here. Online payments are verified against Paystack. For crypto or bank transfer, submit your
@@ -600,11 +606,20 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
           <div className="rounded-xl p-3 bg-surface-overlay" style={{ border: '1px solid var(--glass-border)' }}>
             <p className="text-[10px] uppercase tracking-[0.14em] text-text-muted">Price</p>
             <p className="text-[11px] text-text-secondary mt-1 leading-relaxed">
-              {onlineAvailable ? `Pay online: ${onlinePriceLabel} · ` : ''}
-              {bankAvailable ? `Bank transfer: ${naira(config.plan.ngn)} · ` : ''}
-              {config.methods.crypto.enabled && networks.length > 0 ? `Crypto: ${usd(config.plan.usd)}. ` : ''}
-              Charged once for the {config.plan.days}-day period; the amount is set by the server, never by your
-              browser.
+              {consentComplete ? (
+                <>
+                  {onlineAvailable ? `Pay online: ${onlinePriceLabel} · ` : ''}
+                  {bankAvailable ? `Bank transfer: ${naira(config.plan.ngn)} · ` : ''}
+                  {config.methods.crypto.enabled && networks.length > 0 ? `Crypto: ${usd(config.plan.usd)}. ` : ''}
+                  Charged once for the {config.plan.days}-day period; the amount is set by the server, never by
+                  your browser.
+                </>
+              ) : (
+                <>
+                  Hidden until you confirm the three statements below. Charged once for the{' '}
+                  {config.plan.days}-day period; the amount is set by the server, never by your browser.
+                </>
+              )}
             </p>
           </div>
           <div className="rounded-xl p-3 bg-surface-overlay" style={{ border: '1px solid var(--glass-border)' }}>
@@ -642,11 +657,11 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
           <div className="mt-2 rounded-xl p-3" style={{ background: 'rgba(var(--accent-gold-rgb),0.06)', border: '1px solid rgba(var(--accent-gold-rgb),0.2)' }}>
             <p className="text-[10px] uppercase tracking-[0.14em] text-accent-gold">Founding-member condition</p>
             <p className="text-[11px] text-text-secondary mt-1 leading-relaxed">
-              The founding cohort is capped at {OFFER.foundingCap} members. A founding member with an eligible
-              first paid subscription may receive one additional month of access if the official cumulative Net
-              R for the calendar month in which that period begins is zero or below. It is a one-time access
-              benefit — not a cash refund, not measured from your personal account, and not repeated in later
-              months.
+              The founding cohort is limited, and it closes when the business decides. A founding member with an
+              eligible first paid subscription may receive one additional month of access if the official
+              cumulative Net R for the calendar month in which that period begins is below zero. It is a one-time
+              access benefit — not a cash refund, not measured from your personal account, and not repeated in
+              later months.
             </p>
           </div>
         )}
@@ -840,7 +855,9 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
                 You will be redirected to Paystack, where you can pay with a card, bank transfer or USSD —
                 Verve, Mastercard and Visa are accepted. We never see or store your card details.
               </p>
-              <p className="text-sm font-mono mt-2">{onlinePriceLabel}</p>
+              <p className="text-sm font-mono mt-2">
+                {consentComplete ? onlinePriceLabel : 'Amount shown after the confirmations above are ticked'}
+              </p>
             </div>
             {returnState === 'failed' && (
               <p className="text-[11px] text-status-loss">
@@ -1056,7 +1073,9 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
           {busy
             ? 'Working…'
             : method === 'card'
-              ? `Pay ${onlinePriceLabel} on Paystack →`
+              ? consentComplete
+                ? `Pay ${onlinePriceLabel} on Paystack →`
+                : 'Accept the documents above to continue'
               : method === 'crypto'
                 ? 'I have sent it — submit hash →'
                 : 'I have sent it — submit reference →'}

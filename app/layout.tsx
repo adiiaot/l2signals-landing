@@ -15,7 +15,7 @@ const SITE_URL = (
 ).replace(/\/$/, '')
 
 const DESCRIPTION =
-  'L2 Signals Services develops software, provides IT support, builds algorithmic trading tools and advises on technology. L2 Signals — rule-based intraday XAU/USD signals — is live in early access. No profit is guaranteed.'
+  'L2 Signals Services is a software development business: software, IT support, algorithmic trading tools and technology consultancy. It also builds and runs L2 Signals, a private invite-only trading product, as proof of work. No profit is guaranteed.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

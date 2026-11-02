@@ -8,7 +8,17 @@ import { PaymentsConfig, withPaymentDefaults } from './types'
  * browser — every route recomputes the price from here.
  */
 
-const WEB_API = (process.env.NEXT_PUBLIC_L2_WEB_API || 'https://l2signal-web-six.vercel.app').replace(/\/$/, '')
+/**
+ * Server-only origin of the private app. `L2_WEB_API_URL` is preferred so the
+ * private host never has to be a public variable; the `NEXT_PUBLIC_` name is
+ * still honoured for existing deployments. This module is imported only by
+ * server components and route handlers — never by a client component.
+ */
+const WEB_API = (
+  process.env.L2_WEB_API_URL ||
+  process.env.NEXT_PUBLIC_L2_WEB_API ||
+  'https://l2signal-web-six.vercel.app'
+).replace(/\/$/, '')
 
 export async function getPaymentsConfig(): Promise<PaymentsConfig> {
   try {

@@ -10,7 +10,7 @@ export default function WhoFor() {
           </div>
           <div className="rounded-xl p-4" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
             <p className="text-xs font-bold">Systematic, not emotional</p>
-            <p className="text-[11px] text-text-muted mt-1">Wants discipline: 1–2 quality intraday setups, 0.01 lot, consistent compounding.</p>
+            <p className="text-[11px] text-text-muted mt-1">Wants discipline: one or two eligible intraday setups, a fixed risk per trade and a written exit plan.</p>
           </div>
           <div className="rounded-xl p-4" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
             <p className="text-xs font-bold">Global & async</p>

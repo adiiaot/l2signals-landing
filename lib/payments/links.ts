@@ -13,7 +13,7 @@ export const PAY_PAGE_PATH = '/pay'
  * Checkout lives only at `/pay`.
  */
 
-/** Free public channel — the waitlist. */
+/** Public Telegram channel — updates, general results and occasional example setups. */
 export const TELEGRAM_CHANNEL_URL = 'https://t.me/l2signals'
 
 /** Support handle for manual payment questions. */

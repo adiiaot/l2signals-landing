@@ -13,9 +13,9 @@ const FACTS = [
   { k: '2%', label: 'Max risk per signal', d: 'A ceiling, never a target — size to your own account and stop-loss distance.' },
   { k: '21:00 UTC', label: 'Daily cutoff', d: 'Close open trades and cancel unfilled pendings by the applicable cutoff.' },
   { k: 'Calendar month', label: 'Official measurement cycle', d: 'Monthly net R in West Africa Time (UTC+1) and resets at the start of each month.' },
-  { k: '₦50,000 / US$40', label: '31-day subscription', d: 'Naira or US dollar payment, depending on the method. The checkout shows the exact amount before payment.' },
-  { k: '50 members', label: 'Founding programme cap', d: 'Open during early access ahead of official launch — limited to 50 founding members.' },
-  { k: '≤ 0R', label: 'One-time extension', d: 'Official net R of zero or below for the calendar month in which the first paid period begins qualifies for one additional month.' },
+  { k: 'Invitation', label: 'Access route', d: 'No public sign-up. The fee and period are shown on the payment page after the documents are accepted.' },
+  { k: '1 month', label: 'Paid period', d: 'Charged once per period, with a stated grace period. Nothing renews automatically.' },
+  { k: '< 0R', label: 'One-time extension', d: 'Official net R below zero for the calendar month in which the first paid period begins qualifies for one additional month.' },
 ]
 
 export default function PoliciesPage() {
@@ -35,7 +35,7 @@ export default function PoliciesPage() {
           <span className="badge-warn">Applies to all subscribers, incl. founding members</span>
         </div>
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 justify-center mt-4 sm:mt-5">
-          <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="btn-primary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Free public channel</a>
+          <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="btn-primary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Public channel</a>
           <a href="mailto:l2signalslab@gmail.com" className="btn-secondary rounded-full px-6 py-2.5 text-xs w-full sm:w-auto">Ask a question</a>
         </div>
       </div>
@@ -53,10 +53,10 @@ export default function PoliciesPage() {
           ))}
         </div>
         <p className="text-[11px] text-text-muted mt-4 leading-relaxed">
-          The L2 Signals service is live in early access, ahead of official launch. Official performance is
-          measured from the L2 Signals signal engine — never from the founder&apos;s or any member&apos;s
-          personal trading account. Personal results may differ from the official outcome. Nothing here is
-          personalised financial advice.
+          L2 Signals is a private product of L2 Signals Services, offered by invitation to members who accept
+          these documents. Official performance is measured from the L2 Signals signal engine — never from the
+          founder&apos;s or any member&apos;s personal trading account. Personal results may differ from the
+          official outcome. Nothing here is personalised financial advice.
         </p>
       </div>
 

@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { ExternalLink, ShieldCheck } from 'lucide-react'
+import { ShieldCheck } from 'lucide-react'
+import { RISK_NOTICE } from '../data/business'
 
 type Account = 'demo' | 'prop'
 type Outcome = 'win' | 'loss' | 'expired' | 'unknown'
@@ -17,15 +18,10 @@ interface TradeRow {
   entry: number | null
   exit: number | null
   sl: number | null
-  tp: number | null
-  lot: number | null
-  pnl: number | null
   /** Realised R only. `null` means the record does not contain enough data. */
   rr: number | null
 }
 
-const WEB_API = (process.env.NEXT_PUBLIC_L2_WEB_API || 'https://l2signal-web-six.vercel.app').replace(/\/$/, '')
-const PUBLIC_PROOF = `${WEB_API}/proof`
 const VISIBLE_TRADES = 30
 
 function finite(value: unknown): number | null {
@@ -112,9 +108,6 @@ function normalise(raw: Record<string, unknown>, account: Account): TradeRow {
     entry: finite(raw.entryPrice),
     exit: finite(raw.exitPrice),
     sl: finite(raw.stopLoss),
-    tp: finite(raw.takeProfit),
-    lot: finite(raw.entrySize),
-    pnl: finite(raw.pnl),
     rr: realisedR(raw),
   }
 }
@@ -142,7 +135,9 @@ export default function ProofSection() {
 
     const load = async () => {
       try {
-        const res = await fetch(`${WEB_API}/api/trades?account=${tab}&limit=200`, { cache: 'no-store' })
+        // Read through this site's own route. The browser never calls the private
+        // application origin directly.
+        const res = await fetch(`/api/ledger?account=${tab}`, { cache: 'no-store' })
         const json = await res.json().catch(() => null)
         if (cancelled) return
         if (!json?.success || !Array.isArray(json.trades)) throw new Error('ledger unavailable')
@@ -195,7 +190,7 @@ export default function ProofSection() {
           <p className="text-[11px] text-text-muted mt-1 max-w-2xl leading-relaxed">
             Trades recorded by the operator on the demo and prop accounts. Realised R is shown only where the
             record supports it. This is execution data — not the official engine record, and not a promise for
-            your account.
+            your account. Wins, losses and unfilled setups are all listed.
           </p>
         </div>
         <div className="flex items-center justify-center gap-1 p-1 rounded-full w-full sm:w-auto" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }} role="tablist" aria-label="Account">
@@ -221,19 +216,21 @@ export default function ProofSection() {
       </div>
 
       <div className="card p-4 md:p-5">
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <span className="badge-win text-[9px]">LIVE — operator execution ledger</span>
+          <span className="text-[10px] text-text-muted">
+            Updated from the record, not curated. Losses are listed with the wins.
+          </span>
+        </div>
+
         {loading ? (
           <p className="py-8 text-center text-xs font-mono text-text-muted">Loading the recorded ledger…</p>
         ) : error ? (
           <div className="py-6 text-center">
             <p className="text-xs text-text-muted">The live ledger could not be loaded.</p>
-            <a
-              href={PUBLIC_PROOF}
-              target="_blank"
-              rel="noopener"
-              className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold text-accent-gold hover:underline"
-            >
-              Open the public performance record <ExternalLink className="w-3 h-3" />
-            </a>
+            <p className="text-[10px] text-text-muted mt-1">
+              An unavailable record is reported as unavailable — never replaced with sample results.
+            </p>
           </div>
         ) : trades.length === 0 ? (
           <div className="py-6 text-center">
@@ -329,12 +326,6 @@ export default function ProofSection() {
                     <p className="text-[10px] font-mono text-text-muted mt-1">
                       E {fmtLevel(trade.entry)} → X {fmtLevel(trade.exit)} · SL {fmtLevel(trade.sl)}
                     </p>
-                    <div className="flex items-center justify-between mt-2 text-[10px] font-mono">
-                      <span className="text-text-muted">{trade.lot !== null ? `${trade.lot.toFixed(2)} lot` : 'size not recorded'}</span>
-                      <span style={{ color: (trade.pnl ?? 0) >= 0 ? 'var(--status-win)' : 'var(--status-loss)' }}>
-                        {trade.pnl === null ? 'P/L not recorded' : `${trade.pnl > 0 ? '+' : ''}$${trade.pnl.toFixed(2)}`}
-                      </span>
-                    </div>
                   </motion.article>
                 )
               })}
@@ -350,19 +341,18 @@ export default function ProofSection() {
             </p>
           </>
         )}
+
+        <p className="mt-4 rounded-xl p-3 text-[10px] text-text-muted leading-relaxed" style={{ background: 'rgba(var(--status-warn-rgb),0.05)', border: '1px solid rgba(var(--status-warn-rgb),0.2)' }}>
+          {RISK_NOTICE}
+        </p>
       </div>
 
       <div className="mt-3 flex flex-col sm:flex-row gap-2">
-        <a
-          href={PUBLIC_PROOF}
-          target="_blank"
-          rel="noopener"
-          className="btn-primary rounded-full px-5 py-2.5 text-xs justify-center inline-flex items-center gap-1.5"
-        >
-          Public performance record <ExternalLink className="w-3.5 h-3.5" />
-        </a>
         <a href="#methodology" className="btn-secondary rounded-full px-5 py-2.5 text-xs justify-center">
           How Net R is measured
+        </a>
+        <a href="#backtest" className="btn-secondary rounded-full px-5 py-2.5 text-xs justify-center">
+          Back-tested study (separate)
         </a>
       </div>
     </section>

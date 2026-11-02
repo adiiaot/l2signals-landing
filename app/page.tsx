@@ -1,13 +1,9 @@
 import Hero from '../components/Hero'
 import AboutBusiness from '../components/AboutBusiness'
 import Products from '../components/Products'
-import SignalsSpotlight from '../components/SignalsSpotlight'
-import ProofSection from '../components/ProofSection'
-import Methodology from '../components/Methodology'
-import HowItWorks from '../components/HowItWorks'
+import ProofOfWork from '../components/ProofOfWork'
 import Why from '../components/Why'
 import Roadmap from '../components/Roadmap'
-import Pricing from '../components/Pricing'
 import FAQ from '../components/FAQ'
 import Founder from '../components/Founder'
 import Link from 'next/link'
@@ -20,13 +16,9 @@ export default function Page() {
       <AboutBusiness />
       <Founder />
       <Products />
-      <SignalsSpotlight />
-      <ProofSection />
-      <Methodology />
-      <HowItWorks />
+      <ProofOfWork />
       <Why />
       <Roadmap />
-      <Pricing />
       <FAQ />
 
       <section id="contact" className="max-w-6xl mx-auto px-4 py-6 scroll-reveal scroll-mt-20">
@@ -34,10 +26,10 @@ export default function Page() {
           <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center">
             <div>
               <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">Contact the business</p>
-              <h3 className="text-base sm:text-lg font-bold mt-1">Questions before you join — or a project to scope?</h3>
+              <h3 className="text-base sm:text-lg font-bold mt-1">A project to scope, or a question before you ask for an invite?</h3>
               <p className="text-xs text-text-muted mt-2 leading-relaxed">
-                Ask about L2 Signals, access or a payment, or talk to us about an EA, indicator, API or custom
-                software project. Messages are answered by a person.
+                Tell us what you need built — software, an EA, an indicator, an API or a dashboard — or ask about
+                access to L2 Signals. Messages are answered by a person.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-4">
                 <a
@@ -70,7 +62,7 @@ export default function Page() {
               >
                 <p className="text-[10px] uppercase tracking-[0.14em] text-text-muted">Public channel</p>
                 <p className="text-[11px] font-semibold text-accent-gold mt-1">t.me/l2signals</p>
-                <p className="text-[10px] text-text-muted mt-1">Results and release updates.</p>
+                <p className="text-[10px] text-text-muted mt-1">Updates, general results and occasional example setups.</p>
               </a>
               <a
                 href={BUSINESS.x}
@@ -81,11 +73,20 @@ export default function Page() {
               >
                 <p className="text-[10px] uppercase tracking-[0.14em] text-text-muted">X</p>
                 <p className="text-[11px] font-semibold text-accent-gold mt-1">@l2signals</p>
-                <p className="text-[10px] text-text-muted mt-1">Public posts and updates.</p>
+                <p className="text-[10px] text-text-muted mt-1">Public posts and build updates.</p>
               </a>
               <Link
+                href="/signals"
+                className="rounded-xl p-3 hover:border-accent-gold/40 transition"
+                style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}
+              >
+                <p className="text-[10px] uppercase tracking-[0.14em] text-text-muted">Our own product</p>
+                <p className="text-[11px] font-semibold text-accent-gold mt-1">L2 Signals</p>
+                <p className="text-[10px] text-text-muted mt-1">Private, by invitation.</p>
+              </Link>
+              <Link
                 href="/services"
-                className="rounded-xl p-3 hover:border-accent-gold/40 transition sm:col-span-2"
+                className="rounded-xl p-3 hover:border-accent-gold/40 transition"
                 style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}
               >
                 <p className="text-[10px] uppercase tracking-[0.14em] text-text-muted">Build with us</p>

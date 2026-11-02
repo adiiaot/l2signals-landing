@@ -4,7 +4,7 @@ import { POLICIES } from '../../../data/policies'
 
 export const metadata: Metadata = {
   title: 'Subscription Terms & Conditions',
-  description: 'Plans and pricing, payment methods, activation, the calendar-month performance cycle, renewal, cancellation and refunds for L2 Signals subscriptions.',
+  description: 'Payment methods, activation, the calendar-month performance cycle, renewal, cancellation and refunds for invited L2 Signals members.',
 }
 
 const pdf = POLICIES.find(p => p.slug === 'subscription-terms')?.pdf
@@ -36,20 +36,10 @@ export default function SubscriptionTermsPage() {
       </section>
 
       <section>
-        <h2 className="text-sm font-bold text-text-primary">3. Subscription plans and pricing</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-          <div className="rounded-xl p-3" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
-            <p className="text-base font-bold font-mono text-accent-gold">₦50,000</p>
-            <p className="text-xs font-semibold mt-1">Naira payments</p>
-            <p className="text-[11px] text-text-muted mt-1">per 31-day access period · bank transfer and NGN online checkout</p>
-          </div>
-          <div className="rounded-xl p-3" style={{ background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' }}>
-            <p className="text-base font-bold font-mono text-accent-gold">US$40</p>
-            <p className="text-xs font-semibold mt-1">US dollar payments</p>
-            <p className="text-[11px] text-text-muted mt-1">per 31-day access period · crypto and USD online checkout</p>
-          </div>
-        </div>
-        <p className="mt-2">The payment page shows the exact amount and currency for the method you select before you pay. Prices are fixed at the published rates unless L2 Signals announces a change. Price changes are communicated before they take effect and, unless otherwise stated, apply to future periods rather than retroactively to a completed payment.</p>
+        <h2 className="text-sm font-bold text-text-primary">3. Access period and fee</h2>
+        <p>L2 Signals is offered by invitation. The access period and the fee for that period are shown on the payment page, and only after the reader has accepted these terms, the Trading Risk Disclosure and the associated subscription documents. The amount is set server-side for the payment method selected; it is never taken from the browser.</p>
+        <p className="mt-2">One payment covers one access period. Nothing renews automatically: a further period requires a further payment. Fees are fixed at the amount displayed when a payment is made, and a change applies to future periods rather than retroactively to a completed payment. Where a price change is intended, it is communicated before it takes effect.</p>
+        <p className="mt-2">The fee purchases access for the stated period. It does not purchase the software, the strategy, the brand or any ownership interest, and it does not guarantee profits.</p>
       </section>
 
       <section>
@@ -82,7 +72,7 @@ export default function SubscriptionTermsPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">9. Founding Members Programme</h2>
-        <p>The Founding Members Programme is an early-access subscription programme, open while places remain ahead of official launch. It is capped at a maximum of 50 founding members and is subject to availability and confirmation. Unless stated otherwise in writing, founding members remain subject to the applicable price and these terms. Founding-member status does not guarantee preferential trading outcomes, a minimum number of signals, or permanent access regardless of subscription status.</p>
+        <p>The Founding Members Programme is a closed, invitation-based subscription programme. It is limited and closes when L2 Signals decides, is subject to availability and confirmation, and creates no entitlement to a place. Unless stated otherwise in writing, founding members remain subject to the applicable fee and these terms. Founding-member status does not guarantee preferential trading outcomes, a minimum number of signals, or permanent access regardless of subscription status.</p>
       </section>
 
       <section>
@@ -95,7 +85,7 @@ export default function SubscriptionTermsPage() {
             <div className="p-2.5 border-t" style={{ borderColor: 'var(--glass-border)' }}>Below 0R</div>
             <div className="p-2.5 border-t text-accent-gold font-semibold" style={{ borderColor: 'var(--glass-border)' }}>Eligible</div>
             <div className="p-2.5 border-t" style={{ borderColor: 'var(--glass-border)' }}>Exactly 0R</div>
-            <div className="p-2.5 border-t text-accent-gold font-semibold" style={{ borderColor: 'var(--glass-border)' }}>Eligible</div>
+            <div className="p-2.5 border-t" style={{ borderColor: 'var(--glass-border)' }}>Not eligible</div>
             <div className="p-2.5 border-t" style={{ borderColor: 'var(--glass-border)' }}>Above 0R</div>
             <div className="p-2.5 border-t" style={{ borderColor: 'var(--glass-border)' }}>Not eligible</div>
           </div>
@@ -104,7 +94,7 @@ export default function SubscriptionTermsPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">11. Renewal and late payment</h2>
-        <p>Subscriptions are prepaid for a fixed access period (currently 31 days). Subscribers who wish to continue must renew according to the communicated instructions. Where a subscription expires without successful renewal, access may be suspended until payment is received and verified. Late payment does not alter the official calendar-month performance cycle or create a new period, and payment alone does not guarantee uninterrupted access until it is verified.</p>
+        <p>Subscriptions are prepaid for a fixed access period (currently 30 days). Subscribers who wish to continue must renew according to the communicated instructions. Where a subscription expires without successful renewal, access may be suspended until payment is received and verified. Late payment does not alter the official calendar-month performance cycle or create a new period, and payment alone does not guarantee uninterrupted access until it is verified.</p>
       </section>
 
       <section>

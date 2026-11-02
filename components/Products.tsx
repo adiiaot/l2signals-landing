@@ -2,12 +2,12 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight, Check, Clock3, Sparkles } from 'lucide-react'
-import { OFFER, PRODUCTS, type Product } from '../data/business'
+import { PRODUCTS, type Product } from '../data/business'
 
 const CARD = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' } as const
 
 function statusClass(status: Product['status']): string {
-  if (status === 'live' || status === 'early-access' || status === 'available') return 'badge-win'
+  if (status === 'live' || status === 'available') return 'badge-win'
   if (status === 'in-development') return 'badge-warn'
   return 'badge-info'
 }
@@ -58,8 +58,8 @@ export default function Products() {
     <section id="products" className="max-w-6xl mx-auto px-4 py-6 scroll-mt-20">
       <div className="flex flex-wrap items-end justify-between gap-3 mb-3">
         <div>
-          <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">The product ecosystem</p>
-          <h2 className="text-lg sm:text-xl font-bold mt-1">One business. Four products and a services track.</h2>
+          <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">What the business runs and builds</p>
+          <h2 className="text-lg sm:text-xl font-bold mt-1">One company. Four builds and a services track.</h2>
         </div>
         <span className="text-[10px] font-mono text-text-muted">Status is updated when it changes — not when it is marketed</span>
       </div>
@@ -116,21 +116,13 @@ export default function Products() {
               <p className="text-[11px] sm:text-xs text-text-secondary mt-2.5 leading-relaxed">{product.description}</p>
 
               {featured && (
-                <div className="grid grid-cols-3 gap-2 mt-3">
-                  <div className="rounded-lg p-2 text-center" style={CARD}>
-                    <p className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Price</p>
-                    <p className="text-[11px] font-bold font-mono mt-0.5">
-                      ₦{Math.round(OFFER.ngn / 1000)}k / ${OFFER.usd}
-                    </p>
-                  </div>
-                  <div className="rounded-lg p-2 text-center" style={CARD}>
-                    <p className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Access</p>
-                    <p className="text-[11px] font-bold font-mono mt-0.5">{OFFER.days} days</p>
-                  </div>
-                  <div className="rounded-lg p-2 text-center" style={CARD}>
-                    <p className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Cohort</p>
-                    <p className="text-[11px] font-bold font-mono mt-0.5">{OFFER.foundingCap} max</p>
-                  </div>
+                <div className="mt-3 rounded-lg p-2.5" style={CARD}>
+                  <p className="text-[9px] uppercase tracking-[0.12em] text-text-muted">Operated by the business</p>
+                  <p className="text-[11px] text-text-secondary mt-1 leading-relaxed">
+                    Private and by invitation. Members read and accept a written risk disclosure before any
+                    payment. The engine&rsquo;s live record and the back-tested study are published and labelled
+                    separately.
+                  </p>
                 </div>
               )}
 
@@ -170,9 +162,9 @@ export default function Products() {
       </div>
 
       <p className="text-[10px] text-text-muted mt-3 leading-relaxed">
-        An L2 Signals membership gives access to the signal service for the paid period. It does not buy the
-        software, the strategy, the brand or a right to redistribute signals. L2 EA, L2 Indicator and the L2
-        Signals App are not currently for sale.
+        L2 Signals is a private service of the business, not a product on general sale. The member application is
+        a private build and is not publicly available. L2 EA and L2 Indicator are not currently for sale; custom
+        work on either is scoped and quoted per project.
       </p>
     </section>
   )

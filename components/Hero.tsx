@@ -6,8 +6,8 @@ import { BUSINESS } from '../data/business'
 
 const CTAS = [
   { label: 'See our services', href: '/services', primary: true },
+  { label: 'View L2 Signals', href: '/signals', primary: false },
   { label: 'Explore products', href: '#products', primary: false },
-  { label: 'See the signal service', href: '#signals', primary: false },
   {
     label: 'Contact the business',
     href: 'mailto:l2signalslab@gmail.com?subject=L2%20Signals%20Services%20enquiry',
@@ -54,14 +54,14 @@ export default function Hero() {
             style={{ background: 'rgba(0,0,0,0.28)', borderColor: 'rgba(255,255,255,0.14)', color: '#fff' }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-soft" />
-            {BUSINESS.name} · software, IT support &amp; trading technology
+            {BUSINESS.name} · software development &amp; trading technology
           </div>
 
           <h1 className="text-[30px] sm:text-[38px] md:text-[46px] font-bold leading-[1.03] tracking-tight text-white">
-            Software, IT support and algorithmic
+            A software development company
             <br />
             <span className="font-mono font-light tracking-tight" style={{ color: 'var(--accent-gold)' }}>
-              trading tools for firms and traders.
+              building trading systems and tools.
             </span>
           </h1>
 
@@ -71,9 +71,9 @@ export default function Hero() {
               retail traders, hedge and prop firms, fintechs and businesses
             </span>
             . We develop software, support the systems it runs on, build algorithmic trading tools and advise on
-            technology decisions. Our flagship product,{' '}
-            <span className="text-white font-medium">L2 Signals</span>, is our own proof of work: a live,
-            rule-based XAU/USD signal engine.
+            technology decisions. To show the work rather than describe it, the company runs{' '}
+            <span className="text-white font-medium">L2 Signals</span> — a private, invite-only product with a
+            published record.
           </p>
 
           <div className="flex flex-wrap justify-center gap-2.5 pt-1">
@@ -100,10 +100,10 @@ export default function Hero() {
 
           <div className="flex flex-wrap justify-center gap-2 pt-2 font-mono text-[10px]">
             <span className="px-2.5 py-1 rounded-full bg-white/10 text-white border border-white/15">
-              L2 Signals · 4.25-yr backtest · 20,237 signals · 64.8% WR
+              L2 Signals · back-tested study — 20,237 signals · 64.8% WR
             </span>
             <span className="px-2.5 py-1 rounded-full bg-white/10 text-white border border-white/15">
-              No profit is guaranteed
+              Back-tested, not a promise
             </span>
           </div>
         </motion.div>

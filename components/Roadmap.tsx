@@ -2,33 +2,36 @@ import Link from 'next/link'
 
 const STEPS = [
   {
-    phase: 'Now',
-    title: 'L2 Signals — early access',
-    desc: 'The signal service is live for the founding cohort. Official performance is recorded monthly from engine outcomes.',
+    phase: 'Live',
+    title: 'Services — build work for clients',
+    desc: 'Software development, IT support, algorithmic trading tools and technology consultancy. Scoped and quoted per project.',
     tone: 'live',
+    href: '/services',
   },
   {
-    phase: 'Next',
-    title: 'Official launch — planned',
-    desc: 'The official launch is planned; timing will be announced in the channel. No date is promised.',
-    tone: 'target',
+    phase: 'Live',
+    title: 'L2 Signals — private, by invitation',
+    desc: 'The business runs its own engine and publishes the record. Access is by invitation; the fee is shown at checkout after the documents are accepted.',
+    tone: 'live',
+    href: '/signals',
   },
   {
     phase: 'In development',
     title: 'L2 EA — MetaTrader 5',
-    desc: 'Rule-based execution with independent risk controls, clear order handling and detailed logs. Not yet for sale.',
+    desc: 'Rule-based execution with independent risk controls, clear order handling and detailed logs. Not yet for sale; custom EA work is quoted per project.',
     tone: 'build',
+    href: '/quote?type=system-built',
   },
   {
     phase: 'Planned',
-    title: 'L2 Indicator — TradingView',
-    desc: 'Visualise the conditions behind the rule set on your own chart. Intended scope only; no release date.',
+    title: 'L2 Indicator',
+    desc: 'Visualise the conditions behind a rule set on the chart. Intended scope only; no release date.',
     tone: 'plan',
   },
   {
-    phase: 'Planned',
+    phase: 'Private',
     title: 'L2 Signals App',
-    desc: 'Member access, performance reporting, journals, trade logs and analytics. Intended scope only.',
+    desc: 'Member application for access, journals and analytics. A private build — not publicly released and not offered for sale.',
     tone: 'plan',
   },
   {

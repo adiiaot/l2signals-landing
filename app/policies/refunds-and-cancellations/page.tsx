@@ -24,7 +24,7 @@ export default function RefundsPage() {
       <section>
         <h2 className="text-sm font-bold text-text-primary">1. How the subscription works</h2>
         <p>
-          The L2 Signals subscription is sold as a prepaid access period — currently 31 days from the date a
+          The L2 Signals subscription is sold as a prepaid access period — currently 30 days from the date a
           verified payment is applied. It does not renew automatically. There is no stored card mandate and no
           recurring charge. Access ends at the end of the paid period unless a new payment is submitted and
           verified.

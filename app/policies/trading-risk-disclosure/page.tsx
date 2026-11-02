@@ -104,7 +104,7 @@ export default function TradingRiskDisclosurePage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">14. Founding member extension is not a cash refund</h2>
-        <p>Eligible founding members may qualify for one additional month of access in relation to the calendar month in which their first paid subscription period begins, when the official net R for that calendar month is zero or negative. This benefit is an extension of service access, not a cash refund; is assessed using official performance rather than personal account results; applies only once and only under the stated conditions; does not reimburse personal losses or broker charges; and does not guarantee that a subsequent month will be profitable.</p>
+        <p>Eligible founding members may qualify for one additional month of access in relation to the calendar month in which their first paid subscription period begins, when the official net R for that calendar month is below zero. This benefit is an extension of service access, not a cash refund; is assessed using official performance rather than personal account results; applies only once and only under the stated conditions; does not reimburse personal losses or broker charges; and does not guarantee that a subsequent month will be profitable.</p>
       </section>
 
       <section>

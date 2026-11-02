@@ -4,7 +4,7 @@ import { POLICIES } from '../../../data/policies'
 
 export const metadata: Metadata = {
   title: 'Founding Member Extension Policy',
-  description: 'The conditions under which an eligible founding member receives one additional month of L2 Signals access when the official monthly net R is zero or negative.',
+  description: 'The conditions under which an eligible founding member receives one additional month of L2 Signals access when the official monthly net R is below zero.',
 }
 
 const pdf = POLICIES.find(p => p.slug === 'founding-member-extension')?.pdf
@@ -37,7 +37,7 @@ export default function FoundingMemberExtensionPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">2. Eligibility</h2>
-        <p>The extension is available exclusively to eligible participants in the Founding Members Programme, which is limited to a maximum of 50 founding members. To qualify, a member must have an eligible first paid subscription and comply with the applicable programme terms. It may be granted only once per member and does not apply to subsequent paid months.</p>
+        <p>The extension is available exclusively to eligible participants in the Founding Members Programme, which is limited and invitation-based. To qualify, a member must have an eligible first paid subscription and comply with the applicable programme terms. It may be granted only once per member and does not apply to subsequent paid months.</p>
       </section>
 
       <section>
@@ -59,11 +59,11 @@ export default function FoundingMemberExtensionPage() {
             <div className="p-2.5 font-semibold" style={{ background: 'rgb(var(--surface-overlay-rgb))' }}>Official monthly net R</div>
             <div className="p-2.5 font-semibold" style={{ background: 'rgb(var(--surface-overlay-rgb))' }}>Extension decision</div>
             {row('Below 0R', 'Eligible for one additional month', true)}
-            {row('Exactly 0R', 'Eligible for one additional month', true)}
+            {row('Exactly 0R', 'Not eligible')}
             {row('Above 0R', 'Not eligible')}
           </div>
         </div>
-        <p className="mt-2">A confirmed official net R of zero or below qualifies. Eligibility is not determined by the number of winning or losing signals alone, but by the final official net R calculation. Examples: −3R qualifies; 0R qualifies; +2.5R does not; a month with no eligible completed signals gives 0R and qualifies (provided no unresolved signals could affect the calculation).</p>
+        <p className="mt-2">A confirmed official net R below zero qualifies. Zero R does not qualify, and neither does any positive result. Eligibility is not determined by the number of winning or losing signals alone, but by the final official net R calculation. Examples: −3R qualifies; 0R does not; +2.5R does not; a month with no eligible completed signals gives 0R and does not qualify.</p>
       </section>
 
       <section>
@@ -73,7 +73,7 @@ export default function FoundingMemberExtensionPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">7. Extension benefit</h2>
-        <p>An eligible founding member receives one additional month of access to the designated members-only service. For clarity, that additional access period equals the current standard subscription period (currently 31 days), unless the applicable programme terms state otherwise. The extension provides additional access without an additional charge for that period, does not constitute a cash refund, does not reimburse personal trading losses, does not guarantee that future signals will be profitable, does not guarantee a minimum number of signals during the period, and does not create a recurring entitlement to additional free months.</p>
+        <p>An eligible founding member receives one additional month of access to the designated members-only service. For clarity, that additional access period equals the current standard subscription period (currently 30 days), unless the applicable programme terms state otherwise. The extension provides additional access without an additional charge for that period, does not constitute a cash refund, does not reimburse personal trading losses, does not guarantee that future signals will be profitable, does not guarantee a minimum number of signals during the period, and does not create a recurring entitlement to additional free months.</p>
       </section>
 
       <section>
@@ -88,7 +88,7 @@ export default function FoundingMemberExtensionPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">10. No-signal periods</h2>
-        <p>Signals are generated only when the predefined strategy conditions and filters are satisfied; the platform is not required to generate signals every day or to create trades to maintain activity. If no eligible completed signals are recorded during the month, the official net R is zero (provided no unresolved signals remain that could affect the calculation), which qualifies an eligible founding member for the one-time extension.</p>
+        <p>Signals are generated only when the predefined strategy conditions and filters are satisfied; the platform is not required to generate signals every day or to create trades to maintain activity. If no eligible completed signals are recorded during the month, the official net R is zero, which does not qualify an eligible founding member for the one-time extension.</p>
       </section>
 
       <section>
@@ -113,7 +113,7 @@ export default function FoundingMemberExtensionPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">15. Acknowledgement</h2>
-        <p>Participation in the Founding Members Programme constitutes acknowledgement that the extension is conditional and available only once; official monthly net R determines eligibility; a confirmed net R of zero or below qualifies an eligible founding member; individual account results do not determine eligibility; the measurement cycle follows calendar months regardless of individual payment timing; the final monthly calculation may be delayed until outstanding signals are resolved; the extension provides additional service access rather than cash compensation; and future signals and outcomes are not guaranteed.</p>
+        <p>Participation in the Founding Members Programme constitutes acknowledgement that the extension is conditional and available only once; official monthly net R determines eligibility; a confirmed net R below zero qualifies an eligible founding member; individual account results do not determine eligibility; the measurement cycle follows calendar months regardless of individual payment timing; the final monthly calculation may be delayed until outstanding signals are resolved; the extension provides additional service access rather than cash compensation; and future signals and outcomes are not guaranteed.</p>
       </section>
     </PolicyShell>
   )

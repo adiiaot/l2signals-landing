@@ -130,7 +130,7 @@ export default function PerformanceMeasurementPage() {
             {row('Above 0R', 'Not eligible')}
           </div>
         </div>
-        <p className="mt-2">The extension is available once, applies in relation to the calendar month in which the first paid subscription period begins, does not recur, provides additional service access, is not a cash refund, and does not guarantee future profitability. If a member&apos;s account is profitable while the official net R is zero or negative, the official result governs; if a member personally loses money while the official net R is positive, that individual loss does not establish eligibility.</p>
+        <p className="mt-2">The extension is available once, applies in relation to the calendar month in which the first paid subscription period begins, does not recur, provides additional service access, is not a cash refund, and does not guarantee future profitability. If a member&apos;s account is profitable while the official net R is below zero, the official result governs; if a member personally loses money while the official net R is positive, that individual loss does not establish eligibility.</p>
       </section>
 
       <section>
@@ -150,7 +150,7 @@ export default function PerformanceMeasurementPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">14. Member acknowledgement</h2>
-        <p>By subscribing, members acknowledge that official performance is calculated from the engine&apos;s recorded outcomes; monthly net R resets each calendar month; the measurement period is independent of individual subscription and payment timing; signals open at month-end remain subject to finalisation; members are responsible for their own execution and trade management; personal deviations do not alter official outcomes; a confirmed 0R or below qualifies for the extension only under the eligibility rules; signal generation is conditional on market conditions and the strategy rules; and official performance does not guarantee that every member obtains the same result in their own account.</p>
+        <p>By subscribing, members acknowledge that official performance is calculated from the engine&apos;s recorded outcomes; monthly net R resets each calendar month; the measurement period is independent of individual subscription and payment timing; signals open at month-end remain subject to finalisation; members are responsible for their own execution and trade management; personal deviations do not alter official outcomes; an official monthly net R below zero qualifies for the extension only under the eligibility rules; signal generation is conditional on market conditions and the strategy rules; and official performance does not guarantee that every member obtains the same result in their own account.</p>
       </section>
     </PolicyShell>
   )

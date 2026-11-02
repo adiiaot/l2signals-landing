@@ -10,9 +10,9 @@
  * does not require a bump.
  */
 
-export const LEGAL_EFFECTIVE = '25 October 2026'
-export const LEGAL_VERSION = '2026.10.3'
-export const LEGAL_LAST_REVIEWED = '25 October 2026'
+export const LEGAL_EFFECTIVE = '2 November 2026'
+export const LEGAL_VERSION = '2026.11.2'
+export const LEGAL_LAST_REVIEWED = '2 November 2026'
 
 export type LegalCategory = 'core' | 'trading' | 'subscription' | 'programme'
 
@@ -32,8 +32,8 @@ export interface LegalDoc {
 export const LEGAL_CATEGORIES: Record<LegalCategory, { label: string; description: string }> = {
   core: { label: 'Core terms', description: 'The contract between you and L2 Signals Services, and how personal data is handled.' },
   trading: { label: 'Trading & acceptable use', description: 'The risks of trading, and the rules for using the service and its private content.' },
-  subscription: { label: 'Subscription, billing & measurement', description: 'What you buy, what it costs, how access and refunds work, and how performance is measured.' },
-  programme: { label: 'Founding Members Programme', description: 'The limited early-access cohort and its one-time performance-based extension.' },
+  subscription: { label: 'Subscription, billing & measurement', description: 'What you buy, how access, payment and refunds work, and how performance is measured.' },
+  programme: { label: 'Founding Members Programme', description: 'The invitation-based founding cohort and its one-time performance-based extension.' },
 }
 
 const published = (doc: Omit<LegalDoc, 'version' | 'effective' | 'status'>): LegalDoc => ({
@@ -82,7 +82,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
   published({
     slug: 'subscription-terms',
     title: 'Subscription Terms & Conditions',
-    short: 'Plans and pricing, payment methods, activation, renewal, cancellation and refunds.',
+    short: 'Access period, the fee at checkout, payment methods, activation, renewal, cancellation and refunds.',
     category: 'subscription',
     href: '/policies/subscription-terms',
   }),
@@ -103,14 +103,14 @@ export const LEGAL_DOCS: LegalDoc[] = [
   published({
     slug: 'founding-members-programme',
     title: 'Founding Members Programme',
-    short: 'The early-access cohort — 50 members, pricing and the one-time extension.',
+    short: 'The invitation-based founding cohort, the access route and the one-time extension.',
     category: 'programme',
     href: '/policies/founding-members-programme',
   }),
   published({
     slug: 'founding-member-extension',
     title: 'Founding Member Extension Policy',
-    short: 'The one-time additional month when official net R for the starting calendar month is zero or below.',
+    short: 'The one-time additional month when official net R for the starting calendar month is below zero.',
     category: 'programme',
     href: '/policies/founding-member-extension',
   }),

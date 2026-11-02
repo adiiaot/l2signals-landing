@@ -29,19 +29,21 @@ export default function AboutBusiness() {
           <div>
             <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">About the business</p>
             <h2 className="text-lg sm:text-xl font-bold mt-1">
-              A technology partner that builds the tools — you keep the controls.
+              A software development company that builds the tools — you keep the controls.
             </h2>
             <p className="text-xs sm:text-sm text-text-secondary mt-3 leading-relaxed">
-              L2 Signals Services is a software and trading-technology business. We develop software, provide IT
-              support, build algorithmic trading tools and advise on technology decisions. The business is intended
-              to grow into a product ecosystem, not a single signal page.
+              L2 Signals Services is a software development business working in trading technology. We build
+              software, provide IT support, develop algorithmic trading tools — signal engines, Expert Advisors,
+              indicators, backtests, execution automation — and advise on technology decisions. The business is a
+              sole proprietorship and grows by taking on client work, not by selling a single product.
             </p>
             <p className="text-xs sm:text-sm text-text-secondary mt-3 leading-relaxed">
-              Our flagship is L2 Signals: a rule-based intraday XAU/USD signal service delivered to a private
-              group for interested members. It has a deterministic engine, a published exit playbook and a
-              performance record measured from the engine. It is live in early access. Around it, L2 EA, L2
-              Indicator and the L2 Signals App are being specified or built, and the same team takes on custom
-              systems, API integrations and software work.
+              To show the work rather than describe it, the company runs L2 Signals: a rule-based intraday XAU/USD
+              engine with a deterministic rule set, a published exit playbook and an official record measured from
+              the engine. It is private and invite-only, operated for members who accept a written risk disclosure
+              before paying. Around it, L2 EA and L2 Indicator are in development or planned, the member
+              application stays a private build, and the same team takes on custom systems, API integrations and
+              software work for clients.
             </p>
 
             <div className="grid gap-2 sm:grid-cols-2 mt-4">
@@ -62,7 +64,7 @@ export default function AboutBusiness() {
                 <li className="flex gap-2"><span className="text-accent-gold">•</span>Support IT systems, integrations and day-to-day infrastructure</li>
                 <li className="flex gap-2"><span className="text-accent-gold">•</span>Build algorithmic trading tools — engines, MT5 EAs and indicators</li>
                 <li className="flex gap-2"><span className="text-accent-gold">•</span>Advise on technology, architecture and product decisions</li>
-                <li className="flex gap-2"><span className="text-accent-gold">•</span>Publish rule-based signals to a private group for interested members</li>
+                <li className="flex gap-2"><span className="text-accent-gold">•</span>Operate one private product of our own — L2 Signals — as proof of work</li>
               </ul>
             </div>
 

@@ -5,13 +5,12 @@ import { Menu, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 const LINKS = [
-  { label: 'Products', href: '#products' },
-  { label: 'Performance', href: '#proof' },
-  { label: 'How it works', href: '#how' },
-  { label: 'Pricing', href: '#pricing' },
   { label: 'Services', href: '/services' },
+  { label: 'L2 Signals', href: '/signals' },
+  { label: 'Products', href: '#products' },
+  { label: 'Roadmap', href: '#roadmap' },
   { label: 'Legal', href: '/legal' },
-  { label: 'Pay', href: '/pay' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 export default function Navbar() {
@@ -64,7 +63,7 @@ export default function Navbar() {
             <img src="/images/l2signals_logo.jpg" alt="L2 Signals Services" className="w-8 h-8 rounded-lg object-cover border" style={{ borderColor: 'var(--glass-border)' }} />
             <div className="leading-tight">
               <p className="text-[13px] font-bold tracking-tight text-accent-gold">L2 Signals Services</p>
-              <p className="text-[9px] tracking-[0.16em] text-text-muted uppercase">Software &amp; Trading Tech</p>
+              <p className="text-[9px] tracking-[0.16em] text-text-muted uppercase">Software Development</p>
             </div>
           </a>
           <nav className="hidden lg:flex items-center gap-0.5">
@@ -78,7 +77,7 @@ export default function Navbar() {
           </nav>
           <div className="flex items-center gap-1.5">
             <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="hidden sm:inline-flex items-center gap-1.5 bg-accent-gold text-white text-[11px] font-semibold px-3.5 py-1.5 rounded-full hover:opacity-90 transition">
-              Free channel
+              Public channel
             </a>
             <button
               aria-label="Toggle theme"
@@ -129,7 +128,7 @@ export default function Navbar() {
                 ))}
               </div>
               <div className="p-4 border-t space-y-2" style={{ borderColor: 'var(--glass-border)' }}>
-                <a href="/pay" onClick={() => setOpen(false)} className="btn-primary w-full justify-center">Start membership</a>
+                <a href="/signals" onClick={() => setOpen(false)} className="btn-primary w-full justify-center">L2 Signals</a>
                 <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="btn-secondary w-full justify-center">Public channel</a>
                 <a href="mailto:l2signalslab@gmail.com" className="btn-secondary w-full justify-center">Email the business</a>
               </div>

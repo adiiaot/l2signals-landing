@@ -4,7 +4,7 @@ import { POLICIES } from '../../../data/policies'
 
 export const metadata: Metadata = {
   title: 'Founding Members Programme',
-  description: 'The L2 Signals Founding Members Programme: an early-access membership open ahead of official launch, capped at 50 members, with details on pricing, access and the performance-based extension.',
+  description: 'The L2 Signals Founding Members Programme: an invitation-based membership for a limited group, with the access route, fee display and the performance-based extension rules.',
 }
 
 const pdf = POLICIES.find(p => p.slug === 'founding-members-programme')?.pdf
@@ -18,15 +18,16 @@ export default function FoundingMembersProgrammePage() {
       pdf={pdf}
       intro={
         <>
-          The Founding Members Programme is an early-access membership for traders who want access to the platform&apos;s
-          systematic intraday signals while L2 Signals continues to develop its technology, validate its strategies and
-          improve delivery infrastructure. It is open while places remain, ahead of official launch.
+          The Founding Members Programme is the invitation-based membership through which L2 Signals is currently
+          offered to a limited group of traders who want access to the platform&apos;s systematic intraday setups
+          while the business continues to develop its technology, validate its strategies and improve delivery
+          infrastructure. Access is by invitation only.
         </>
       }
     >
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-        <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Programme status</p><p className="text-sm font-bold mt-1">Early access — places open</p></div>
-        <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Membership capacity</p><p className="text-sm font-bold mt-1">50 members maximum</p></div>
+        <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Programme status</p><p className="text-sm font-bold mt-1">Invitation only</p></div>
+        <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Access route</p><p className="text-sm font-bold mt-1">Invitation, then acceptance of these documents</p></div>
         <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Service</p><p className="text-sm font-bold mt-1">Premium access to L2 Signals</p></div>
       </div>
 
@@ -37,16 +38,13 @@ export default function FoundingMembersProgrammePage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">2. Membership capacity</h2>
-        <p>Founding membership is limited to a maximum of 50 members. Availability is determined by the number of places remaining. Joining the waitlist or expressing interest does not constitute a paid subscription or guarantee membership — a place is confirmed only after the applicable payment is verified. L2 Signals may close registration when capacity is reached.</p>
+        <p>Founding membership is limited and closes when L2 Signals decides. A place is confirmed only after the applicable payment is verified. Expressing interest, or being invited, does not itself constitute a paid subscription or guarantee a place. L2 Signals may close the programme when it reaches the capacity it has set, and is not obliged to publish that number.</p>
       </section>
 
       <section>
-        <h2 className="text-sm font-bold text-text-primary">3. Subscription pricing</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">Naira payments</p><p className="text-lg font-bold font-mono text-accent-gold mt-1">₦50,000</p><p className="text-[11px] text-text-muted">per 31-day access period</p></div>
-          <div className="rounded-xl p-3" style={box}><p className="text-[10px] tracking-[0.14em] text-text-muted uppercase">US dollar payments</p><p className="text-lg font-bold font-mono text-accent-gold mt-1">US$40</p><p className="text-[11px] text-text-muted">per 31-day access period</p></div>
-        </div>
-        <p className="mt-2">The payment page shows the exact amount and currency for the method you select before you pay. Accepted methods may include Nigerian naira, US dollars and supported cryptocurrencies. Where crypto is accepted, the amount, supported network, address and requirements are communicated through official instructions — members must ensure payments use the correct asset, network and details.</p>
+        <h2 className="text-sm font-bold text-text-primary">3. Fee and payment</h2>
+        <p>The fee for an access period, and the period itself, are shown on the payment page and only after the reader has accepted the Subscription Terms, the Trading Risk Disclosure and this programme&apos;s conditions. The amount is set server-side for the chosen method and is not published in advance of that acceptance.</p>
+        <p className="mt-2">Accepted methods may include Nigerian naira, US dollars and supported cryptocurrencies. Where crypto is accepted, the amount, supported network, address and requirements are communicated on the payment page — members must ensure payments use the correct asset, network and details.</p>
       </section>
 
       <section>
@@ -57,15 +55,15 @@ export default function FoundingMembersProgrammePage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">5. Founding member performance-based extension</h2>
-        <p>L2 Signals will provide eligible founding members with a one-time additional month of access if the eligible signals recorded during the calendar month in which their first paid subscription period begins produce a cumulative net result of zero R or below, measured in R-multiples. Conditions:</p>
+        <p>L2 Signals will provide eligible founding members with a one-time additional month of access if the eligible signals recorded during the calendar month in which their first paid subscription period begins produce a cumulative net result below zero R, measured in R-multiples. Conditions:</p>
         <ol className="list-decimal ml-4 space-y-1 mt-1">
           <li>The member must hold an eligible first paid subscription.</li>
           <li>The calendar month in which that first paid period begins must have concluded.</li>
           <li>The eligible signals must have been evaluated under the Performance Measurement Policy.</li>
-          <li>The cumulative net result for that period must be zero R or below.</li>
+          <li>The cumulative net result for that period must be below zero R.</li>
           <li>The member receives one additional month of access without an additional subscription charge.</li>
         </ol>
-        <p className="mt-2">A result above zero R does not qualify. The extension is available only once per founding member, applies exclusively in relation to the calendar month in which the first paid subscription period begins, and is not provided for subsequent paid months.</p>
+        <p className="mt-2">A result of zero R or above does not qualify. The extension is available only once per founding member, applies exclusively in relation to the calendar month in which the first paid subscription period begins, and is not provided for subsequent paid months.</p>
       </section>
 
       <section>

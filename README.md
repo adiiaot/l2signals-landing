@@ -1,9 +1,15 @@
 # L2 Signals Services — business website (`l2signals-landing`)
 
-Standalone Next.js 14 (App Router) site for **L2 Signals Services**, the trading-technology
-business. **L2 Signals** is the live signal service (rule-based XAU/USD setups delivered to a private group);
-**L2 EA** is in development; **L2 Indicator** and the **L2 Signals App** are planned. Signals API
-access, custom systems, websites and apps are quoted per project.
+Standalone Next.js 14 (App Router) site for **L2 Signals Services**, a software development business
+working in trading technology: software, IT support, algorithmic trading tools (signal engines,
+MetaTrader Expert Advisors, indicators, backtests, execution automation) and technology consultancy,
+quoted per project.
+
+**L2 Signals** is one private product of the business — rule-based XAU/USD setups delivered to an
+invited group — and it is published as proof of work: a running engine, a private community, a member
+application and a record that includes the losses. It is not a public signal service and the business
+is not presented as a signal provider. **L2 EA** is in development, **L2 Indicator** is planned, and the
+**L2 Signals App** is a private build that is not publicly released.
 
 This repo is separate from `l2signal_web` (private dashboard / signal engine) and `l2signal_bot`
 (payments and membership only).
@@ -12,14 +18,15 @@ This repo is separate from `l2signal_web` (private dashboard / signal engine) an
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Business homepage: hero, about, products, L2 Signals spotlight, execution ledger, methodology, how it works, roadmap, pricing, trust, FAQ, founder, contact |
+| `/` | Business homepage: hero, about, products, proof of work, how we work, roadmap, FAQ, founder, contact |
+| `/signals` | The private product: scope, live execution ledger, back-tested study, methodology, access terms, invite request |
 | `/services` | Services tracks (Signals API, custom systems, apps, hire/partnership) |
 | `/quote` | Scoped quote request (email draft; no server-side payment) |
-| `/pay` | Checkout: disclosure, consent, Paystack / crypto / bank transfer |
+| `/pay` | Checkout for an invited member: disclosure, mandatory consent, then the fee; Paystack / crypto / bank transfer |
 | `/legal` | Legal & Trust Centre index |
 | `/terms`, `/privacy` | Core website documents |
 | `/policies` | Member-policy index |
-| `/policies/subscription-terms` | Subscription, renewal, cancellation, refunds |
+| `/policies/subscription-terms` | Access period, payment, renewal, cancellation, refunds |
 | `/policies/trading-risk-disclosure` | Risk disclosure |
 | `/policies/signal-access-and-delivery` | Delivery, order types, cutoff, sizing |
 | `/policies/performance-measurement` | Calendar-month Net R methodology |
@@ -27,31 +34,45 @@ This repo is separate from `l2signal_web` (private dashboard / signal engine) an
 | `/policies/founding-member-extension` | Extension benefit |
 | `/policies/acceptable-use` | Permitted use |
 | `/policies/refunds-and-cancellations` | Interim refund/cancellation process |
+| `/api/ledger` | Server-side proxy that reads the operator ledger; the browser never calls the private app origin |
 
 `/legal/terms`, `/legal/refunds`, `/legal/risk-disclosure` and the other `/legal/*` aliases
 redirect to the canonical routes in `next.config.js`. Do not duplicate the documents.
 
 ## Content and claims
 
-- Business identity, offer, products and journey live in `data/business.ts`.
-- Legal metadata, versions, effective dates and consent mapping live in `data/legal.ts`.
-- Public figures must stay labelled: the 4.25-year study is **backtested**; the
-  `$100 → $1,007.41` result is **demo**. No profit, win rate, funding or withdrawal is guaranteed.
-  Short-window figures are deliberately not published.
-- Do not state a release date, broker, licence, registration, address or integration that is not
-  verified. Product statuses are deliberately conservative (“in development” ≠ “available”).
-- The execution ledger (`components/ProofSection.tsx`) reads the public web API and only shows
-  realised R where the record supports it. Planned R is never substituted for realised R.
+- Business identity, positioning, risk notice, products and journey live in `data/business.ts`.
+  `RISK_NOTICE` must appear in the footer and beside any results — never shorten it.
+- Legal metadata, versions, effective dates and consent mapping live in `data/legal.ts`. Bumping
+  `LEGAL_VERSION` invalidates older consent records by design.
+- **No published price for the private service.** The fee is rendered only on `/pay`, and only after
+  the three consent statements are ticked. `data/business.ts` `OFFER` mirrors the checkout defaults
+  for display; `l2signal_web` → `config/payments` is authoritative for the amount charged.
+- Results are data: wins, losses, unfilled setups and R. Never currency profit, never an income claim.
+  Label every figure: the 4.25-year study (20,237 signals, 64.8% WR, +0.69R) is **BACK-TESTED**; the
+  execution ledger is **LIVE** and is not merged with it.
+- Do not state a release date, broker, address or integration that is not verified. Product statuses
+  are deliberately conservative (“in development” ≠ “available”).
+- **Registration is a verified fact** (business name registered with the CAC on 1 November 2026;
+  certificate, status report, TIN and registration number held). It is published from
+  `REGISTRATION` in `data/business.ts` — never type a number from memory, and never imply that a
+  registered business name is a licence or an approval by any financial regulator. Nothing else about
+  licensing or regulatory status is published.
+- The execution ledger (`components/ProofSection.tsx`) reads `/api/ledger` and only shows realised R
+  where the record supports it. Planned R is never substituted for realised R.
 
 ## Payments and consent
 
 Checkout is hosted on this site. The **storefront is deliberately not linked**: a hosted
-`paystack.shop` page cannot show the pre-payment disclosures or record consent.
+`paystack.shop` page cannot show the pre-payment disclosures or record consent. `/pay` is not in the
+nav or on the homepage — it is reached from the invitation message and the quiet "Already invited?"
+link on `/signals`.
 
 1. `/pay` fetches the plan from `l2signal_web` → `config/payments` (server-side, revalidated).
    The browser never supplies the price.
-2. The payer must tick three initially-unchecked boxes: Terms + Subscription Terms; Trading Risk
-   Disclosure; Founding Members Programme (when `OFFER.foundingApplicable`).
+2. The fee and the payment rails stay hidden until the payer ticks the initially-unchecked boxes:
+   Terms + Subscription Terms; Trading Risk Disclosure; Founding Members Programme (when
+   `OFFER.foundingApplicable`).
 3. `POST /api/pay/consent` recomputes the required documents and versions from `data/legal.ts`,
    stores a `payConsents` record (product, plan snapshot, versions, timestamp, salted IP hash,
    truncated user agent) and returns an id.
@@ -61,6 +82,9 @@ Checkout is hosted on this site. The **storefront is deliberately not linked**: 
    the charge with Paystack. Crypto and bank transfers are recorded as pending and reviewed.
 6. Payment docs store `consentId`, `consentVersions` and `consentAcceptedAt`; duplicate
    references are refused by `txIndex`.
+7. The success screen is manual-first: it lists the email, reference, member details and a
+   screenshot to send to `@aotayoL2` or `l2signalslab@gmail.com`. `PAYMENTS_AUTO_VERIFY=false` by
+   default.
 
 The Paystack rail is labelled **“Pay online”** (it also handles bank transfer and USSD), never
 “Card”. Card data never touches this site.
@@ -72,7 +96,9 @@ Copy `.env.example` and set the values in Vercel. Required for real payments:
 - `PAYSTACK_SECRET_KEY` — server-only; online checkout stays hidden without a valid key.
 - `PAYSTACK_USD_ENABLED` — `true` charges USD, otherwise NGN.
 - `FIREBASE_CLIENT_EMAIL` / `FIREBASE_PRIVATE_KEY` — consent and payment records.
-- `NEXT_PUBLIC_L2_WEB_API` — web dashboard origin used for plan config and the public ledger.
+- `L2_WEB_API_URL` (or `NEXT_PUBLIC_L2_WEB_API`) — web dashboard origin used for plan config and the
+  ledger proxy. If it is unset, `/api/ledger` returns `503 ledger_not_configured` rather than a
+  fabricated record.
 - `NEXT_PUBLIC_SITE_URL` — canonical origin, OG URLs and sitemap.
 - `NEXT_PUBLIC_TELEGRAM_BOT_URL` — optional bot deep link for identity.
 - `PAYMENTS_AUTO_VERIFY` — `false` by default; manual review.
@@ -96,11 +122,21 @@ type checks. If ESLint is added, run it before shipping.
 ## Deploy
 
 1. Vercel → project → Settings → Environment Variables: add the values above.
-2. Deploy. Verify `/pay`, `/legal`, `/terms`, `/privacy`, `/policies` and a `/legal/*` redirect.
+2. Deploy. Verify `/`, `/signals`, `/pay`, `/legal`, `/terms`, `/privacy`, `/policies`,
+   `/api/ledger` and a `/legal/*` redirect.
 3. Paystack dashboard → Webhook URL → `https://<domain>/api/pay/paystack/webhook`.
 4. `l2signal_web` → `/dashboard/payments` → **Payment page URL** → `https://<domain>/pay`.
 5. Bot env `PAY_PAGE_URL` → `https://<domain>/pay`.
 6. Custom domain: set `NEXT_PUBLIC_SITE_URL`, then repeat steps 3–5 for the new origin.
+
+## Known gaps
+
+- `public/policies/*.pdf` (6 files) are older than the HTML pages and still contain the previous
+  published prices, the 50-member cap and pre-launch wording. They are no longer linked from the
+  site; regenerate or delete them before re-linking.
+- The founding extension wording changed from “0R or below” to “strictly below 0R”
+  (`LEGAL_VERSION 2026.11.1`). Members who accepted an older version were consenting to the wider
+  trigger — treat that as a changed contractual term and handle any existing case individually.
 
 ## Legal/owner decisions still open
 
@@ -108,7 +144,11 @@ type checks. If ESLint is added, run it before shipping.
   so visibly).
 - Specific judicial venue / consumer-dispute route (Terms currently flags it as subject to
   Nigerian counsel).
-- Regulatory status (no SEC approval, licence or exemption is claimed).
-- The live `config/payments` plan is currently **31 days**; the site copy mirrors that. If 30
-  days is intended, change the web config, then update `OFFER.days` in `data/business.ts`, the
-  fallback in `lib/payments/types.ts`, and the “31-day” references in the legal pages together.
+- Registration: **done** — business name registered with the CAC on 1 November 2026, **BN 9979030**,
+  status Active, registered activity “software development, web design and intranet development”, published
+  from `REGISTRATION` in `data/business.ts`. The TIN is **never published** and must not be added to any
+  file in this repo. The principal place of business (a personal address) is not published either.
+- The plan is **30 days** with a 5-day grace period. `l2signal_web` → `config/payments` is
+  authoritative: if the access period is ever changed, change it there first, then update
+  `OFFER.days` in `data/business.ts`, the fallback in `lib/payments/types.ts` and the “currently 30
+  days” references in the legal pages together.

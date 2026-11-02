@@ -6,120 +6,114 @@ import { ChevronDown } from 'lucide-react'
 
 const FAQS: { q: string; a: React.ReactNode; highlight?: boolean }[] = [
   {
-    q: 'Is L2 Signals an investment service? Do you manage funds?',
+    q: 'What does L2 Signals Services do?',
     a: (
       <>
-        No. L2 Signals is a signal service, not an investment service or a managed account. We provide
-        rule-based setups to interested members through a private group; we do not take custody of member funds
-        or execute trades on a member&apos;s behalf. You trade your own account, choose your own size and keep
-        control of your own money. Nothing on this site is personal financial, investment, legal or tax advice.
+        We are a software development business working in trading technology. We build software, provide IT
+        support, develop algorithmic trading tools — signal engines, MetaTrader Expert Advisors, indicators,
+        backtests, execution automation — and advise on technology decisions. Work is scoped and quoted per
+        project. See the{' '}
+        <Link href="/services" className="text-accent-gold hover:underline">services page</Link> or{' '}
+        <Link href="/quote" className="text-accent-gold hover:underline">request a quote</Link>.
       </>
     ),
     highlight: true,
   },
   {
-    q: 'What is L2 Signals Services?',
+    q: 'Why does a software company run its own trading product?',
     a: (
       <>
-        L2 Signals Services is the parent software and trading-technology business. Alongside L2 Signals it
-        develops software, provides IT support, builds algorithmic trading tools and advises on technology.
-        L2 Signals is its flagship product. The ecosystem also includes L2 EA (an
-        Expert Advisor in development), L2 Indicator (planned), L2 Signals App (planned) and custom systems or
-        Signals API work (available by quote). Live, in development and planned products are labelled separately —
-        an unreleased product is never presented as available.
+        Because a claim about building signal engines is worth very little without one running. L2 Signals is the
+        business&rsquo;s proof of work: an engine, a private community and an application, operated in public view,
+        with a record that includes the losses. When a client wants a system built, that record is what they can
+        check first.
       </>
     ),
   },
   {
-    q: 'What is L2 Signals and how does it work?',
+    q: 'Is L2 Signals for sale to the public?',
     a: (
       <>
-        L2 Signals is a rules-based intraday XAU/USD service. The engine uses three complementary strategy
-        types — EMA bounce, consolidation breakout and trend continuation — with direction-aware routing.
-        Each setup states one order type — market or pending — with the entry, stop, target and expiry. Trades
-        run to the daily close window at 21:00 UTC. The 4.25-year broker-data study covered 20,237 signals at
-        64.8% WR and +0.69R per signal; that is a backtest, not a promise of future results.
+        No. L2 Signals is one private product of the business, offered by invitation to a small group of aligned
+        members, each of whom reads and accepts a written risk disclosure before any payment. It is not marketed
+        as a public signal service, and the member application is a private build that has not been released.
       </>
     ),
   },
   {
-    q: 'Do I need trading experience?',
+    q: 'How is L2 Signals and its private app operated?',
     a: (
       <>
-        Yes. The service is intended for experienced traders who already understand stop-losses, take-profit,
-        lot sizing and risk per trade. The published ceiling is 2% of account balance per signal — a cap, not
-        a target. Position sizing must account for your balance, stop distance, broker contract
-        specifications and execution costs. If you are new, paper trade first and follow the free channel
-        before joining the private group.
+        L2 Signals&rsquo; signal engine and its private app are operated by L2 Signals Services, as a service within
+        the business. Members trade their own accounts; the business does not take custody of funds and does not
+        execute trades for members.
       </>
     ),
   },
   {
-    q: 'How are signals delivered?',
+    q: 'What is the engine and how does it work?',
     a: (
       <>
-        Members receive a personal, single-use invitation to the private Telegram group after payment is
-        verified. The public channel carries updates and general results, not the private service. Access is
-        personal and must not be shared, forwarded or resold. Full delivery rules are in the Legal &amp; Trust
-        Centre.
+        It is a rules-based intraday XAU/USD engine using three complementary strategy types — EMA bounce,
+        consolidation breakout and trend continuation — with direction-aware routing. Each setup states one order
+        type, market or pending, with the entry, stop, target and expiry. Trades run to the daily close window at
+        21:00 UTC. The 4.25-year broker-data study covered 20,237 signals at 64.8% WR and +0.69R per signal; that
+        is a <span className="font-semibold text-text-primary">back-test</span>, not a live result and not a
+        promise.
       </>
     ),
   },
   {
-    q: 'How is performance measured?',
+    q: 'How are results reported?',
     a: (
       <>
-        Official performance is measured from the signal engine&apos;s recorded outcomes, not from a member&apos;s
-        broker balance. Monthly Net R is the sum of eligible decided outcomes attributed to the calendar month
-        in West Africa Time (UTC+1). Unfilled signals are reported but excluded. A month stays provisional
-        while eligible signals are unresolved. Full methodology is in the Legal &amp; Trust Centre.
+        As data, never as an income claim. The live execution ledger lists wins, partial wins, losses and unfilled
+        setups, with R where the record supports it, and it is labelled LIVE. The 4.25-year study is labelled
+        BACK-TESTED. The two are never merged into one figure, and the business does not publish only the wins.
       </>
     ),
   },
   {
-    q: 'What does membership include?',
+    q: 'Can I follow the work without joining?',
     a: (
       <>
-        Membership gives access to the L2 Signals service for the paid period. You do not buy the software, the
-        strategy, the brand, the signal engine or the right to redistribute signals or private-group content.
-        Membership does not renew automatically; a new payment is needed for another period.
+        Yes. The{' '}
+        <a href="https://t.me/l2signals" target="_blank" rel="noopener" className="text-accent-gold hover:underline">
+          public channel
+        </a>{' '}
+        carries updates, general results and occasional example setups posted so interested people can study the
+        method. It is not the private service and nothing in it is a recommendation to trade.
       </>
     ),
   },
   {
-    q: 'What is the Founding Members Programme?',
+    q: 'What does it cost, and when do I see the price?',
     a: (
       <>
-        It is the limited early-access cohort, capped at a maximum of 50 members, ahead of official launch. A
-        founding member with an eligible first paid subscription may qualify for one additional month of access
-        if the official cumulative Net R for the calendar month in which that period begins is zero or below.
-        It is a one-time service-access benefit — not a cash refund, not based on your personal account, and
-        not available again in later months. Full conditions are in the Legal &amp; Trust Centre.
+        The business does not publish the fee. Once an invitation is agreed, the payment page shows the fee, the
+        period and the payment methods — but only after you have read the Terms, the Trading Risk Disclosure and
+        the subscription documents and accepted them. The acceptance is recorded with the date, time and document
+        versions, and the amount is set server-side, never by the browser.
       </>
     ),
   },
   {
-    q: 'When will L2 EA, L2 Indicator and the L2 Signals App be available?',
+    q: 'Do you manage money, run accounts or give financial advice?',
     a: (
       <>
-        L2 EA is in development. L2 Indicator and the L2 Signals App are planned. No release date or
-        performance claim is made for an unreleased product, and nothing on this site offers an unreleased
-        product for sale. For L2 EA, you can register interest by email; product updates are posted in the
-        public channel.
+        No. We never take custody of member funds, never ask for a broker or MT5 password, and never execute trades
+        on a member&rsquo;s account. You size and execute your own trades. Nothing on this site is personal
+        financial, investment, legal or tax advice.
       </>
     ),
   },
   {
-    q: 'How do I pay, and what happens after?',
+    q: 'What happens after a payment?',
     a: (
       <>
-        The <Link href="/pay" className="text-accent-gold hover:underline">payment page</Link> shows the price,
-        period, access, risks and the legal documents. You must actively accept the Terms, the Trading Risk
-        Disclosure and — while the founding offer applies — the Founding Members conditions before a payment
-        can start. A consent record is stored server-side with the accepted document versions. Online payments
-        are verified with Paystack; crypto and bank transfers are matched and reviewed manually. After
-        verification you receive a single-use invite. A browser success page is never treated as proof of
-        payment.
+        The payment is verified — online payments against Paystack, crypto and bank transfers by hand. Only then is
+        a personal, single-use invitation issued. A browser success page is never treated as proof of payment.
+        Access is personal and must not be shared, forwarded or resold.
       </>
     ),
   },
@@ -127,11 +121,10 @@ const FAQS: { q: string; a: React.ReactNode; highlight?: boolean }[] = [
     q: 'Can I cancel? What about refunds?',
     a: (
       <>
-        Yes. Membership does not renew automatically, so you can choose not to pay again. Access ends at the
-        end of the paid period (subject to any stated grace period). Duplicate or erroneous payments are
-        corrected. The final commercial refund policy is still pending owner confirmation, so requests are
-        reviewed individually and in good faith without removing any statutory right. Full details are in the
-        Legal &amp; Trust Centre.
+        Nothing renews automatically, so you can simply choose not to pay again; access ends at the close of the
+        paid period, subject to any stated grace period. Duplicate or erroneous payments are corrected. Refund
+        requests are reviewed individually and in good faith, without removing any statutory right. Details are in
+        the Legal &amp; Trust Centre.
       </>
     ),
   },
@@ -139,22 +132,11 @@ const FAQS: { q: string; a: React.ReactNode; highlight?: boolean }[] = [
     q: 'How is my data handled?',
     a: (
       <>
-        We collect what is needed to verify a payment, apply access, keep a consent record and support you.
-        We do not sell data or store full card details. Payment providers, hosting and Telegram process
-        specific data as described in the Legal &amp; Trust Centre. You can ask for access, correction or
-        deletion of your data, subject to legal retention requirements.
-      </>
-    ),
-  },
-  {
-    q: 'Is L2 Signals regulated or approved?',
-    a: (
-      <>
-        We do not claim that L2 Signals Services or L2 Signals is approved, licensed, registered or exempt by
-        the Nigerian Securities and Exchange Commission or any other regulator. A disclaimer does not by
-        itself remove a regulatory obligation. The product is described as it operates: you receive signals,
-        keep control of your own funds and make your own execution decisions. The Legal &amp; Trust Centre
-        carries the current position.
+        We collect what is needed to verify a payment, apply access, keep a consent record and support you. We do
+        not sell data or store card details. Payment providers, hosting and Telegram process specific data as
+        described in the{' '}
+        <Link href="/legal" className="text-accent-gold hover:underline">Legal &amp; Trust Centre</Link>. You can ask
+        for access, correction or deletion of your data, subject to legal retention requirements.
       </>
     ),
   },
@@ -164,7 +146,7 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="max-w-6xl mx-auto px-4 py-6 scroll-mt-20 scroll-reveal">
+    <section id="faq" className="max-w-6xl mx-auto px-4 py-6 scroll-reveal scroll-mt-20">
       <div className="card">
         <div className="flex flex-wrap items-end justify-between gap-2">
           <h2 className="text-lg sm:text-xl font-bold">Questions, answered plainly</h2>
@@ -206,8 +188,8 @@ export default function FAQ() {
         </div>
 
         <div className="mt-5 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2">
-          <Link href="/pay" className="btn-primary rounded-full px-5 py-2 text-xs justify-center">
-            Start membership
+          <Link href="/services" className="btn-primary rounded-full px-5 py-2 text-xs justify-center">
+            See our services
           </Link>
           <a href="mailto:l2signalslab@gmail.com" className="btn-secondary rounded-full px-5 py-2 text-xs justify-center">
             Email the business

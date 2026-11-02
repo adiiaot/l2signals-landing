@@ -10,6 +10,7 @@ const SITE_URL = (
 
 const ROUTES: { path: string; priority: number; changeFrequency: 'weekly' | 'monthly' }[] = [
   { path: '', priority: 1, changeFrequency: 'weekly' },
+  { path: '/signals', priority: 0.8, changeFrequency: 'weekly' },
   { path: '/services', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/quote', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/legal', priority: 0.4, changeFrequency: 'monthly' },

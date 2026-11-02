@@ -36,7 +36,7 @@ export default function Founder() {
           </div>
 
           <div className="md:col-span-3">
-            <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-text-muted uppercase">Behind L2 Signals</p>
+            <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-text-muted uppercase">Behind the business</p>
             <h2 className="text-lg sm:text-xl font-bold text-text-primary mt-1 leading-tight">
               GM, I&apos;m AOT.
             </h2>
@@ -45,8 +45,10 @@ export default function Founder() {
               software engineering, automation, and AI.
             </p>
             <p className="text-xs sm:text-sm text-text-secondary mt-3 leading-relaxed">
-              I&apos;m building and scaling L2 Signals, an intraday Signal-as-a-Service system designed to bring
-              systematic trading infrastructure and data-driven market insights to retail traders.
+              I run L2 Signals Services, a software development business working in trading technology, and build
+              the systems it ships. L2 Signals — a private, invite-only product with a published record — is the
+              company&rsquo;s proof of work: the engine, the private community and the application exist so a
+              client can check the work instead of taking a claim on trust.
             </p>
             <p className="text-xs sm:text-sm text-text-secondary mt-3 leading-relaxed">
               My work focuses on turning complex ideas into practical, reliable, and scalable systems.
@@ -79,19 +81,18 @@ export default function Founder() {
             </div>
 
             <div className="rounded-xl p-3 mt-2" style={CARD}>
-              <p className="text-[10px] font-mono tracking-[0.16em] text-text-muted uppercase">Building L2 Signals</p>
+              <p className="text-[10px] font-mono tracking-[0.16em] text-text-muted uppercase">Proof of work — L2 Signals</p>
               <p className="text-[11px] text-text-secondary mt-1.5 leading-relaxed">
-                L2 Signals is my trading technology initiative focused on systematic intraday trading, signal
-                generation, and quantitative trading tools.
+                L2 Signals is the trading technology product I built and operate: a deterministic engine, the
+                delivery and membership plumbing around it, and a published record of what it did — wins and losses.
               </p>
               <p className="text-[11px] text-text-secondary mt-1.5 leading-relaxed">
-                I develop and refine signal engines that combine technical analysis, market conditions, strategy
-                rules, and structured risk management to identify qualified trading opportunities.
+                It is private and invite-only, offered to members who read and accept a written risk disclosure
+                before paying. It is not marketed as a signal service and it is not the business model.
               </p>
               <p className="text-[11px] text-text-secondary mt-1.5 leading-relaxed">
-                Beyond signal generation, I work on the infrastructure, delivery workflows, testing, performance
-                documentation, and product experience needed to make systematic trading tools accessible to retail
-                traders.
+                When a client asks whether this business can build a signal engine, an EA, an indicator or a
+                trading dashboard, the answer is a running system and its record — not a slide.
               </p>
             </div>
 

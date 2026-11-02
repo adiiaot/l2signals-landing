@@ -31,11 +31,11 @@ export default function MobileStickyCTA() {
       >
         <span className="hidden sm:inline text-xs font-mono text-white/80 pl-2">L2 Signals Services</span>
         <div className="flex items-center gap-2 ml-auto">
-          <a href="/#products" className="bg-white text-black text-xs font-semibold px-3.5 py-1.5 rounded-full">
-            Products
+          <a href="/services" className="bg-white text-black text-xs font-semibold px-3.5 py-1.5 rounded-full">
+            Services
           </a>
-          <a href="/pay" className="bg-accent-gold text-white text-xs font-semibold px-3.5 py-1.5 rounded-full">
-            Join
+          <a href="/signals" className="bg-accent-gold text-white text-xs font-semibold px-3.5 py-1.5 rounded-full">
+            L2 Signals
           </a>
         </div>
       </div>

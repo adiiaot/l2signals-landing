@@ -9,7 +9,7 @@ import {
   docsByCategory,
   type LegalCategory,
 } from '@/data/legal'
-import { BUSINESS, RESPONSIBILITIES } from '@/data/business'
+import { BUSINESS, REGISTRATION, RESPONSIBILITIES, RISK_NOTICE, registrationLine } from '@/data/business'
 
 export const metadata: Metadata = {
   title: 'Legal & Trust Centre',
@@ -48,13 +48,13 @@ export default function LegalPage() {
           <Link href="/policies/trading-risk-disclosure" className="btn-secondary rounded-full px-5 py-2.5 text-xs justify-center">
             Trading risk disclosure
           </Link>
-          <Link href="/pay" className="btn-secondary rounded-full px-5 py-2.5 text-xs justify-center">
-            Payment page
+          <Link href="/signals" className="btn-secondary rounded-full px-5 py-2.5 text-xs justify-center">
+            L2 Signals
           </Link>
         </div>
       </div>
 
-      <div className="grid gap-3 md:grid-cols-3">
+      <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
         <div className="card p-4">
           <p className="text-[10px] tracking-[0.16em] uppercase text-text-muted">The product</p>
           <p className="text-sm font-bold mt-1">L2 Signals subscription</p>
@@ -63,11 +63,11 @@ export default function LegalPage() {
           </p>
         </div>
         <div className="card p-4">
-          <p className="text-[10px] tracking-[0.16em] uppercase text-text-muted">The price</p>
-          <p className="text-sm font-bold mt-1">₦50,000 / US$40 per 31-day period</p>
+          <p className="text-[10px] tracking-[0.16em] uppercase text-text-muted">Access</p>
+          <p className="text-sm font-bold mt-1">By invitation, after the documents are accepted</p>
           <p className="text-[11px] text-text-muted mt-1 leading-relaxed">
-            The checkout shows the exact amount and currency for the payment method you choose. The price is
-            set server-side before payment.
+            The fee and period are shown on the payment page only after you accept the Terms, the Trading Risk
+            Disclosure and the subscription documents. The amount is set server-side before payment.
           </p>
         </div>
         <div className="card p-4">
@@ -78,6 +78,16 @@ export default function LegalPage() {
             results.
           </p>
         </div>
+        {REGISTRATION.registered && (
+          <div className="card p-4">
+            <p className="text-[10px] tracking-[0.16em] uppercase text-text-muted">Business registration</p>
+            <p className="text-sm font-bold mt-1">{registrationLine()}</p>
+            <p className="text-[11px] text-text-muted mt-1 leading-relaxed">
+              Status: {REGISTRATION.status}. Registered activity: {REGISTRATION.activity}. The registration
+              can be checked against the public register using the number above.
+            </p>
+          </div>
+        )}
       </div>
 
       {ORDER.map((category) => {
@@ -158,14 +168,16 @@ export default function LegalPage() {
       </section>
 
       <section className="card">
-        <h2 className="text-base font-bold">Regulatory status</h2>
+        <h2 className="text-base font-bold">What this business is, and what it is not</h2>
         <p className="text-xs text-text-secondary mt-2 leading-relaxed">
-          L2 Signals Services does not claim that it, or L2 Signals, is approved, licensed, registered or
-          exempt by the Nigerian Securities and Exchange Commission or any other regulator. A disclaimer does
-          not by itself remove a regulatory obligation. The business has sought guidance on how the current
-          paid signal service is treated and will update these documents when that position is confirmed. Until
-          then, the product is described as it actually operates: customers receive signals, keep control of
-          their own funds and make their own execution decisions.
+          L2 Signals Services is a software development business. It builds trading systems, signal engines,
+          Expert Advisors, indicators, dashboards, websites and applications for clients, and it operates L2
+          Signals — a private product of its own — as proof of work. It does not manage money, does not hold
+          client funds, does not execute trades on a client or member account, and does not provide personal
+          financial, investment, legal or tax advice.
+        </p>
+        <p className="mt-3 rounded-xl p-3 text-[10px] sm:text-[11px] text-text-muted leading-relaxed" style={{ background: 'rgba(var(--status-warn-rgb),0.05)', border: '1px solid rgba(var(--status-warn-rgb),0.2)' }}>
+          {RISK_NOTICE}
         </p>
       </section>
 

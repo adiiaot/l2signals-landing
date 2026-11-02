@@ -4,9 +4,9 @@ import { getPaymentsConfig, toPublicConfig } from '@/lib/payments/config'
 import PayClient from './PayClient'
 
 export const metadata: Metadata = {
-  title: 'Pay — subscription',
+  title: 'Activate access — L2 Signals',
   description:
-    'Subscribe to L2 Signals. Pay online with Paystack, send USDT/USDC, or use a Nigerian bank transfer. Consent is recorded before payment; access is applied after verification; no managed funds.',
+    'Payment page for an invited L2 Signals member. Read the terms and risk disclosure, accept them, and the fee and payment methods are shown. Access is applied after verification; no managed funds.',
   robots: { index: false, follow: false },
 }
 
