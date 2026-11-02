@@ -26,7 +26,7 @@ export default function LegalPage() {
     <div className="max-w-5xl mx-auto px-3 sm:px-4 py-6 sm:py-10 space-y-4">
       <div className="card">
         <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">
-          L2 Signals Services · Legal &amp; trust centre
+          L2 Signals Services — Legal &amp; trust centre
         </p>
         <h1 className="text-xl sm:text-3xl font-bold mt-2 leading-tight">
           The rules, the risks and the record — in one place

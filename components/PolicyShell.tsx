@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { getLegalDoc, docsByCategory, LEGAL_EFFECTIVE, LEGAL_VERSION } from '../data/legal'
+import { REGISTRATION, registrationLine } from '../data/business'
 import LegalToc from './LegalToc'
 
 const cardStyle = {
@@ -38,17 +39,17 @@ export default function PolicyShell({
 
   return (
     <div className="max-w-5xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
-      <div className="mb-3 text-[11px]">
+      <div className="mb-3 text-[11px] no-print">
         <Link href="/legal" className="text-text-muted hover:text-accent-gold">
           ← All legal &amp; policy documents
         </Link>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
+      <div className="policy-layout grid gap-4 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
         <div className="card min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">
-              L2 Signals Services · Legal
+              L2 Signals Services — Legal
             </p>
             <span className="badge-info">Version {version}</span>
             <span className="badge-gold">Effective {effective}</span>
@@ -68,7 +69,7 @@ export default function PolicyShell({
           )}
 
           {pdfHref && (
-            <div className="mt-3">
+            <div className="mt-3 no-print">
               <a
                 href={pdfHref}
                 target="_blank"
@@ -96,6 +97,9 @@ export default function PolicyShell({
               </a>
               .
             </p>
+            {REGISTRATION.registered && (
+              <p className="text-[10px] text-text-muted leading-relaxed mt-1">{registrationLine()}.</p>
+            )}
           </div>
         </div>
 

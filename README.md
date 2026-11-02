@@ -61,6 +61,44 @@ redirect to the canonical routes in `next.config.js`. Do not duplicate the docum
 - The execution ledger (`components/ProofSection.tsx`) reads `/api/ledger` and only shows realised R
   where the record supports it. Planned R is never substituted for realised R.
 
+## Policy PDFs
+
+The six downloadable policies in `public/policies/` are printed from the live policy pages, so the
+PDF can never drift from the wording a reader accepts on screen. Two pieces make that work:
+
+- `app/globals.css` carries an `@media print` block: A4 page margins, white canvas, no site chrome.
+  It sets `color-scheme: light !important` on `<html>` because `next-themes` writes
+  `style="color-scheme: dark"` inline, and Chrome then paints the whole PDF canvas `#121212` — the
+  first generated set had a black border around every page.
+- `components/PolicyShell.tsx` marks the breadcrumb, the download link and the sticky sidebar
+  `.no-print` / `aside`, and renders the document version, effective date and registration line, so
+  bumping `LEGAL_VERSION` updates every PDF automatically.
+
+Regenerate after editing policy copy, `data/legal.ts` or `data/business.ts`:
+
+1. `npm run build`
+2. `npx next start -p 3100`
+3. print each page to its file (headless Chrome, honours `@page`):
+
+```bash
+chrome --headless=new --disable-gpu --no-pdf-header-footer --virtual-time-budget=12000 \
+  --print-to-pdf=public/policies/l2-signals-subscription-terms-and-conditions.pdf \
+  http://localhost:3100/policies/subscription-terms
+```
+
+| Page | File in `public/policies/` |
+| --- | --- |
+| `/policies/trading-risk-disclosure` | `l2-signals-trading-risk-disclosure.pdf` |
+| `/policies/subscription-terms` | `l2-signals-subscription-terms-and-conditions.pdf` |
+| `/policies/signal-access-and-delivery` | `l2-signals-signal-access-and-delivery-policy.pdf` |
+| `/policies/performance-measurement` | `l2-signals-performance-measurement-policy.pdf` |
+| `/policies/founding-members-programme` | `l2-signals-founding-members-programme.pdf` |
+| `/policies/founding-member-extension` | `l2-signals-founding-member-extension-policy.pdf` |
+
+Copy the same six files into `Documentations/L2 Signals Official Docs/` as `L2_Signals_*.pdf` (that
+folder is gitignored and holds the signed source documents). Spot-check one rendered page before
+committing: white background, dark text, no nav or footer, and the version badge on page 1.
+
 ## Payments and consent
 
 Checkout is hosted on this site. The **storefront is deliberately not linked**: a hosted

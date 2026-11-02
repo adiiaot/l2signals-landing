@@ -64,6 +64,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
     short: 'The principal risks of trading gold, CFDs and leveraged instruments, and what is not guaranteed.',
     category: 'trading',
     href: '/policies/trading-risk-disclosure',
+    pdf: '/policies/l2-signals-trading-risk-disclosure.pdf',
   }),
   published({
     slug: 'acceptable-use',
@@ -78,6 +79,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
     short: 'Order types, entries, the daily 21:00 UTC cutoff, position sizing and execution rules.',
     category: 'trading',
     href: '/policies/signal-access-and-delivery',
+    pdf: '/policies/l2-signals-signal-access-and-delivery-policy.pdf',
   }),
   published({
     slug: 'subscription-terms',
@@ -85,6 +87,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
     short: 'Access period, the fee at checkout, payment methods, activation, renewal, cancellation and refunds.',
     category: 'subscription',
     href: '/policies/subscription-terms',
+    pdf: '/policies/l2-signals-subscription-terms-and-conditions.pdf',
   }),
   published({
     slug: 'refunds-and-cancellations',
@@ -99,6 +102,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
     short: 'How official Net R is recorded, calculated, finalised and reported.',
     category: 'subscription',
     href: '/policies/performance-measurement',
+    pdf: '/policies/l2-signals-performance-measurement-policy.pdf',
   }),
   published({
     slug: 'founding-members-programme',
@@ -106,6 +110,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
     short: 'The invitation-based founding cohort, the access route and the one-time extension.',
     category: 'programme',
     href: '/policies/founding-members-programme',
+    pdf: '/policies/l2-signals-founding-members-programme.pdf',
   }),
   published({
     slug: 'founding-member-extension',
@@ -113,6 +118,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
     short: 'The one-time additional month when official net R for the starting calendar month is below zero.',
     category: 'programme',
     href: '/policies/founding-member-extension',
+    pdf: '/policies/l2-signals-founding-member-extension-policy.pdf',
   }),
 ]
 

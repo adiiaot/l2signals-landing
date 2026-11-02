@@ -20,7 +20,9 @@ export default function LegalToc({ containerId = 'legal-body' }: { containerId?:
     if (!root) return
     const nodes = Array.from(root.querySelectorAll('h2'))
     const next = nodes.map((node, index) => {
-      const text = (node.textContent || '').trim()
+      // Headings already carry their own number ("4. Accepted payment methods").
+      // Showing the ordinal badge *and* the number printed "02  2. Accepted…".
+      const text = (node.textContent || '').trim().replace(/^\d+\.\s*/, '')
       let id = node.id
       if (!id) {
         id = `section-${index + 1}`

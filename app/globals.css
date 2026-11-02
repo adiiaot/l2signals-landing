@@ -201,3 +201,141 @@ body::before {
 }
 .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
 @media (max-width: 768px) { .card { @apply p-4; } }
+
+/* ---------------------------------------------------------------------------
+ * Print stylesheet — the policy PDFs are generated from these same pages
+ * (headless Chrome, A4), so this block is the only difference between the web
+ * document and the file a member keeps. Always light-on-white, never themed,
+ * never carrying the site chrome.
+ * ------------------------------------------------------------------------- */
+@page {
+  size: A4;
+  margin: 18mm 17mm 20mm;
+}
+
+@media print {
+  :root,
+  [data-theme='dark'],
+  [data-theme='light'] {
+    --surface-rgb: 255 255 255;
+    --surface-raised-rgb: 255 255 255;
+    --surface-overlay-rgb: 255 255 255;
+    --text-primary-rgb: 17 20 24;
+    --text-secondary-rgb: 55 62 72;
+    --text-muted-rgb: 85 92 102;
+    --glass-bg: #ffffff;
+    --glass-border: rgba(0, 0, 0, 0.18);
+    --glass-shine: transparent;
+    --bg-gradient: none;
+    --bg-radial: none;
+    color-scheme: light;
+  }
+
+  /* next-themes writes `style="color-scheme: dark"` inline on <html>; with the
+     dark UA colour scheme Chrome paints the whole PDF canvas #121212, which
+     showed up as a black border around every generated policy. !important is
+     the only thing that outranks the inline style. */
+  html {
+    color-scheme: light !important;
+    background: #ffffff !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111418 !important;
+  }
+
+  /* Site chrome never belongs in a document someone keeps. */
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  main,
+  .max-w-5xl,
+  .max-w-6xl {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .card {
+    background: #ffffff !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Policy pages: the sticky sidebar and the jump list are screen furniture. */
+  .policy-layout {
+    display: block !important;
+  }
+  .policy-layout aside {
+    display: none !important;
+  }
+
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .badge,
+  .badge-info,
+  .badge-gold,
+  .badge-warn,
+  .badge-win,
+  .badge-loss {
+    background: #f4f5f7 !important;
+    border: 1px solid #d0d4da !important;
+    color: #333a42 !important;
+    backdrop-filter: none !important;
+  }
+
+  a,
+  a:visited {
+    color: #0b5c3f !important;
+    text-decoration: underline;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  table {
+    width: 100% !important;
+    border-collapse: collapse;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr,
+  img,
+  li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  section {
+    break-inside: auto;
+  }
+
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* `break-all` suits narrow phone screens but not a printed page: it split
+     e-mail addresses mid-word in the first generated PDFs. */
+  .break-all {
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+}
