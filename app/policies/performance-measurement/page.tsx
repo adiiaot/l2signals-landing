@@ -115,7 +115,7 @@ export default function PerformanceMeasurementPage() {
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">9. No-signal periods</h2>
-        <p>L2 Signals operates according to predefined strategy conditions and filters, and may go days or weeks without a valid signal. Signals are not generated simply to maintain activity. Days without eligible completed signals add no R; if no eligible completed signals are recorded for a month, the official monthly net R is 0R (subject to unresolved signals). Under the current extension rule, a confirmed 0R qualifies for the one-time extension.</p>
+        <p>L2 Signals operates according to predefined strategy conditions and filters, and may go days or weeks without a valid signal. Signals are not generated simply to maintain activity. Days without eligible completed signals add no R; if no eligible completed signals are recorded for a month, the official monthly net R is 0R (subject to unresolved signals). Under the current extension rule, 0R does not qualify — the official monthly net R must be below zero.</p>
       </section>
 
       <section>
@@ -126,7 +126,7 @@ export default function PerformanceMeasurementPage() {
             <div className="p-2.5 font-semibold" style={{ background: 'rgb(var(--surface-overlay-rgb))' }}>Official monthly net R</div>
             <div className="p-2.5 font-semibold" style={{ background: 'rgb(var(--surface-overlay-rgb))' }}>Extension eligibility</div>
             {row('Below 0R', 'Eligible', true)}
-            {row('Exactly 0R', 'Eligible', true)}
+            {row('Exactly 0R', 'Not eligible')}
             {row('Above 0R', 'Not eligible')}
           </div>
         </div>

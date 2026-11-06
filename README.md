@@ -173,7 +173,7 @@ type checks. If ESLint is added, run it before shipping.
   published prices, the 50-member cap and pre-launch wording. They are no longer linked from the
   site; regenerate or delete them before re-linking.
 - The founding extension wording changed from “0R or below” to “strictly below 0R”
-  (`LEGAL_VERSION 2026.11.1`). Members who accepted an older version were consenting to the wider
+  (`LEGAL_VERSION 2026.11.2`). Members who accepted an older version were consenting to the wider
   trigger — treat that as a changed contractual term and handle any existing case individually.
 
 ## Legal/owner decisions still open
