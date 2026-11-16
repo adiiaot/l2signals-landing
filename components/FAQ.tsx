@@ -57,9 +57,9 @@ const FAQS: { q: string; a: React.ReactNode; highlight?: boolean }[] = [
         It is a rules-based intraday XAU/USD engine using three complementary strategy types — EMA bounce,
         consolidation breakout and trend continuation — with direction-aware routing. Each setup states one order
         type, market or pending, with the entry, stop, target and expiry. Trades run to the daily close window at
-        21:00 UTC. The 4.25-year broker-data study covered 20,237 signals at 64.8% WR and +0.69R per signal; that
-        is a <span className="font-semibold text-text-primary">back-test</span>, not a live result and not a
-        promise.
+        21:00 UTC. The 5.4-year broker-data study covered 5,810 executed trades at 50.2% WR and +0.13R per trade,
+        with a full win credited its own target and costs deducted; that is a{' '}
+        <span className="font-semibold text-text-primary">back-test</span>, not a live result and not a promise.
       </>
     ),
   },
@@ -68,7 +68,7 @@ const FAQS: { q: string; a: React.ReactNode; highlight?: boolean }[] = [
     a: (
       <>
         As data, never as an income claim. The live execution ledger lists wins, partial wins, losses and unfilled
-        setups, with R where the record supports it, and it is labelled LIVE. The 4.25-year study is labelled
+        setups, with R where the record supports it, and it is labelled LIVE. The 5.4-year study is labelled
         BACK-TESTED. The two are never merged into one figure, and the business does not publish only the wins.
       </>
     ),

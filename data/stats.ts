@@ -27,11 +27,15 @@ export const propStats = {
 /** Back-tested study — the primary evidence. Never mixed with live figures. */
 export const engineStats = {
   label: 'BACK-TESTED',
-  // 4.25-year uncapped run on broker M15/H1/H4/D1 candles (Jul 2022 → Oct 2026),
-  // final config (TP 1.3R, SL 1.5× ATR).
-  studyYears: 4.25,
-  studySignals: 20237,
-  studyDecided: 14239,
-  studyWR: 64.8,
-  studyAvgR: 0.69,
+  // 5.4-year run on broker M15/H1/H4/D1 candles (Jul 2021 → Nov 2026), current
+  // config (TP 1.3R, SL 1.5× ATR, mean-reversion book on, fallback leg off),
+  // scored the way the live ledger scores it: a full win pays the trade's own
+  // target rather than a fixed figure, and spread + slippage are deducted.
+  // Derived by `l2signal_web/scripts/pooled-study-stats.cjs`.
+  studyYears: 5.4,
+  studyTrades: 5810,
+  studyWR: 50.2,
+  studyAvgR: 0.13,
+  studyNetR: 763.5,
+  studyPF: 1.26,
 }

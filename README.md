@@ -49,8 +49,8 @@ redirect to the canonical routes in `next.config.js`. Do not duplicate the docum
   the three consent statements are ticked. `data/business.ts` `OFFER` mirrors the checkout defaults
   for display; `l2signal_web` → `config/payments` is authoritative for the amount charged.
 - Results are data: wins, losses, unfilled setups and R. Never currency profit, never an income claim.
-  Label every figure: the 4.25-year study (20,237 signals, 64.8% WR, +0.69R) is **BACK-TESTED**; the
-  execution ledger is **LIVE** and is not merged with it.
+  Label every figure: the 5.4-year study (5,810 trades, 50.2% WR, +0.13R, PF 1.26, costed payoff) is
+  **BACK-TESTED**; the execution ledger is **LIVE** and is not merged with it.
 - Do not state a release date, broker, address or integration that is not verified. Product statuses
   are deliberately conservative (“in development” ≠ “available”).
 - **Registration is a verified fact** (business name registered with the CAC on 1 November 2026;

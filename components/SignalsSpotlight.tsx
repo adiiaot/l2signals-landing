@@ -13,9 +13,9 @@ const SIGNAL_FIELDS = [
 
 const FACTS = [
   {
-    k: '20,237',
-    label: 'signals in a 4.25-year study',
-    d: '64.8% WR · +0.69R per signal. BACK-TESTED on broker data — not a live result and not a promise.',
+    k: '5,810',
+    label: 'trades in a 5.4-year study',
+    d: '50.2% WR · +0.13R per trade · PF 1.26 across six measured years. BACK-TESTED on broker data — not a live result and not a promise.',
     tag: 'BACK-TESTED',
   },
   { k: '21:00 UTC', label: 'daily close', d: 'Open trades exit and unfilled pendings cancel by the end of the trading day.', tag: '' },
