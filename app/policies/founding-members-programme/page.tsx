@@ -39,12 +39,14 @@ export default function FoundingMembersProgrammePage() {
       <section>
         <h2 className="text-sm font-bold text-text-primary">2. Membership capacity</h2>
         <p>Founding membership is limited and closes when L2 Signals decides. A place is confirmed only after the applicable payment is verified. Expressing interest, or being invited, does not itself constitute a paid subscription or guarantee a place. L2 Signals may close the programme when it reaches the capacity it has set, and is not obliged to publish that number.</p>
+        <p className="mt-2">Enrolment is opened ahead of the first paid period so that an invited member can arrange payment without a deadline falling in the first working days of January. Any closing date for enrolment is communicated to invited members through the designated official channel. Enrolment does not extend the capacity of the programme, and a place is not reserved by expressing an intention to pay.</p>
       </section>
 
       <section>
         <h2 className="text-sm font-bold text-text-primary">3. Fee and payment</h2>
         <p>The fee for an access period, and the period itself, are shown on the payment page and only after the reader has accepted the Subscription Terms, the Trading Risk Disclosure and this programme&apos;s conditions. The amount is set server-side for the chosen method and is not published in advance of that acceptance.</p>
         <p className="mt-2">Accepted methods may include Nigerian naira, US dollars and supported cryptocurrencies. Where crypto is accepted, the amount, supported network, address and requirements are communicated on the payment page — members must ensure payments use the correct asset, network and details.</p>
+        <p className="mt-2">Where a founding enrolment is verified before 1 January 2027, the first paid subscription period begins on 1 January 2027 and runs for the standard period shown on the payment page; access between verification and that date is provided without additional charge. Where a founding enrolment is verified on or after 1 January 2027, the first paid subscription period begins on the date the payment is verified and runs for the standard period. For the avoidance of doubt, a first paid period that begins in January 2027 is assessed under section 5 against the official net R for the calendar month of January 2027.</p>
       </section>
 
       <section>

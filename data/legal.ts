@@ -10,9 +10,9 @@
  * does not require a bump.
  */
 
-export const LEGAL_EFFECTIVE = '2 November 2026'
-export const LEGAL_VERSION = '2026.11.2'
-export const LEGAL_LAST_REVIEWED = '2 November 2026'
+export const LEGAL_EFFECTIVE = '1 December 2026'
+export const LEGAL_VERSION = '2026.12.1'
+export const LEGAL_LAST_REVIEWED = '17 November 2026'
 
 export type LegalCategory = 'core' | 'trading' | 'subscription' | 'programme'
 
