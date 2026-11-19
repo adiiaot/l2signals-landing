@@ -57,23 +57,17 @@ export default function Hero() {
             {BUSINESS.name} · software development &amp; trading technology
           </div>
 
-          <h1 className="text-[30px] sm:text-[38px] md:text-[46px] font-bold leading-[1.03] tracking-tight text-white">
-            A software development company
+          <h1 className="text-[22px] sm:text-[30px] md:text-[34px] font-bold leading-[1.14] tracking-tight text-white">
+            Bring the problem.
             <br />
             <span className="font-mono font-light tracking-tight" style={{ color: 'var(--accent-gold)' }}>
-              building trading systems and tools.
+              We build the system.
             </span>
           </h1>
 
           <p className="text-sm md:text-[15px] leading-relaxed text-white/80 max-w-2xl mx-auto">
-            L2 Signals Services builds software and systems for{' '}
-            <span className="text-white font-medium">
-              retail traders, hedge and prop firms, fintechs and businesses
-            </span>
-            . We develop software, support the systems it runs on, build algorithmic trading tools and advise on
-            technology decisions. To show the work rather than describe it, the company runs{' '}
-            <span className="text-white font-medium">L2 Signals</span> — a private, invite-only product with a
-            published record.
+            Software, IT support, trading tools and technology advice — scoped per project, and proven in public by{' '}
+            <span className="text-white font-medium">L2 Signals</span>, our own invite-only product.
           </p>
 
           <div className="flex flex-wrap justify-center gap-2.5 pt-1">
