@@ -1,4 +1,5 @@
 import { RISK_NOTICE } from '../data/business'
+import StudyChart from './StudyChart'
 
 const CARD = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' } as const
 
@@ -12,6 +13,17 @@ const YEARS = [
   { y: '2024', n: '1,194', wr: '51.3%', pf: '1.34', r: '+0.14', net: '+168.3R' },
   { y: '2025', n: '1,201', wr: '51.3%', pf: '1.42', r: '+0.17', net: '+201.8R' },
   { y: '2026', n: '1,035', wr: '48.1%', pf: '1.33', r: '+0.13', net: '+139.2R' },
+]
+
+// Same figures as the table above, cumulative, for the chart. Kept beside the
+// table rather than derived from it so a typo in one is visible in the other.
+const STUDY_POINTS = [
+  { label: '’21 H2', netR: 51.5, cumulativeR: 51.5 },
+  { label: '’22', netR: 155.9, cumulativeR: 207.4 },
+  { label: '’23', netR: 46.9, cumulativeR: 254.3 },
+  { label: '’24', netR: 168.3, cumulativeR: 422.6 },
+  { label: '’25', netR: 201.8, cumulativeR: 624.4 },
+  { label: '’26', netR: 139.2, cumulativeR: 763.5 },
 ]
 
 const POOLED = [
@@ -63,6 +75,8 @@ export default function BacktestStudy() {
             </div>
           ))}
         </div>
+
+        <StudyChart points={STUDY_POINTS} />
 
         <div className="mt-3 overflow-x-auto">
           <table className="w-full text-[11px] font-mono min-w-[560px]">

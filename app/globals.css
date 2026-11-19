@@ -124,13 +124,13 @@ body::before {
   background: linear-gradient(90deg, transparent, var(--glass-shine), transparent);
   pointer-events: none;
 }
-.card:hover { border-color: rgba(var(--accent-gold-rgb), 0.2); box-shadow: var(--shadow-card-hover); }
+.card:hover { border-color: rgba(var(--accent-gold-rgb),0.2); box-shadow: var(--shadow-card-hover); }
 .card-glow {
   @apply rounded-card p-5;
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(var(--accent-gold-rgb), 0.15);
+  border: 1px solid rgba(var(--accent-gold-rgb),0.15);
   box-shadow: var(--shadow-card-glow);
   position: relative; overflow: hidden;
 }
@@ -139,7 +139,7 @@ body::before {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(var(--accent-gold-rgb), 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-gold-rgb),0.3), transparent);
   pointer-events: none;
 }
 .btn {
@@ -164,7 +164,7 @@ body::before {
 }
 .btn-primary:hover {
   background: var(--accent-gold);
-  box-shadow: 0 4px 20px rgba(var(--accent-gold-rgb), 0.3), 0 0 40px rgba(var(--accent-gold-rgb), 0.1);
+  box-shadow: 0 4px 20px rgba(var(--accent-gold-rgb),0.3), 0 0 40px rgba(var(--accent-gold-rgb),0.1);
 }
 .btn-primary::after {
   background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.18) 45%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.18) 55%, transparent 70%);
@@ -179,7 +179,7 @@ body::before {
 .btn-secondary:hover {
   background: rgb(var(--surface-overlay-rgb));
   border-color: rgb(var(--accent-gold-rgb));
-  box-shadow: 0 0 0 1px rgba(var(--accent-gold-rgb), 0.15);
+  box-shadow: 0 0 0 1px rgba(var(--accent-gold-rgb),0.15);
 }
 .btn-ghost {
   @apply btn bg-transparent text-text-secondary hover:text-text-primary;
@@ -201,6 +201,147 @@ body::before {
 }
 .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
 @media (max-width: 768px) { .card { @apply p-4; } }
+
+/* ---------------------------------------------------------------------------
+ * Metallic headline text (2026-11-19)
+ *
+ * The hero is one statement in two halves — "Bring the problem." / "We build
+ * the system." — so both lines carry the same family, weight and size and only
+ * the metal differs: white above, green below.
+ *
+ * A metallic fill is not a flat colour. The gradient runs down the glyphs with
+ * a bright band in the upper third (where light catches a polished face), a
+ * darker trough under it for the bevel, then a second lift towards the baseline.
+ * The white is slightly cool and the green is built from the site accent, so the
+ * two halves read as one surface rather than two palettes.
+ *
+ * Each rule carries TWO background layers: the specular band on top, the metal
+ * beneath. Both are clipped to the glyphs, and the band's position is what
+ * animates — so the sweep belongs to the same element that carries the text. A
+ * pseudo-element with a copy of the line was the first cut; it works, but some
+ * screen readers announce pseudo content and the headline would be read twice.
+ *
+ * `background-clip: text` paints the gradient through the letters, which means
+ * the fill colour has to be transparent — so the @supports fallback below is
+ * not decoration: without it an unsupported browser renders an invisible
+ * headline.
+ * ------------------------------------------------------------------------- */
+.text-metal-white,
+.text-metal-green {
+  background-repeat: no-repeat, no-repeat;
+  background-size: 260% 100%, 100% 100%;
+  background-position: 190% 0, 0 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: metal-sweep 7s cubic-bezier(0.45, 0, 0.2, 1) 1.4s infinite;
+}
+
+.text-metal-white {
+  background-image:
+    linear-gradient(
+      100deg,
+      transparent 46%,
+      rgba(255, 255, 255, 0.7) 49%,
+      rgba(255, 255, 255, 1) 50.5%,
+      rgba(255, 255, 255, 0.7) 52%,
+      transparent 55%
+    ),
+    linear-gradient(
+      177deg,
+      #ffffff 0%,
+      #f2f6fa 13%,
+      #ffffff 25%,
+      #c8d1dc 43%,
+      #8d97a5 52%,
+      #e9eef4 67%,
+      #ffffff 81%,
+      #b0bac7 100%
+    );
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.4));
+}
+
+.text-metal-green {
+  background-image:
+    linear-gradient(
+      100deg,
+      transparent 46%,
+      rgba(255, 255, 255, 0.45) 49%,
+      rgba(255, 255, 255, 0.85) 50.5%,
+      rgba(255, 255, 255, 0.45) 52%,
+      transparent 55%
+    ),
+    linear-gradient(
+      177deg,
+      #b7ffe1 0%,
+      #4ef0ad 12%,
+      #d9fff1 25%,
+      #1fc98a 43%,
+      #08764b 52%,
+      #45e5a4 67%,
+      #b4ffdd 81%,
+      #0a6b45 100%
+    );
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.4)) drop-shadow(0 0 20px rgba(0, 201, 120, 0.16));
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .text-metal-white {
+    background-image: none;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    filter: none;
+    animation: none;
+  }
+  .text-metal-green {
+    background-image: none;
+    color: var(--accent-gold);
+    -webkit-text-fill-color: var(--accent-gold);
+    filter: none;
+    animation: none;
+  }
+}
+
+/* A band of highlight travels across the letters, the way a polished surface
+   turns under a light, then rests off-frame before the next pass. */
+@keyframes metal-sweep {
+  0%,
+  62% {
+    background-position: 190% 0, 0 0;
+  }
+  100% {
+    background-position: -90% 0, 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-metal-white,
+  .text-metal-green {
+    animation: none;
+    background-position: 190% 0, 0 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Back-tested study chart labels (2026-11-19)
+ *
+ * The chart is one SVG with a 620-unit viewBox. On a phone that viewBox is
+ * painted about 290px wide, so a 9-unit label lands near 4px and cannot be read.
+ * Rather than a second chart component, the labels scale up and the crowded ones
+ * drop out on narrow screens — every colour, bar and line is unchanged.
+ * ------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .study-axis {
+    font-size: 17px;
+  }
+  .study-val {
+    font-size: 15px;
+  }
+  .study-hide-sm {
+    display: none;
+  }
+}
 
 /* ---------------------------------------------------------------------------
  * Print stylesheet — the policy PDFs are generated from these same pages

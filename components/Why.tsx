@@ -1,3 +1,5 @@
+import { Stagger, StaggerItem } from './Reveal'
+
 const CARD = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' } as const
 
 const PILLARS = [
@@ -29,15 +31,15 @@ export default function Why() {
       <div className="card">
         <p className="text-[10px] sm:text-[11px] tracking-[0.16em] text-accent-gold uppercase">How we work</p>
         <h2 className="text-lg sm:text-xl font-bold mt-1">Trust is built from things you can check</h2>
-        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <Stagger className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {PILLARS.map((pillar) => (
-            <div key={pillar.tag} className="rounded-xl p-3" style={CARD}>
+            <StaggerItem key={pillar.tag} className="rounded-xl p-3" style={CARD}>
               <p className="text-[9px] font-mono tracking-[0.16em] text-text-muted uppercase">{pillar.tag}</p>
               <p className="text-[11px] font-semibold mt-1 leading-tight">{pillar.title}</p>
               <p className="text-[10px] text-text-muted mt-1.5 leading-relaxed">{pillar.body}</p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   )

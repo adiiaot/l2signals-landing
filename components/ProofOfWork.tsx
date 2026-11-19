@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { POSITIONING, RISK_NOTICE } from '../data/business'
+import { Stagger, StaggerItem } from './Reveal'
 
 const CARD = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' } as const
 
@@ -53,20 +54,20 @@ export default function ProofOfWork() {
             </div>
           </div>
 
-          <div className="grid gap-2 sm:grid-cols-2">
+          <Stagger className="grid gap-2 sm:grid-cols-2">
             {EVIDENCE.map((item) => (
-              <div key={item.k} className="rounded-xl p-3" style={CARD}>
+              <StaggerItem key={item.k} className="rounded-xl p-3" style={CARD}>
                 <p className="text-[11px] font-semibold">{item.k}</p>
                 <p className="text-[10px] text-text-muted mt-1 leading-relaxed">{item.d}</p>
-              </div>
+              </StaggerItem>
             ))}
-            <p
+            <StaggerItem
               className="rounded-xl p-3 sm:col-span-2 text-[10px] text-text-muted leading-relaxed"
               style={{ background: 'rgba(var(--status-warn-rgb),0.05)', border: '1px solid rgba(var(--status-warn-rgb),0.2)' }}
             >
               {RISK_NOTICE}
-            </p>
-          </div>
+            </StaggerItem>
+          </Stagger>
         </div>
       </div>
     </section>

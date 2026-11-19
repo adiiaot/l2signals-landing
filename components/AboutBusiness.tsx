@@ -1,4 +1,5 @@
 import { BUSINESS, LIMITS } from '../data/business'
+import { Stagger, StaggerItem } from './Reveal'
 
 const CARD = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid var(--glass-border)' } as const
 
@@ -46,14 +47,14 @@ export default function AboutBusiness() {
               software work for clients.
             </p>
 
-            <div className="grid gap-2 sm:grid-cols-2 mt-4">
+            <Stagger className="grid gap-2 sm:grid-cols-2 mt-4">
               {PRINCIPLES.map((item) => (
-                <div key={item.title} className="rounded-xl p-3" style={CARD}>
+                <StaggerItem key={item.title} className="rounded-xl p-3" style={CARD}>
                   <p className="text-xs font-semibold">{item.title}</p>
                   <p className="text-[11px] text-text-muted mt-1 leading-relaxed">{item.body}</p>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </Stagger>
           </div>
 
           <aside className="space-y-3">

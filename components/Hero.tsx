@@ -57,12 +57,10 @@ export default function Hero() {
             {BUSINESS.name} · software development &amp; trading technology
           </div>
 
-          <h1 className="text-[22px] sm:text-[30px] md:text-[34px] font-bold leading-[1.14] tracking-tight text-white">
-            Bring the problem.
+          <h1 className="text-[22px] sm:text-[30px] md:text-[34px] font-bold leading-[1.14] tracking-tight">
+            <span className="text-metal-white">Bring the problem.</span>
             <br />
-            <span className="font-mono font-light tracking-tight" style={{ color: 'var(--accent-gold)' }}>
-              We build the system.
-            </span>
+            <span className="text-metal-green">We build the system.</span>
           </h1>
 
           <p className="text-sm md:text-[15px] leading-relaxed text-white/80 max-w-2xl mx-auto">

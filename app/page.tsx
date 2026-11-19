@@ -1,4 +1,5 @@
 import Hero from '../components/Hero'
+import DeskSection from '../components/DeskSection'
 import AboutBusiness from '../components/AboutBusiness'
 import Products from '../components/Products'
 import ProofOfWork from '../components/ProofOfWork'
@@ -13,6 +14,7 @@ export default function Page() {
   return (
     <div className="space-y-2">
       <Hero />
+      <DeskSection />
       <AboutBusiness />
       <Founder />
       <Products />

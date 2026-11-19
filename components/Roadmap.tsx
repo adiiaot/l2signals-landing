@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Stagger, StaggerItem } from './Reveal'
 
 const STEPS = [
   {
@@ -62,7 +63,7 @@ export default function Roadmap() {
           <span className="text-[10px] font-mono text-text-muted">No release dates are promised for unreleased products</span>
         </div>
 
-        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <Stagger className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {STEPS.map((step) => {
             const tone = TONE[step.tone]
             const inner = (
@@ -78,22 +79,25 @@ export default function Roadmap() {
               </>
             )
             const style = { background: tone.background, border: `1px solid ${tone.border}` } as const
-            return step.href ? (
-              <Link
-                key={step.title}
-                href={step.href}
-                className="rounded-xl p-3 relative overflow-hidden block hover:brightness-110 transition min-h-[104px]"
-                style={style}
-              >
-                {inner}
-              </Link>
-            ) : (
-              <div key={step.title} className="rounded-xl p-3 relative overflow-hidden min-h-[104px]" style={style}>
-                {inner}
-              </div>
+            return (
+              <StaggerItem key={step.title}>
+                {step.href ? (
+                  <Link
+                    href={step.href}
+                    className="rounded-xl p-3 relative overflow-hidden block hover:brightness-110 transition min-h-[104px] h-full"
+                    style={style}
+                  >
+                    {inner}
+                  </Link>
+                ) : (
+                  <div className="rounded-xl p-3 relative overflow-hidden min-h-[104px] h-full" style={style}>
+                    {inner}
+                  </div>
+                )}
+              </StaggerItem>
             )
           })}
-        </div>
+        </Stagger>
       </div>
     </section>
   )
