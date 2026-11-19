@@ -31,7 +31,7 @@ export default function Pricing() {
               accepted the terms. Nothing is charged to browse, and no payment page is reachable by guesswork.
             </p>
 
-            <div className="mt-3 rounded-xl p-3" style={{ background: 'rgba(var(--accent-gold-rgb),0.06)', border: '1px solid rgba(var(--accent-gold-rgb),0.18)' }}>
+            <div className="mt-3 rounded-xl p-3" style={{ background: 'rgb(var(--accent-gold-rgb) / 0.06)', border: '1px solid rgb(var(--accent-gold-rgb) / 0.18)' }}>
               <p className="text-[11px] font-semibold text-accent-gold">The order of events</p>
               <ol className="mt-1.5 space-y-1 text-[11px] text-text-secondary leading-relaxed list-decimal ml-4">
                 <li>You request an invitation and speak to the business directly.</li>
@@ -77,7 +77,7 @@ export default function Pricing() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-xl p-3 sm:col-span-2" style={{ background: 'rgba(var(--accent-gold-rgb),0.06)', border: '1px solid rgba(var(--accent-gold-rgb),0.18)' }}>
+            <div className="rounded-xl p-3 sm:col-span-2" style={{ background: 'rgb(var(--accent-gold-rgb) / 0.06)', border: '1px solid rgb(var(--accent-gold-rgb) / 0.18)' }}>
               <p className="text-[11px] font-semibold text-accent-gold">Founding-member condition</p>
               <p className="text-[10px] text-text-secondary mt-1 leading-relaxed">
                 A founding member with an eligible first paid period may receive one additional month of access if

@@ -342,7 +342,7 @@ export default function ProofSection() {
           </>
         )}
 
-        <p className="mt-4 rounded-xl p-3 text-[10px] text-text-muted leading-relaxed" style={{ background: 'rgba(var(--status-warn-rgb),0.05)', border: '1px solid rgba(var(--status-warn-rgb),0.2)' }}>
+        <p className="mt-4 rounded-xl p-3 text-[10px] text-text-muted leading-relaxed" style={{ background: 'rgb(var(--status-warn-rgb) / 0.05)', border: '1px solid rgb(var(--status-warn-rgb) / 0.2)' }}>
           {RISK_NOTICE}
         </p>
       </div>

@@ -60,7 +60,7 @@ export default function PolicyShell({
           {reviewNote && (
             <div
               className="mt-4 rounded-xl border p-3"
-              style={{ background: 'rgba(var(--status-warn-rgb), 0.08)', borderColor: 'rgba(var(--status-warn-rgb), 0.28)' }}
+              style={{ background: 'rgb(var(--status-warn-rgb) / 0.08)', borderColor: 'rgb(var(--status-warn-rgb) / 0.28)' }}
               role="note"
             >
               <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-status-warn">Owner review required</p>

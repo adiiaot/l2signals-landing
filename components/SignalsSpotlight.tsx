@@ -57,7 +57,7 @@ export default function SignalsSpotlight() {
             ))}
           </div>
 
-          <div className="mt-4 rounded-xl p-3" style={{ background: 'rgba(var(--accent-gold-rgb),0.06)', border: '1px solid rgba(var(--accent-gold-rgb),0.18)' }}>
+          <div className="mt-4 rounded-xl p-3" style={{ background: 'rgb(var(--accent-gold-rgb) / 0.06)', border: '1px solid rgb(var(--accent-gold-rgb) / 0.18)' }}>
             <p className="text-[10px] tracking-[0.14em] uppercase text-accent-gold">What every setup states</p>
             <div className="mt-2 grid gap-1.5 sm:grid-cols-2">
               {SIGNAL_FIELDS.map((field) => (

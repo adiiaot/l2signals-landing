@@ -45,9 +45,9 @@ const STEPS = [
 ]
 
 const TONE: Record<string, { border: string; background: string; color: string }> = {
-  live: { border: 'rgba(var(--status-win-rgb),0.28)', background: 'rgba(var(--status-win-rgb),0.06)', color: 'var(--status-win)' },
-  target: { border: 'rgba(var(--accent-gold-rgb),0.3)', background: 'rgba(var(--accent-gold-rgb),0.07)', color: 'var(--accent-gold)' },
-  build: { border: 'rgba(var(--status-warn-rgb),0.28)', background: 'rgba(var(--status-warn-rgb),0.06)', color: 'var(--status-warn)' },
+  live: { border: 'rgb(var(--status-win-rgb) / 0.28)', background: 'rgb(var(--status-win-rgb) / 0.06)', color: 'var(--status-win)' },
+  target: { border: 'rgb(var(--accent-gold-rgb) / 0.3)', background: 'rgb(var(--accent-gold-rgb) / 0.07)', color: 'var(--accent-gold)' },
+  build: { border: 'rgb(var(--status-warn-rgb) / 0.28)', background: 'rgb(var(--status-warn-rgb) / 0.06)', color: 'var(--status-warn)' },
   plan: { border: 'var(--glass-border)', background: 'rgb(var(--surface-overlay-rgb))', color: 'var(--text-muted)' },
 }
 

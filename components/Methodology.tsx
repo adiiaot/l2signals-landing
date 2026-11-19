@@ -41,7 +41,7 @@ export default function Methodology() {
                 <p className="text-[10px] text-text-muted mt-1 leading-relaxed">{rule.d}</p>
               </div>
             ))}
-            <div className="rounded-xl p-3 sm:col-span-2" style={{ background: 'rgba(var(--status-warn-rgb),0.06)', border: '1px solid rgba(var(--status-warn-rgb),0.2)' }}>
+            <div className="rounded-xl p-3 sm:col-span-2" style={{ background: 'rgb(var(--status-warn-rgb) / 0.06)', border: '1px solid rgb(var(--status-warn-rgb) / 0.2)' }}>
               <p className="text-[11px] font-semibold text-status-warn">Official ≠ your account</p>
               <p className="text-[10px] text-text-secondary mt-1 leading-relaxed">
                 Your entry price, spread, slippage, size, partials and broker can produce a different result

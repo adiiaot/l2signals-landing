@@ -69,7 +69,7 @@ export default function AboutBusiness() {
               </ul>
             </div>
 
-            <div className="rounded-xl p-4" style={{ background: 'rgba(var(--status-warn-rgb),0.06)', border: '1px solid rgba(var(--status-warn-rgb),0.2)' }}>
+            <div className="rounded-xl p-4" style={{ background: 'rgb(var(--status-warn-rgb) / 0.06)', border: '1px solid rgb(var(--status-warn-rgb) / 0.2)' }}>
               <p className="text-[10px] tracking-[0.16em] uppercase text-status-warn">What we do not do</p>
               <ul className="mt-2 space-y-1.5 text-[11px] text-text-secondary leading-relaxed">
                 {LIMITS.map((item) => (

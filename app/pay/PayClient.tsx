@@ -629,7 +629,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
               cannot be shared, forwarded or resold. We do not take custody of your funds.
             </p>
           </div>
-          <div className="rounded-xl p-3" style={{ background: 'rgba(var(--status-warn-rgb),0.06)', border: '1px solid rgba(var(--status-warn-rgb),0.22)' }}>
+          <div className="rounded-xl p-3" style={{ background: 'rgb(var(--status-warn-rgb) / 0.06)', border: '1px solid rgb(var(--status-warn-rgb) / 0.22)' }}>
             <p className="text-[10px] uppercase tracking-[0.14em] text-status-warn">Risk</p>
             <p className="text-[11px] text-text-secondary mt-1 leading-relaxed">
               Trading leveraged gold can lose money quickly. No profit, win rate, funding or withdrawal is
@@ -654,7 +654,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
         </div>
 
         {OFFER.foundingApplicable && (
-          <div className="mt-2 rounded-xl p-3" style={{ background: 'rgba(var(--accent-gold-rgb),0.06)', border: '1px solid rgba(var(--accent-gold-rgb),0.2)' }}>
+          <div className="mt-2 rounded-xl p-3" style={{ background: 'rgb(var(--accent-gold-rgb) / 0.06)', border: '1px solid rgb(var(--accent-gold-rgb) / 0.2)' }}>
             <p className="text-[10px] uppercase tracking-[0.14em] text-accent-gold">Founding-member condition</p>
             <p className="text-[11px] text-text-secondary mt-1 leading-relaxed">
               The founding cohort is limited, and it closes when the business decides. A founding member with an
@@ -872,7 +872,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
         {method === 'crypto' && (
           <div className="mt-4 space-y-3">
             {!consentComplete ? (
-              <div className="rounded-xl p-3" role="status" style={{ background: 'rgba(var(--status-warn-rgb),0.06)', border: '1px solid rgba(var(--status-warn-rgb),0.22)' }}>
+              <div className="rounded-xl p-3" role="status" style={{ background: 'rgb(var(--status-warn-rgb) / 0.06)', border: '1px solid rgb(var(--status-warn-rgb) / 0.22)' }}>
                 <p className="text-xs font-semibold">Wallet details are hidden</p>
                 <p className="text-[11px] text-text-secondary mt-1 leading-relaxed">
                   Accept the required confirmations above to reveal the deposit address. No payment has been
@@ -946,7 +946,7 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
         {method === 'bank' && (
           <div className="mt-4 space-y-3">
             {!consentComplete ? (
-              <div className="rounded-xl p-3" role="status" style={{ background: 'rgba(var(--status-warn-rgb),0.06)', border: '1px solid rgba(var(--status-warn-rgb),0.22)' }}>
+              <div className="rounded-xl p-3" role="status" style={{ background: 'rgb(var(--status-warn-rgb) / 0.06)', border: '1px solid rgb(var(--status-warn-rgb) / 0.22)' }}>
                 <p className="text-xs font-semibold">Bank details are hidden</p>
                 <p className="text-[11px] text-text-secondary mt-1 leading-relaxed">
                   Accept the required confirmations above to reveal the transfer details. No payment has been

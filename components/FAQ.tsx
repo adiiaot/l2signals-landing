@@ -163,8 +163,8 @@ export default function FAQ() {
                 key={faq.q}
                 className="rounded-xl overflow-hidden"
                 style={{
-                  background: faq.highlight ? 'rgba(var(--accent-gold-rgb),0.06)' : 'rgb(var(--surface-overlay-rgb))',
-                  border: `1px solid ${faq.highlight ? 'rgba(var(--accent-gold-rgb),0.2)' : 'var(--glass-border)'}`,
+                  background: faq.highlight ? 'rgb(var(--accent-gold-rgb) / 0.06)' : 'rgb(var(--surface-overlay-rgb))',
+                  border: `1px solid ${faq.highlight ? 'rgb(var(--accent-gold-rgb) / 0.2)' : 'var(--glass-border)'}`,
                 }}
               >
                 <button

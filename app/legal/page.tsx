@@ -176,7 +176,7 @@ export default function LegalPage() {
           client funds, does not execute trades on a client or member account, and does not provide personal
           financial, investment, legal or tax advice.
         </p>
-        <p className="mt-3 rounded-xl p-3 text-[10px] sm:text-[11px] text-text-muted leading-relaxed" style={{ background: 'rgba(var(--status-warn-rgb),0.05)', border: '1px solid rgba(var(--status-warn-rgb),0.2)' }}>
+        <p className="mt-3 rounded-xl p-3 text-[10px] sm:text-[11px] text-text-muted leading-relaxed" style={{ background: 'rgb(var(--status-warn-rgb) / 0.05)', border: '1px solid rgb(var(--status-warn-rgb) / 0.2)' }}>
           {RISK_NOTICE}
         </p>
       </section>

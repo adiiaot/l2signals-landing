@@ -93,8 +93,8 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(600px 400px at 20% 0%, rgba(var(--accent-gold-rgb),0.06), transparent 70%),
-              radial-gradient(800px 600px at 90% 30%, rgba(var(--accent-gold-rgb),0.04), transparent 70%);
+  background: radial-gradient(600px 400px at 20% 0%, rgb(var(--accent-gold-rgb) / 0.06), transparent 70%),
+              radial-gradient(800px 600px at 90% 30%, rgb(var(--accent-gold-rgb) / 0.04), transparent 70%);
   animation: drift 24s ease-in-out infinite alternate;
   z-index: -1;
 }
@@ -124,13 +124,13 @@ body::before {
   background: linear-gradient(90deg, transparent, var(--glass-shine), transparent);
   pointer-events: none;
 }
-.card:hover { border-color: rgba(var(--accent-gold-rgb),0.2); box-shadow: var(--shadow-card-hover); }
+.card:hover { border-color: rgb(var(--accent-gold-rgb) / 0.2); box-shadow: var(--shadow-card-hover); }
 .card-glow {
   @apply rounded-card p-5;
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(var(--accent-gold-rgb),0.15);
+  border: 1px solid rgb(var(--accent-gold-rgb) / 0.15);
   box-shadow: var(--shadow-card-glow);
   position: relative; overflow: hidden;
 }
@@ -139,7 +139,7 @@ body::before {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(var(--accent-gold-rgb),0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgb(var(--accent-gold-rgb) / 0.3), transparent);
   pointer-events: none;
 }
 .btn {
@@ -164,7 +164,7 @@ body::before {
 }
 .btn-primary:hover {
   background: var(--accent-gold);
-  box-shadow: 0 4px 20px rgba(var(--accent-gold-rgb),0.3), 0 0 40px rgba(var(--accent-gold-rgb),0.1);
+  box-shadow: 0 4px 20px rgb(var(--accent-gold-rgb) / 0.3), 0 0 40px rgb(var(--accent-gold-rgb) / 0.1);
 }
 .btn-primary::after {
   background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.18) 45%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.18) 55%, transparent 70%);
@@ -179,7 +179,7 @@ body::before {
 .btn-secondary:hover {
   background: rgb(var(--surface-overlay-rgb));
   border-color: rgb(var(--accent-gold-rgb));
-  box-shadow: 0 0 0 1px rgba(var(--accent-gold-rgb),0.15);
+  box-shadow: 0 0 0 1px rgb(var(--accent-gold-rgb) / 0.15);
 }
 .btn-ghost {
   @apply btn bg-transparent text-text-secondary hover:text-text-primary;
