@@ -54,11 +54,11 @@ const FAQS: { q: string; a: React.ReactNode; highlight?: boolean }[] = [
     q: 'What is the engine and how does it work?',
     a: (
       <>
-        It is a rules-based intraday XAU/USD engine using three complementary strategy types — EMA bounce,
-        consolidation breakout and trend continuation — with direction-aware routing. Each setup states one order
-        type, market or pending, with the entry, stop, target and expiry. Trades run to the daily close window at
-        21:00 UTC. The 5.4-year broker-data study covered 5,810 executed trades at 50.2% WR and +0.13R per trade,
-        with a full win credited its own target and costs deducted; that is a{' '}
+        It is a rules-based intraday XAU/USD engine using four complementary strategy modules — EMA bounce,
+        opening-range breakout, trend continuation and mean reversion — with direction-aware routing. Each setup
+        states one order type, market or pending, with the entry, stop, target and expiry. Trades run to the daily
+        close window at 21:00 UTC. The 5.4-year broker-data study covered 5,691 executed trades at 50.3% WR and
+        +0.14R per trade, with a full win credited its own target and costs deducted; that is a{' '}
         <span className="font-semibold text-text-primary">back-test</span>, not a live result and not a promise.
       </>
     ),

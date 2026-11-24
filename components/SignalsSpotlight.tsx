@@ -13,9 +13,9 @@ const SIGNAL_FIELDS = [
 
 const FACTS = [
   {
-    k: '5,810',
+    k: '5,691',
     label: 'trades in a 5.4-year study',
-    d: '50.2% WR · +0.13R per trade · PF 1.26 across six measured years. BACK-TESTED on broker data — not a live result and not a promise.',
+    d: '50.3% WR · +0.14R per trade · PF 1.28 across six measured years. BACK-TESTED on broker data — not a live result and not a promise.',
     tag: 'BACK-TESTED',
   },
   { k: '21:00 UTC', label: 'daily close', d: 'Open trades exit and unfilled pendings cancel by the end of the trading day.', tag: '' },
@@ -45,7 +45,7 @@ export default function SignalsSpotlight() {
 
           <div className="grid gap-2 sm:grid-cols-2 mt-4">
             {[
-              { t: 'Three-tier strategy stack', d: 'EMA bounce, consolidation breakout and trend continuation, with direction-aware routing.' },
+              { t: 'Strategy stack', d: 'EMA bounce, opening-range breakout, trend continuation and mean reversion, with direction-aware routing.' },
               { t: 'One order type per setup', d: 'Each setup states market or pending, with the exact entry, stop and target.' },
               { t: 'Published exit playbook', d: 'At +1R: take partial, move to breakeven, let the rest run to target. When the target is under 1R, the card says exit at target instead.' },
               { t: 'Engine-measured record', d: 'Official outcomes come from the engine and market data, never from a member’s broker balance.' },

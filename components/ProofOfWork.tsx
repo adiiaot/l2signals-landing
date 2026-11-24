@@ -7,7 +7,7 @@ const CARD = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid
 const EVIDENCE = [
   {
     k: 'A running engine',
-    d: 'A rules-based intraday XAU/USD engine with three strategy types, direction-aware routing, published order types, stop-loss and target logic, and a daily close window.',
+    d: 'A rules-based intraday XAU/USD engine with four strategy modules, direction-aware routing, published order types, stop-loss and target logic, and a daily close window.',
   },
   {
     k: 'A private community',

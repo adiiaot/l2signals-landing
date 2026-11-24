@@ -11,7 +11,7 @@ export type StudyPoint = { label: string; netR: number; cumulativeR: number }
  *
  * Two panels, each with its own scale and its own label — one period at a time,
  * then the same numbers accumulated. They are deliberately NOT one chart with a
- * shared axis: a 201.8R period and a 763.5R total cannot share a scale without
+ * shared axis: a 202.3R period and a 782.5R total cannot share a scale without
  * making the bars look like noise, and two scales on one axis is how a chart
  * lies without a single false number in it.
  *
@@ -118,7 +118,7 @@ export default function StudyChart({ points }: { points: StudyPoint[] }) {
           <span className="font-mono text-[9px] text-text-muted">{points[points.length - 1].cumulativeR.toFixed(1)}R</span>
         </figcaption>
 
-        <svg viewBox={`0 0 ${LW} ${LH}`} className="mt-1 w-full" role="img" aria-label="Cumulative back-tested net R, ending at 763.5R">
+        <svg viewBox={`0 0 ${LW} ${LH}`} className="mt-1 w-full" role="img" aria-label="Cumulative back-tested net R, ending at 782.5R">
           <line x1="0" x2={LW} y1={lBase} y2={lBase} stroke="rgba(255,255,255,0.12)" strokeDasharray="3 4" />
           <motion.path
             d={areaPath}

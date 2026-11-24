@@ -92,7 +92,7 @@ export default function Hero() {
 
           <div className="flex flex-wrap justify-center gap-2 pt-2 font-mono text-[10px]">
             <span className="px-2.5 py-1 rounded-full bg-white/10 text-white border border-white/15">
-              L2 Signals · back-tested study — 5,810 trades · 50.2% WR
+              L2 Signals · back-tested study — 5,691 trades · 50.3% WR
             </span>
             <span className="px-2.5 py-1 rounded-full bg-white/10 text-white border border-white/15">
               Back-tested, not a promise

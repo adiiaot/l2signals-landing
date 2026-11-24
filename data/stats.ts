@@ -28,14 +28,16 @@ export const propStats = {
 export const engineStats = {
   label: 'BACK-TESTED',
   // 5.4-year run on broker M15/H1/H4/D1 candles (Jul 2021 → Nov 2026), current
-  // config (TP 1.3R, SL 1.5× ATR, mean-reversion book on, fallback leg off),
-  // scored the way the live ledger scores it: a full win pays the trade's own
-  // target rather than a fixed figure, and spread + slippage are deducted.
-  // Derived by `l2signal_web/scripts/pooled-study-stats.cjs`.
+  // config (TP 1.3R, SL 1.5× ATR, mean-reversion book on, opening-range breakout
+  // on at its own 0.5× ATR stop, fallback leg off), scored the way the live
+  // ledger scores it: a full win pays the trade's own target rather than a fixed
+  // figure, and spread + slippage are deducted.
+  // Derived by `l2signal_web/scripts/pooled-study-stats.cjs`. Restated
+  // 2026-11-23 after the opening-range candle fix and ORB_SL_ATR_MULTIPLE.
   studyYears: 5.4,
-  studyTrades: 5810,
-  studyWR: 50.2,
-  studyAvgR: 0.13,
-  studyNetR: 763.5,
-  studyPF: 1.26,
+  studyTrades: 5691,
+  studyWR: 50.3,
+  studyAvgR: 0.14,
+  studyNetR: 782.5,
+  studyPF: 1.28,
 }

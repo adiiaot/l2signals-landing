@@ -7,29 +7,29 @@ const CARD = { background: 'rgb(var(--surface-overlay-rgb))', border: '1px solid
 // Combined book (directional + mean reversion), live cadence, spread and
 // slippage deducted, a full win credited its OWN target.
 const YEARS = [
-  { y: '2021 (H2)', n: '422', wr: '50.8%', pf: '1.29', r: '+0.12', net: '+51.5R' },
-  { y: '2022', n: '910', wr: '52.5%', pf: '1.42', r: '+0.17', net: '+155.9R' },
-  { y: '2023', n: '1,048', wr: '47.5%', pf: '1.10', r: '+0.04', net: '+46.9R' },
-  { y: '2024', n: '1,194', wr: '51.3%', pf: '1.34', r: '+0.14', net: '+168.3R' },
-  { y: '2025', n: '1,201', wr: '51.3%', pf: '1.42', r: '+0.17', net: '+201.8R' },
-  { y: '2026', n: '1,035', wr: '48.1%', pf: '1.33', r: '+0.13', net: '+139.2R' },
+  { y: '2021 (H2)', n: '401', wr: '49.3%', pf: '1.24', r: '+0.10', net: '+41.4R' },
+  { y: '2022', n: '891', wr: '53.0%', pf: '1.45', r: '+0.19', net: '+165.0R' },
+  { y: '2023', n: '1,024', wr: '47.8%', pf: '1.13', r: '+0.06', net: '+58.1R' },
+  { y: '2024', n: '1,171', wr: '51.5%', pf: '1.35', r: '+0.15', net: '+170.5R' },
+  { y: '2025', n: '1,180', wr: '51.3%', pf: '1.42', r: '+0.17', net: '+202.3R' },
+  { y: '2026', n: '1,024', wr: '48.3%', pf: '1.34', r: '+0.14', net: '+145.1R' },
 ]
 
 // Same figures as the table above, cumulative, for the chart. Kept beside the
 // table rather than derived from it so a typo in one is visible in the other.
 const STUDY_POINTS = [
-  { label: '’21 H2', netR: 51.5, cumulativeR: 51.5 },
-  { label: '’22', netR: 155.9, cumulativeR: 207.4 },
-  { label: '’23', netR: 46.9, cumulativeR: 254.3 },
-  { label: '’24', netR: 168.3, cumulativeR: 422.6 },
-  { label: '’25', netR: 201.8, cumulativeR: 624.4 },
-  { label: '’26', netR: 139.2, cumulativeR: 763.5 },
+  { label: '’21 H2', netR: 41.4, cumulativeR: 41.4 },
+  { label: '’22', netR: 165.0, cumulativeR: 206.3 },
+  { label: '’23', netR: 58.1, cumulativeR: 264.5 },
+  { label: '’24', netR: 170.5, cumulativeR: 435.0 },
+  { label: '’25', netR: 202.3, cumulativeR: 637.4 },
+  { label: '’26', netR: 145.1, cumulativeR: 782.5 },
 ]
 
 const POOLED = [
-  { k: '5,810', label: 'trades studied' },
-  { k: '50.2%', label: 'win rate on decided' },
-  { k: '+0.13R', label: 'per trade' },
+  { k: '5,691', label: 'trades studied' },
+  { k: '50.3%', label: 'win rate on decided' },
+  { k: '+0.14R', label: 'per trade' },
   { k: '5.4 yrs', label: 'Jul 2021 → Nov 2026' },
 ]
 
@@ -130,9 +130,9 @@ export default function BacktestStudy() {
         </div>
 
         <p className="text-[10px] text-text-muted mt-3 leading-relaxed">
-          The edge is in the payoff ratio, not the hit rate: at a 1.25:1 average payoff the break-even win rate is
-          44%, so a 50% book earns and a 44% book does not. The worst period in the table is 2023 — 47.5% win rate,
-          a 31-loss run, a 66R drawdown — and it still finished +47R, because the book was sized to sit through it.
+          The edge is in the payoff ratio, not the hit rate: at a 1.26:1 average payoff the break-even win rate is
+          44.2%, so a 50% book earns and a 44% book does not. The worst period in the table is 2023 — 47.8% win rate,
+          a 31-loss run, a 67R drawdown — and it still finished +58R, because the book was sized to sit through it.
           That is the operating shape: long flat stretches, small average gains, and a drawdown deep enough that
           position size determines survival. The data is native history from a demo broker server — real bars and
           real cadence, but not an audited statement, and it has not been repeated on a live account. A fixed rule
