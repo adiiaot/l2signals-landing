@@ -30,7 +30,17 @@ export interface PaymentsConfig {
   addresses: Record<PaymentNetwork, string>
   methods: {
     crypto: { enabled: boolean; note: string }
-    usd: { enabled: boolean; instructions: string }
+    usd: {
+      enabled: boolean
+      bankName: string
+      accountName: string
+      accountNumber: string
+      routingNumber: string
+      accountType: string
+      /** Cleva username for members paying from inside the Cleva app. */
+      clevaTag: string
+      instructions: string
+    }
     ngn: {
       enabled: boolean
       bankName: string
@@ -88,7 +98,16 @@ export const DEFAULT_PAYMENTS_CONFIG: PaymentsConfig = {
   addresses: { tron: '', bnb: '', sol: SOLANA_USDC_ADDRESS },
   methods: {
     crypto: { enabled: true, note: 'Send the exact amount. Copy the address — never type it.' },
-    usd: { enabled: true, instructions: 'USD payments — contact @aotayoL2 for the current account details.' },
+    usd: {
+      enabled: true,
+      bankName: 'Lead Bank',
+      accountName: 'L2 Signals Services',
+      accountNumber: '212513675889',
+      routingNumber: '101019644',
+      accountType: 'Personal checking',
+      clevaTag: '@l2signals',
+      instructions: 'Send the exact USD amount and include the email on your L2 account in the reference.',
+    },
     ngn: { enabled: true, bankName: '', accountName: '', accountNumber: '', instructions: '' },
   },
   checkoutUrl: '',

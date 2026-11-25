@@ -1096,8 +1096,11 @@ export default function PayClient({ config }: { config: PublicPayConfig }) {
           <li>Signals are research, not financial advice. You trade your own account and keep your own funds.</li>
           <li>We never ask for your broker or MT5 password, and we never manage money for you.</li>
           <li>One payment covers one subscription. Reusing a transaction reference is refused automatically.</li>
-          {config.methods.usd.enabled && config.methods.usd.instructions && (
-            <li>Paying from outside Nigeria in USD: {config.methods.usd.instructions}</li>
+          {config.methods.usd.enabled && (config.methods.usd.instructions || config.methods.usd.clevaTag) && (
+            <li>
+              Paying from outside Nigeria in USD: {config.methods.usd.instructions}
+              {config.methods.usd.clevaTag ? ` Cleva users can pay to ${config.methods.usd.clevaTag}.` : ''}
+            </li>
           )}
         </ul>
         <p className="text-[10px] text-text-muted mt-3 leading-relaxed">
